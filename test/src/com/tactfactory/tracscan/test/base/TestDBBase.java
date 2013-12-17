@@ -5,7 +5,7 @@
  * Description : 
  * Author(s)   : Harmony
  * Licence     : 
- * Last update : Dec 17, 2013
+ * Last update : Dec 18, 2013
  *
  **************************************************************************/
 package com.tactfactory.tracscan.test.base;

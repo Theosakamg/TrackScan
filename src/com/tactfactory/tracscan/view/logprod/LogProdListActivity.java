@@ -12,7 +12,7 @@ package com.tactfactory.tracscan.view.logprod;
 
 import com.tactfactory.tracscan.R;
 
-import com.tactfactory.tracscan.harmony.view.HarmonyFragmentActivity;
+import com.tactfactory.tracscan.harmony.view.HarmonyDrawerActivity;
 import com.tactfactory.tracscan.harmony.view.HarmonyListFragment;
 import com.google.android.pinnedheader.util.ComponentUtils;
 import com.tactfactory.tracscan.entity.LogProd;
@@ -32,7 +32,7 @@ import android.widget.ListView;
  * the list.
  */
 public class LogProdListActivity 
-		extends HarmonyFragmentActivity
+		extends HarmonyDrawerActivity
 		implements HarmonyListFragment.OnClickCallback,
 				HarmonyListFragment.OnLoadCallback {
 

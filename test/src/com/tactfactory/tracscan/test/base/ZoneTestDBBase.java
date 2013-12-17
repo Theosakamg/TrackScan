@@ -5,7 +5,7 @@
  * Description : 
  * Author(s)   : Harmony
  * Licence     : 
- * Last update : Dec 17, 2013
+ * Last update : Dec 18, 2013
  *
  **************************************************************************/
 package com.tactfactory.tracscan.test.base;
@@ -15,6 +15,7 @@ import android.test.suitebuilder.annotation.SmallTest;
 import com.tactfactory.tracscan.data.ZoneSQLiteAdapter;
 import com.tactfactory.tracscan.entity.Zone;
 
+import com.tactfactory.tracscan.fixture.ZoneDataLoader;
 
 import java.util.ArrayList;
 
@@ -43,6 +44,10 @@ public abstract class ZoneTestDBBase extends TestDBBase {
 		this.adapter = new ZoneSQLiteAdapter(this.ctx);
 		this.adapter.open();
 
+		ArrayList<Zone> entities = new ArrayList<Zone>(ZoneDataLoader.getInstance(this.ctx).getMap().values());
+		if (entities.size()>0){
+			this.entity = entities.get(TestUtils.generateRandomInt(0,entities.size()-1));
+		}
 	}
 
 	/* (non-Javadoc)

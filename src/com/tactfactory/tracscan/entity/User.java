@@ -2,7 +2,9 @@ package com.tactfactory.tracscan.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import java.io.Serializable;
+
 import com.tactfactory.harmony.annotation.Column;
 import com.tactfactory.harmony.annotation.Column.Type;
 import com.tactfactory.harmony.annotation.Entity;
@@ -10,6 +12,9 @@ import com.tactfactory.harmony.annotation.Id;
 
 @Entity
 public class User  implements Serializable , Parcelable {
+
+	/** serial Version UID. */
+	private static final long serialVersionUID = -6626602416969280536L;
 
 	/** Key Constant for parcelable/serialization. */
 	public final static String PARCEL = "User";
@@ -34,6 +39,11 @@ public class User  implements Serializable , Parcelable {
 	 */
 	public User() {
 
+	}
+
+	@Override
+	public String toString() {
+		return this.login;
 	}
 
 	/**

@@ -12,7 +12,7 @@ package com.tactfactory.tracscan.view.orderprod;
 
 import com.tactfactory.tracscan.R;
 
-import com.tactfactory.tracscan.harmony.view.HarmonyFragmentActivity;
+import com.tactfactory.tracscan.harmony.view.HarmonyDrawerActivity;
 
 import android.os.Bundle;
 
@@ -23,7 +23,7 @@ import android.os.Bundle;
  *
  * @see android.app.Activity
  */
-public class OrderProdCreateActivity extends HarmonyFragmentActivity {
+public class OrderProdCreateActivity extends HarmonyDrawerActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

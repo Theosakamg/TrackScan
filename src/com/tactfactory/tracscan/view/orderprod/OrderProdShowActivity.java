@@ -12,7 +12,7 @@ package com.tactfactory.tracscan.view.orderprod;
 
 import com.tactfactory.tracscan.R;
 
-import com.tactfactory.tracscan.harmony.view.HarmonyFragmentActivity;
+import com.tactfactory.tracscan.harmony.view.HarmonyDrawerActivity;
 import com.tactfactory.tracscan.view.orderprod.OrderProdShowFragment.DeleteCallback;
 
 import android.os.Bundle;
@@ -24,7 +24,7 @@ import android.os.Bundle;
  * @see android.app.Activity
  */
 public class OrderProdShowActivity 
-		extends HarmonyFragmentActivity 
+		extends HarmonyDrawerActivity 
 		implements DeleteCallback {
 
 	@Override

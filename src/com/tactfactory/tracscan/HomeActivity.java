@@ -10,7 +10,7 @@
  **************************************************************************/
 package com.tactfactory.tracscan;
 
-import com.tactfactory.tracscan.harmony.view.HarmonyFragmentActivity;
+import com.tactfactory.tracscan.harmony.view.HarmonyDrawerActivity;
 import com.tactfactory.tracscan.view.itemprod.ItemProdCreateActivity;
 import com.tactfactory.tracscan.view.itemprod.ItemProdListActivity;
 import com.tactfactory.tracscan.view.user.UserCreateActivity;
@@ -33,7 +33,7 @@ import android.view.View.OnClickListener;
  * BEWARE : This class is regenerated with orm:generate:crud. Don't modify it.
  * @see android.app.Activity
  */
-public class HomeActivity extends HarmonyFragmentActivity 
+public class HomeActivity extends HarmonyDrawerActivity 
 		implements OnClickListener {
 
 	@Override

@@ -31,7 +31,7 @@ import com.tactfactory.tracscan.R;
 import com.tactfactory.tracscan.entity.ItemProd;
 import com.tactfactory.tracscan.entity.OrderProd;
 
-import com.tactfactory.tracscan.harmony.view.HarmonyFragmentActivity;
+import com.tactfactory.tracscan.harmony.view.HarmonyDrawerActivity;
 import com.tactfactory.tracscan.harmony.view.HarmonyFragment;
 
 import com.tactfactory.tracscan.harmony.widget.SingleEntityWidget;
@@ -192,8 +192,8 @@ public class ItemProdCreateFragment extends HarmonyFragment
 		protected void onPostExecute(Uri result) {
 			super.onPostExecute(result);
 			if (result != null) {
-				final HarmonyFragmentActivity activity =
-										 (HarmonyFragmentActivity) this.ctx;
+				final HarmonyDrawerActivity activity =
+										 (HarmonyDrawerActivity) this.ctx;
 				activity.finish();
 			} else {
 				final AlertDialog.Builder builder =

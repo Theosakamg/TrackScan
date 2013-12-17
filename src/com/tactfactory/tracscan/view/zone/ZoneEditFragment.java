@@ -34,7 +34,7 @@ import com.google.common.base.Strings;
 import com.tactfactory.tracscan.R;
 import com.tactfactory.tracscan.entity.Zone;
 
-import com.tactfactory.tracscan.harmony.view.HarmonyFragmentActivity;
+import com.tactfactory.tracscan.harmony.view.HarmonyDrawerActivity;
 import com.tactfactory.tracscan.harmony.view.HarmonyFragment;
 
 import com.tactfactory.tracscan.harmony.widget.ValidationButtons;
@@ -197,9 +197,9 @@ public class ZoneEditFragment extends HarmonyFragment
 			super.onPostExecute(result);
 
 			if (result > 0) {
-				final HarmonyFragmentActivity activity =
-						(HarmonyFragmentActivity) this.ctx;
-				activity.setResult(HarmonyFragmentActivity.RESULT_OK);
+				final HarmonyDrawerActivity activity =
+						(HarmonyDrawerActivity) this.ctx;
+				activity.setResult(HarmonyDrawerActivity.RESULT_OK);
 				activity.finish();
 			} else {
 				final AlertDialog.Builder builder =

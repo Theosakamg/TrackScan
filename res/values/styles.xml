@@ -36,4 +36,7 @@
 		<item name="list_item_presence_icon_margin">4dip</item>
 		<item name="list_item_header_underline_color">@color/list_item_header_color</item>
 	</style>
+	<style name="ActivityLayout">
+	    <item name="android:padding">4dp</item>
+	</style>
 </resources>

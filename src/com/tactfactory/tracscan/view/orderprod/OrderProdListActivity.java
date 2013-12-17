@@ -12,7 +12,7 @@ package com.tactfactory.tracscan.view.orderprod;
 
 import com.tactfactory.tracscan.R;
 
-import com.tactfactory.tracscan.harmony.view.HarmonyFragmentActivity;
+import com.tactfactory.tracscan.harmony.view.HarmonyDrawerActivity;
 import com.tactfactory.tracscan.harmony.view.HarmonyListFragment;
 import com.google.android.pinnedheader.util.ComponentUtils;
 import com.tactfactory.tracscan.entity.OrderProd;
@@ -32,7 +32,7 @@ import android.widget.ListView;
  * the list.
  */
 public class OrderProdListActivity 
-		extends HarmonyFragmentActivity
+		extends HarmonyDrawerActivity
 		implements HarmonyListFragment.OnClickCallback,
 				HarmonyListFragment.OnLoadCallback {
 

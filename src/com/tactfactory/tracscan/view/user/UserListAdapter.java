@@ -20,7 +20,7 @@ import android.view.View;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
-import com.tactfactory.tracscan.harmony.view.HarmonyFragmentActivity;
+import com.tactfactory.tracscan.harmony.view.HarmonyDrawerActivity;
 import com.google.android.pinnedheader.SelectionItemView;
 import com.google.android.pinnedheader.headerlist.HeaderAdapter;
 import com.google.android.pinnedheader.headerlist.HeaderSectionIndexer;
@@ -126,7 +126,7 @@ public class UserListAdapter
     		view = new ViewHolder(this.getContext());
 		}
 
-    	if (!((HarmonyFragmentActivity) this.getContext()).isDualMode()) {
+    	if (!((HarmonyDrawerActivity) this.getContext()).isDualMode()) {
     		view.setActivatedStateSupported(false);
 		}
     	

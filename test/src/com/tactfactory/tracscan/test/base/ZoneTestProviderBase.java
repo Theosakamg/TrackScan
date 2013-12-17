@@ -5,7 +5,7 @@
  * Description : 
  * Author(s)   : Harmony
  * Licence     : 
- * Last update : Dec 17, 2013
+ * Last update : Dec 18, 2013
  *
  **************************************************************************/
 package com.tactfactory.tracscan.test.base;
@@ -18,6 +18,8 @@ import com.tactfactory.tracscan.data.ZoneSQLiteAdapter;
 
 import com.tactfactory.tracscan.entity.Zone;
 
+import com.tactfactory.tracscan.fixture.ZoneDataLoader;
+import com.tactfactory.tracscan.fixture.ZoneDataLoader;
 
 import java.util.ArrayList;
 import com.tactfactory.tracscan.test.utils.*;
@@ -56,6 +58,12 @@ public abstract class ZoneTestProviderBase extends TestDBBase {
 
 		this.adapter = new ZoneSQLiteAdapter(this.ctx);
 
+		this.entities = new ArrayList<Zone>(ZoneDataLoader.getInstance(this.ctx).getMap().values());
+		if (this.entities.size()>0) {
+			this.entity = this.entities.get(TestUtils.generateRandomInt(0,entities.size()-1));
+		}
+
+		this.nbEntities += ZoneDataLoader.getInstance(this.ctx).getMap().size();
 		this.provider = this.getMockContext().getContentResolver();
 	}
 

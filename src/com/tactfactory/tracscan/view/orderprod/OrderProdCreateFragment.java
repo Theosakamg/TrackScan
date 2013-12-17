@@ -33,7 +33,7 @@ import com.tactfactory.tracscan.entity.ItemProd;
 import com.tactfactory.tracscan.entity.ProductType;
 import com.tactfactory.tracscan.entity.MaterialType;
 
-import com.tactfactory.tracscan.harmony.view.HarmonyFragmentActivity;
+import com.tactfactory.tracscan.harmony.view.HarmonyDrawerActivity;
 import com.tactfactory.tracscan.harmony.view.HarmonyFragment;
 import com.tactfactory.tracscan.harmony.widget.MultiEntityWidget;
 import com.tactfactory.tracscan.harmony.widget.EnumSpinner;
@@ -226,8 +226,8 @@ public class OrderProdCreateFragment extends HarmonyFragment
 		protected void onPostExecute(Uri result) {
 			super.onPostExecute(result);
 			if (result != null) {
-				final HarmonyFragmentActivity activity =
-										 (HarmonyFragmentActivity) this.ctx;
+				final HarmonyDrawerActivity activity =
+										 (HarmonyDrawerActivity) this.ctx;
 				activity.finish();
 			} else {
 				final AlertDialog.Builder builder =
