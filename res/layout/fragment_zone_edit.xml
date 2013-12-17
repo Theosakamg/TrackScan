@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:harmony="http://schemas.android.com/apk/res/com.tactfactory.tracscan"
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+   <TextView
+    	android:id="@+id/zone_name_label"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:text="@string/zone_name_label"/>
+    <EditText
+		android:id="@+id/zone_name"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:inputType="text"
+		android:layout_below="@+id/zone_name_label" />
+   <TextView
+    	android:id="@+id/zone_quantity_label"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/zone_name"
+	    android:text="@string/zone_quantity_label"/>
+    <EditText
+		android:id="@+id/zone_quantity"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:inputType="number"
+		android:layout_below="@+id/zone_quantity_label" />
+
+	<com.tactfactory.tracscan.harmony.widget.ValidationButtons
+    	android:id="@+id/zone_validation"
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:layout_below="@+id/zone_quantity" />
+</RelativeLayout>

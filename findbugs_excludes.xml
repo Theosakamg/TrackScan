@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter>
+  <Match>
+    <Class name="~.*\.R\$.*"/>
+  </Match>
+  <Match>
+    <Or>
+    <Package name="~com[.]tactfactory[.]tracscan[.]criterias[.]base([.].*)?" />
+    <Package name="~com[.]tactfactory[.]tracscan[.]data[.]base([.].*)?" />
+    <Package name="~com[.]tactfactory[.]tracscan[.]harmony([.].*)?" />
+    <Package name="~com[.]tactfactory[.]tracscan[.]provider[.]base([.].*)?" />
+    <Package name="~com[.]tactfactory[.]tracscan[.]provider[.]utils[.]base([.].*)?" />
+    <Class name="~com[.]tactfactory[.]tracscan[.]TracscanApplicationBase.java"/>
+    </Or>
+  </Match>
+</FindBugsFilter>

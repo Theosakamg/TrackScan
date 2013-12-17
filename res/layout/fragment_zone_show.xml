@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+	<ScrollView 
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent" >
+		<RelativeLayout
+			android:id="@+id/zone_data_layout"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_margin="10dp" >
+			<TextView
+				android:id="@+id/zone_name_label"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="@string/zone_name_label"/>
+			<TextView
+				android:id="@+id/zone_name"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:textIsSelectable="true"
+				android:layout_below="@+id/zone_name_label" />
+			<TextView
+				android:id="@+id/zone_quantity_label"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_below="@+id/zone_name"
+				android:text="@string/zone_quantity_label"/>
+			<TextView
+				android:id="@+id/zone_quantity"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:textIsSelectable="true"
+				android:layout_below="@+id/zone_quantity_label" />
+		</RelativeLayout>
+	</ScrollView>
+	<TextView
+	    android:id="@+id/zone_empty"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:gravity="center"
+	    android:visibility="gone"
+	    android:text="@string/zone_not_found" />
+</RelativeLayout>

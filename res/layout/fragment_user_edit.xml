@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:harmony="http://schemas.android.com/apk/res/com.tactfactory.tracscan"
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+   <TextView
+    	android:id="@+id/user_type_label"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:text="@string/user_type_label"/>
+	<com.tactfactory.tracscan.harmony.widget.EnumSpinner
+		android:id="@+id/user_type"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+        android:layout_below="@+id/user_type_label" />
+   <TextView
+    	android:id="@+id/user_login_label"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/user_type"
+	    android:text="@string/user_login_label"/>
+    <EditText
+		android:id="@+id/user_login"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:inputType="text"
+		android:layout_below="@+id/user_login_label" />
+   <TextView
+    	android:id="@+id/user_passwd_label"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/user_login"
+	    android:text="@string/user_passwd_label"/>
+    <EditText
+		android:id="@+id/user_passwd"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:inputType="textPassword"
+		android:layout_below="@+id/user_passwd_label" />
+
+	<com.tactfactory.tracscan.harmony.widget.ValidationButtons
+    	android:id="@+id/user_validation"
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:layout_below="@+id/user_passwd" />
+</RelativeLayout>

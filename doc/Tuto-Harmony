@@ -1,0 +1,5 @@
+Install Harmony
+check : console.sh list
+./script/console.sh project:init:android
+Create Entities
+./script/console.sh orm:generate:entities
