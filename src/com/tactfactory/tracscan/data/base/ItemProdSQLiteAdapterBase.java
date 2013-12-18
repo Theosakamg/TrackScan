@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.tactfactory.tracscan.data.ItemProdSQLiteAdapter;
@@ -175,9 +174,9 @@ public abstract class ItemProdSQLiteAdapterBase
 				item.getName());
 		}
 
-		if (item.getItems() != null) {
+		if (item.getOrder() != null) {
 			result.put(COL_ITEMS,
-				item.getItems().getId());
+				item.getOrder().getId());
 		}
 
 
@@ -215,7 +214,7 @@ public abstract class ItemProdSQLiteAdapterBase
 			index = cursor.getColumnIndexOrThrow(COL_ITEMS);
 			final OrderProd items = new OrderProd();
 			items.setId(cursor.getInt(index));
-			result.setItems(items);
+			result.setOrder(items);
 
 
 		}
@@ -237,13 +236,13 @@ public abstract class ItemProdSQLiteAdapterBase
 		final ItemProd result = this.cursorToItem(cursor);
 		cursor.close();
 
-		if (result.getItems() != null) {
+		if (result.getOrder() != null) {
 			final OrderProdSQLiteAdapter itemsAdapter =
 					new OrderProdSQLiteAdapter(this.ctx);
 			itemsAdapter.open(this.mDatabase);
 			
-			result.setItems(itemsAdapter.getByID(
-							result.getItems().getId()));
+			result.setOrder(itemsAdapter.getByID(
+							result.getOrder().getId()));
 		}
 		return result;
 	}

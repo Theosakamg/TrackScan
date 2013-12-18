@@ -99,7 +99,7 @@ public class ItemProdCreateFragment extends HarmonyFragment
 
 		this.model.setName(this.nameView.getEditableText().toString());
 
-		this.model.setItems(this.itemsAdapter.getSelectedItem());
+		this.model.setOrder(this.itemsAdapter.getSelectedItem());
 
 	}
 

@@ -83,7 +83,7 @@ public class ItemProdListAdapter
 				nameView.setText(model.getName());
 			}
 			itemsView.setText(
-					String.valueOf(model.getItems().getId()));
+					String.valueOf(model.getOrder().getId()));
 		}
 	}
 

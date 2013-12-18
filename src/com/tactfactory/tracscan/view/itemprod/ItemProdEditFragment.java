@@ -105,7 +105,7 @@ public class ItemProdEditFragment extends HarmonyFragment
 
 		this.model.setName(this.nameView.getEditableText().toString());
 
-		this.model.setItems(this.itemsAdapter.getSelectedItem());
+		this.model.setOrder(this.itemsAdapter.getSelectedItem());
 
 	}
 
@@ -307,7 +307,7 @@ public class ItemProdEditFragment extends HarmonyFragment
 		this.itemsAdapter.loadData(items);
 		
 		for (OrderProd item : items) {
-			if (item.getId() == this.model.getItems().getId()) {
+			if (item.getId() == this.model.getOrder().getId()) {
 				this.itemsAdapter.selectItem(item);
 			}
 		}
