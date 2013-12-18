@@ -49,6 +49,12 @@ public class OrderProd  implements Serializable , Parcelable {
 
 	}
 
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return this.customer;
+	}
+
 	/**
 	 * @return the id
 	 */

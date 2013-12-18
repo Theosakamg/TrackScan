@@ -38,6 +38,8 @@
 	<string name="logprod_progress_load_title">LogProd Loading progress</string>
 	<string name="logprod_progress_save_message">LogProd is saving to database…</string>
 	<string name="logprod_progress_save_title">LogProd save progress</string>
+	<string name="logprod_start">Start</string>
+	<string name="logprod_stop">End</string>
 	<string name="materialtype_type_invalid_field_error">Field type is invalid.</string>
 	<string name="materialtype_type_label">type</string>
 	<string name="orderprod_customer_invalid_field_error">Field customer is invalid.</string>

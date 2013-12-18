@@ -37,6 +37,11 @@ public class ItemProd  implements Serializable , Parcelable {
 
 	}
 
+	@Override
+	public String toString() {
+		return this.name;
+	}
+
 	/**
 	 * This stub of code is regenerated. DO NOT MODIFY.
 	 * 
