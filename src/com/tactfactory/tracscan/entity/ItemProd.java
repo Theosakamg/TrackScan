@@ -5,11 +5,14 @@ import android.os.Parcelable;
 
 import java.io.Serializable;
 
+import org.joda.time.DateTime;
+
 import com.tactfactory.harmony.annotation.Column;
 import com.tactfactory.harmony.annotation.Entity;
 import com.tactfactory.harmony.annotation.Id;
 import com.tactfactory.harmony.annotation.ManyToOne;
 import com.tactfactory.harmony.annotation.Column.Type;
+import com.tactfactory.harmony.annotation.OneToMany;
 
 @Entity
 public class ItemProd  implements Serializable , Parcelable {
@@ -27,8 +30,17 @@ public class ItemProd  implements Serializable , Parcelable {
 	@Column
 	protected String name;
 	
+	@Column(type = Type.ENUM)
+	protected ItemState state;
+	
+	@Column(type=Type.DATETIME)
+	protected DateTime updateDate;
+	
 	@ManyToOne
-	protected OrderProd items;
+	protected OrderProd order;
+	
+	@OneToMany
+	protected Zone currentZone;
 
 	/**
 	 * Default constructor.
@@ -52,7 +64,7 @@ public class ItemProd  implements Serializable , Parcelable {
 		dest.writeInt(this.getId());
 		dest.writeString(this.getName());
 
-		dest.writeParcelable(this.getItems(), flags);
+		dest.writeParcelable(this.getOrder(), flags);
 	}
 
 	/**
@@ -66,14 +78,8 @@ public class ItemProd  implements Serializable , Parcelable {
 		this.setId(parc.readInt());
 		this.setName(parc.readString());
 
-		this.setItems((OrderProd) parc.readParcelable(OrderProd.class.getClassLoader()));
+		this.setOrder((OrderProd) parc.readParcelable(OrderProd.class.getClassLoader()));
 	}
-
-
-
-
-
-
 
 	/**
 	 * Parcel Constructor.
@@ -151,15 +157,15 @@ public class ItemProd  implements Serializable , Parcelable {
 	/**
 	 * @return the items
 	 */
-	public OrderProd getItems() {
-	     return this.items;
+	public OrderProd getOrder() {
+	     return this.order;
 	}
 
 	/**
 	 * @param value the items to set
 	 */
-	public void setItems(final OrderProd value) {
-	     this.items = value;
+	public void setOrder(final OrderProd value) {
+	     this.order = value;
 	}
 
 }

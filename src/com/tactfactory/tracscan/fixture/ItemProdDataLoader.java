@@ -97,7 +97,7 @@ public final class ItemProdDataLoader
 						this.ctx).items.get(
 								(String) columns.get(ITEMS));
 			if (orderProd != null) {
-				itemProd.setItems(orderProd);
+				itemProd.setOrder(orderProd);
 			}
 		}
 

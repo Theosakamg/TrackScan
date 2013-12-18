@@ -187,7 +187,7 @@ public abstract class ItemProdProviderUtilsBase
 			result = adapt.cursorToItem(cursor);
 			cursor.close();
 
-				result.setItems(
+				result.setOrder(
 					this.getAssociateItems(result));
 		}
 
@@ -338,7 +338,7 @@ public abstract class ItemProdProviderUtilsBase
 				OrderProdProviderAdapter.ORDERPROD_URI,
 				OrderProdSQLiteAdapter.ALIASED_COLS,
 				OrderProdSQLiteAdapter.COL_ID + "= ?",
-				new String[]{String.valueOf(item.getItems().getId())},
+				new String[]{String.valueOf(item.getOrder().getId())},
 				null);
 
 		if (orderProdCursor.getCount() > 0) {

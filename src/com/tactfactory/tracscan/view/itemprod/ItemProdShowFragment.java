@@ -92,9 +92,9 @@ public class ItemProdShowFragment
 		if (this.model.getName() != null) {
 			this.nameView.setText(this.model.getName());
 		}
-		if (this.model.getItems() != null) {
+		if (this.model.getOrder() != null) {
 			this.itemsView.setText(
-					String.valueOf(this.model.getItems().getId()));
+					String.valueOf(this.model.getOrder().getId()));
 		}
 		} else {
     		this.dataLayout.setVisibility(View.GONE);
@@ -198,12 +198,12 @@ public class ItemProdShowFragment
 			if (c != null) {
 				if (c.getCount() > 0) {
 					c.moveToFirst();
-					this.model.setItems(
+					this.model.setOrder(
 							new OrderProdSQLiteAdapter(getActivity()).cursorToItem(c));
 					this.loadData();
 			}
 			} else {
-				this.model.setItems(null);
+				this.model.setOrder(null);
 					this.loadData();
 			}
 		}

@@ -2,7 +2,11 @@ package com.tactfactory.tracscan.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import java.io.Serializable;
+
+import org.joda.time.DateTime;
+
 import com.tactfactory.harmony.annotation.Column;
 import com.tactfactory.harmony.annotation.Entity;
 import com.tactfactory.harmony.annotation.Id;
@@ -20,6 +24,9 @@ public class LogProd  implements Serializable , Parcelable {
 	@Id
 	@Column(type = Type.INTEGER, hidden = true)
 	protected int id;
+	
+	@Column
+	protected DateTime at;
 
 	/**
 	 * Default constructor.
