@@ -95,7 +95,7 @@ public final class OrderProdDataLoader
 		}
 
 		if (columns.get(LOGIN) != null) {
-			orderProd.setLogin(
+			orderProd.setCustomer(
 				(String) columns.get(LOGIN));
 		}
 

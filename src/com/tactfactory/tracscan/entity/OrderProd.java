@@ -15,6 +15,9 @@ import com.tactfactory.harmony.annotation.OneToMany;
 @Entity
 public class OrderProd  implements Serializable , Parcelable {
 
+	/** Serial Version UID */
+	private static final long serialVersionUID = -659234701808707520L;
+
 	/** Key Constant for parcelable/serialization. */
 	public final static String PARCEL = "OrderProd";
 
@@ -24,7 +27,7 @@ public class OrderProd  implements Serializable , Parcelable {
 	protected int id;
 	
 	@Column
-	protected String login;
+	protected String customer;
 	
 	@Column(type = Type.ENUM)
 	protected ProductType productType;
@@ -36,8 +39,8 @@ public class OrderProd  implements Serializable , Parcelable {
 	protected int quantity;
 	
 	@OneToMany
+	@Column(nullable=true)
 	protected ArrayList<ItemProd> items;
-
 
 	/**
 	 * Default constructor.
@@ -63,15 +66,15 @@ public class OrderProd  implements Serializable , Parcelable {
 	/**
 	 * @return the login
 	 */
-	public String getLogin() {
-	     return this.login;
+	public String getCustomer() {
+	     return this.customer;
 	}
 
 	/**
 	 * @param value the login to set
 	 */
-	public void setLogin(final String value) {
-	     this.login = value;
+	public void setCustomer(final String value) {
+	     this.customer = value;
 	}
 
 	/**
@@ -138,7 +141,7 @@ public class OrderProd  implements Serializable , Parcelable {
 	 */
 	public void writeToParcelRegen(Parcel dest, int flags) {
 		dest.writeInt(this.getId());
-		dest.writeString(this.getLogin());
+		dest.writeString(this.getCustomer());
 
 		if (this.getProductType() != null) {
 			dest.writeInt(1);
@@ -174,7 +177,7 @@ public class OrderProd  implements Serializable , Parcelable {
 	 */
 	public void readFromParcel(Parcel parc) {
 		this.setId(parc.readInt());
-		this.setLogin(parc.readString());
+		this.setCustomer(parc.readString());
 
 		int productTypeBool = parc.readInt();
 		if (productTypeBool == 1) {
@@ -198,6 +201,7 @@ public class OrderProd  implements Serializable , Parcelable {
 			this.setItems(items);
 		}
 	}
+
 
 
 

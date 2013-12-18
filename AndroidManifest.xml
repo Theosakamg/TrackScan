@@ -1,237 +1,166 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="com.tactfactory.tracscan"
-	android:versionCode="1"
-	android:versionName="@string/app_version">
-	<uses-sdk
-		android:minSdkVersion="7"
-		android:targetSdkVersion="17" />
-	<application
-		android:label="@string/app_name"
-		android:name=".TracscanApplication"
-		android:allowBackup="true"
-		android:theme="@style/PinnedTheme">
-		<activity
-			android:name=".HomeActivity"
-			android:label="@string/app_name">
-			<!-- intent-filter>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.tactfactory.tracscan" android:versionCode="1" android:versionName="@string/app_version">
+  <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="17" />
+  <application android:label="@string/app_name" android:name=".TracscanApplication" android:allowBackup="true" android:theme="@style/PinnedTheme">
+    <activity android:name=".HomeActivity" android:label="@string/app_name">
+      <!-- intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter-->
-		</activity>
-		<activity
-            android:name=".view.user.UserAuthActivity"
-            android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-		<activity
-			android:name=".view.orderprod.OrderProdCreateActivity"
-			android:label="@string/app_name"
-			android:exported="false">
-			<intent-filter>
-				<action android:name="android.intent.action.INSERT" />
-				<category android:name="android.intent.category.DEFAULT" />
-				<data android:mimeType="vnd.android.cursor.item/com.tactfactory.tracscan.OrderProd" />
-			</intent-filter>
-		</activity>
-		<activity
-			android:name=".view.orderprod.OrderProdEditActivity"
-			android:label="@string/app_name"
-			android:exported="false">
-			<intent-filter>
-				<action android:name="android.intent.action.EDIT" />
-				<category android:name="android.intent.category.DEFAULT" />
-				<data android:mimeType="vnd.android.cursor.item/com.tactfactory.tracscan.OrderProd" />
-			</intent-filter>
-		</activity>
-		<activity
-			android:name=".view.orderprod.OrderProdShowActivity"
-			android:label="@string/app_name"
-			android:exported="false">
-			<intent-filter>
-				<action android:name="android.intent.action.VIEW" />
-				<category android:name="android.intent.category.DEFAULT" />
-				<data android:mimeType="vnd.android.cursor.item/com.tactfactory.tracscan.OrderProd" />
-			</intent-filter>
-		</activity>
-		<activity
-			android:name=".view.orderprod.OrderProdListActivity"
-			android:label="@string/app_name"
-			android:exported="false">
-			<intent-filter>
-				<action android:name="android.intent.action.VIEW" />
-				<category android:name="android.intent.category.DEFAULT" />
-				<data android:mimeType="vnd.android.cursor.collection/com.tactfactory.tracscan.OrderProd" />
-			</intent-filter>
-		</activity>
-		<activity
-			android:name=".view.itemprod.ItemProdCreateActivity"
-			android:label="@string/app_name"
-			android:exported="false">
-			<intent-filter>
-				<action android:name="android.intent.action.INSERT" />
-				<category android:name="android.intent.category.DEFAULT" />
-				<data android:mimeType="vnd.android.cursor.item/com.tactfactory.tracscan.ItemProd" />
-			</intent-filter>
-		</activity>
-		<activity
-			android:name=".view.itemprod.ItemProdEditActivity"
-			android:label="@string/app_name"
-			android:exported="false">
-			<intent-filter>
-				<action android:name="android.intent.action.EDIT" />
-				<category android:name="android.intent.category.DEFAULT" />
-				<data android:mimeType="vnd.android.cursor.item/com.tactfactory.tracscan.ItemProd" />
-			</intent-filter>
-		</activity>
-		<activity
-			android:name=".view.itemprod.ItemProdShowActivity"
-			android:label="@string/app_name"
-			android:exported="false">
-			<intent-filter>
-				<action android:name="android.intent.action.VIEW" />
-				<category android:name="android.intent.category.DEFAULT" />
-				<data android:mimeType="vnd.android.cursor.item/com.tactfactory.tracscan.ItemProd" />
-			</intent-filter>
-		</activity>
-		<activity
-			android:name=".view.itemprod.ItemProdListActivity"
-			android:label="@string/app_name"
-			android:exported="false">
-			<intent-filter>
-				<action android:name="android.intent.action.VIEW" />
-				<category android:name="android.intent.category.DEFAULT" />
-				<data android:mimeType="vnd.android.cursor.collection/com.tactfactory.tracscan.ItemProd" />
-			</intent-filter>
-		</activity>
-		<activity
-			android:name=".view.logprod.LogProdCreateActivity"
-			android:label="@string/app_name"
-			android:exported="false">
-			<intent-filter>
-				<action android:name="android.intent.action.INSERT" />
-				<category android:name="android.intent.category.DEFAULT" />
-				<data android:mimeType="vnd.android.cursor.item/com.tactfactory.tracscan.LogProd" />
-			</intent-filter>
-		</activity>
-		<activity
-			android:name=".view.logprod.LogProdEditActivity"
-			android:label="@string/app_name"
-			android:exported="false">
-			<intent-filter>
-				<action android:name="android.intent.action.EDIT" />
-				<category android:name="android.intent.category.DEFAULT" />
-				<data android:mimeType="vnd.android.cursor.item/com.tactfactory.tracscan.LogProd" />
-			</intent-filter>
-		</activity>
-		<activity
-			android:name=".view.logprod.LogProdShowActivity"
-			android:label="@string/app_name"
-			android:exported="false">
-			<intent-filter>
-				<action android:name="android.intent.action.VIEW" />
-				<category android:name="android.intent.category.DEFAULT" />
-				<data android:mimeType="vnd.android.cursor.item/com.tactfactory.tracscan.LogProd" />
-			</intent-filter>
-		</activity>
-		<activity
-			android:name=".view.logprod.LogProdListActivity"
-			android:label="@string/app_name"
-			android:exported="false">
-			<intent-filter>
-				<action android:name="android.intent.action.VIEW" />
-				<category android:name="android.intent.category.DEFAULT" />
-				<data android:mimeType="vnd.android.cursor.collection/com.tactfactory.tracscan.LogProd" />
-			</intent-filter>
-		</activity>
-		<activity
-			android:name=".view.user.UserCreateActivity"
-			android:label="@string/app_name"
-			android:exported="false">
-			<intent-filter>
-				<action android:name="android.intent.action.INSERT" />
-				<category android:name="android.intent.category.DEFAULT" />
-				<data android:mimeType="vnd.android.cursor.item/com.tactfactory.tracscan.User" />
-			</intent-filter>
-		</activity>
-		<activity
-			android:name=".view.user.UserEditActivity"
-			android:label="@string/app_name"
-			android:exported="false">
-			<intent-filter>
-				<action android:name="android.intent.action.EDIT" />
-				<category android:name="android.intent.category.DEFAULT" />
-				<data android:mimeType="vnd.android.cursor.item/com.tactfactory.tracscan.User" />
-			</intent-filter>
-		</activity>
-		<activity
-			android:name=".view.user.UserShowActivity"
-			android:label="@string/app_name"
-			android:exported="false">
-			<intent-filter>
-				<action android:name="android.intent.action.VIEW" />
-				<category android:name="android.intent.category.DEFAULT" />
-				<data android:mimeType="vnd.android.cursor.item/com.tactfactory.tracscan.User" />
-			</intent-filter>
-		</activity>
-		<activity
-			android:name=".view.user.UserListActivity"
-			android:label="@string/app_name"
-			android:exported="false">
-			<intent-filter>
-				<action android:name="android.intent.action.VIEW" />
-				<category android:name="android.intent.category.DEFAULT" />
-				<data android:mimeType="vnd.android.cursor.collection/com.tactfactory.tracscan.User" />
-			</intent-filter>
-		</activity>
-		<activity
-			android:name=".view.zone.ZoneCreateActivity"
-			android:label="@string/app_name"
-			android:exported="false">
-			<intent-filter>
-				<action android:name="android.intent.action.INSERT" />
-				<category android:name="android.intent.category.DEFAULT" />
-				<data android:mimeType="vnd.android.cursor.item/com.tactfactory.tracscan.Zone" />
-			</intent-filter>
-		</activity>
-		<activity
-			android:name=".view.zone.ZoneEditActivity"
-			android:label="@string/app_name"
-			android:exported="false">
-			<intent-filter>
-				<action android:name="android.intent.action.EDIT" />
-				<category android:name="android.intent.category.DEFAULT" />
-				<data android:mimeType="vnd.android.cursor.item/com.tactfactory.tracscan.Zone" />
-			</intent-filter>
-		</activity>
-		<activity
-			android:name=".view.zone.ZoneShowActivity"
-			android:label="@string/app_name"
-			android:exported="false">
-			<intent-filter>
-				<action android:name="android.intent.action.VIEW" />
-				<category android:name="android.intent.category.DEFAULT" />
-				<data android:mimeType="vnd.android.cursor.item/com.tactfactory.tracscan.Zone" />
-			</intent-filter>
-		</activity>
-		<activity
-			android:name=".view.zone.ZoneListActivity"
-			android:label="@string/app_name"
-			android:exported="false">
-			<intent-filter>
-				<action android:name="android.intent.action.VIEW" />
-				<category android:name="android.intent.category.DEFAULT" />
-				<data android:mimeType="vnd.android.cursor.collection/com.tactfactory.tracscan.Zone" />
-			</intent-filter>
-		</activity>
-		<provider
-			android:name="com.tactfactory.tracscan.provider.TracscanProvider"
-			android:authorities="com.tactfactory.tracscan.provider"
-			android:label="@string/app_provider_name"
-			android:description="@string/app_provider_description" />
-	</application>
-	<uses-permission android:name="android.permission.GET_TASKS" />
+    </activity>
+    <activity android:name=".view.user.UserAuthActivity" android:label="@string/app_name">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    </activity>
+    <activity android:name=".view.logprod.LogProdLoggerActivity" android:label="@string/app_name">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    </activity>
+    <activity android:name=".view.orderprod.OrderProdCreateActivity" android:label="@string/app_name" android:exported="false">
+      <intent-filter>
+        <action android:name="android.intent.action.INSERT" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:mimeType="vnd.android.cursor.item/com.tactfactory.tracscan.OrderProd" />
+      </intent-filter>
+    </activity>
+    <activity android:name=".view.orderprod.OrderProdEditActivity" android:label="@string/app_name" android:exported="false">
+      <intent-filter>
+        <action android:name="android.intent.action.EDIT" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:mimeType="vnd.android.cursor.item/com.tactfactory.tracscan.OrderProd" />
+      </intent-filter>
+    </activity>
+    <activity android:name=".view.orderprod.OrderProdShowActivity" android:label="@string/app_name" android:exported="false">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:mimeType="vnd.android.cursor.item/com.tactfactory.tracscan.OrderProd" />
+      </intent-filter>
+    </activity>
+    <activity android:name=".view.orderprod.OrderProdListActivity" android:label="@string/app_name" android:exported="false">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:mimeType="vnd.android.cursor.collection/com.tactfactory.tracscan.OrderProd" />
+      </intent-filter>
+    </activity>
+    <activity android:name=".view.itemprod.ItemProdCreateActivity" android:label="@string/app_name" android:exported="false">
+      <intent-filter>
+        <action android:name="android.intent.action.INSERT" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:mimeType="vnd.android.cursor.item/com.tactfactory.tracscan.ItemProd" />
+      </intent-filter>
+    </activity>
+    <activity android:name=".view.itemprod.ItemProdEditActivity" android:label="@string/app_name" android:exported="false">
+      <intent-filter>
+        <action android:name="android.intent.action.EDIT" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:mimeType="vnd.android.cursor.item/com.tactfactory.tracscan.ItemProd" />
+      </intent-filter>
+    </activity>
+    <activity android:name=".view.itemprod.ItemProdShowActivity" android:label="@string/app_name" android:exported="false">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:mimeType="vnd.android.cursor.item/com.tactfactory.tracscan.ItemProd" />
+      </intent-filter>
+    </activity>
+    <activity android:name=".view.itemprod.ItemProdListActivity" android:label="@string/app_name" android:exported="false">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:mimeType="vnd.android.cursor.collection/com.tactfactory.tracscan.ItemProd" />
+      </intent-filter>
+    </activity>
+    <activity android:name=".view.logprod.LogProdCreateActivity" android:label="@string/app_name" android:exported="false">
+      <intent-filter>
+        <action android:name="android.intent.action.INSERT" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:mimeType="vnd.android.cursor.item/com.tactfactory.tracscan.LogProd" />
+      </intent-filter>
+    </activity>
+    <activity android:name=".view.logprod.LogProdEditActivity" android:label="@string/app_name" android:exported="false">
+      <intent-filter>
+        <action android:name="android.intent.action.EDIT" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:mimeType="vnd.android.cursor.item/com.tactfactory.tracscan.LogProd" />
+      </intent-filter>
+    </activity>
+    <activity android:name=".view.logprod.LogProdShowActivity" android:label="@string/app_name" android:exported="false">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:mimeType="vnd.android.cursor.item/com.tactfactory.tracscan.LogProd" />
+      </intent-filter>
+    </activity>
+    <activity android:name=".view.logprod.LogProdListActivity" android:label="@string/app_name" android:exported="false">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:mimeType="vnd.android.cursor.collection/com.tactfactory.tracscan.LogProd" />
+      </intent-filter>
+    </activity>
+    <activity android:name=".view.user.UserCreateActivity" android:label="@string/app_name" android:exported="false">
+      <intent-filter>
+        <action android:name="android.intent.action.INSERT" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:mimeType="vnd.android.cursor.item/com.tactfactory.tracscan.User" />
+      </intent-filter>
+    </activity>
+    <activity android:name=".view.user.UserEditActivity" android:label="@string/app_name" android:exported="false">
+      <intent-filter>
+        <action android:name="android.intent.action.EDIT" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:mimeType="vnd.android.cursor.item/com.tactfactory.tracscan.User" />
+      </intent-filter>
+    </activity>
+    <activity android:name=".view.user.UserShowActivity" android:label="@string/app_name" android:exported="false">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:mimeType="vnd.android.cursor.item/com.tactfactory.tracscan.User" />
+      </intent-filter>
+    </activity>
+    <activity android:name=".view.user.UserListActivity" android:label="@string/app_name" android:exported="false">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:mimeType="vnd.android.cursor.collection/com.tactfactory.tracscan.User" />
+      </intent-filter>
+    </activity>
+    <activity android:name=".view.zone.ZoneCreateActivity" android:label="@string/app_name" android:exported="false">
+      <intent-filter>
+        <action android:name="android.intent.action.INSERT" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:mimeType="vnd.android.cursor.item/com.tactfactory.tracscan.Zone" />
+      </intent-filter>
+    </activity>
+    <activity android:name=".view.zone.ZoneEditActivity" android:label="@string/app_name" android:exported="false">
+      <intent-filter>
+        <action android:name="android.intent.action.EDIT" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:mimeType="vnd.android.cursor.item/com.tactfactory.tracscan.Zone" />
+      </intent-filter>
+    </activity>
+    <activity android:name=".view.zone.ZoneShowActivity" android:label="@string/app_name" android:exported="false">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:mimeType="vnd.android.cursor.item/com.tactfactory.tracscan.Zone" />
+      </intent-filter>
+    </activity>
+    <activity android:name=".view.zone.ZoneListActivity" android:label="@string/app_name" android:exported="false">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:mimeType="vnd.android.cursor.collection/com.tactfactory.tracscan.Zone" />
+      </intent-filter>
+    </activity>
+    <provider android:name="com.tactfactory.tracscan.provider.TracscanProvider" android:authorities="com.tactfactory.tracscan.provider" android:label="@string/app_provider_name" android:description="@string/app_provider_description" />
+  </application>
+  <uses-permission android:name="android.permission.GET_TASKS" />
 </manifest>

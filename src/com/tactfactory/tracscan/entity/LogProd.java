@@ -11,9 +11,11 @@ import com.tactfactory.harmony.annotation.Column.Type;
 @Entity
 public class LogProd  implements Serializable , Parcelable {
 
+	/** Serial Version UID */
+	private static final long serialVersionUID = 321829571509107215L;
+
 	/** Key Constant for parcelable/serialization. */
 	public final static String PARCEL = "LogProd";
-
 
 	@Id
 	@Column(type = Type.INTEGER, hidden = true)
@@ -60,6 +62,7 @@ public class LogProd  implements Serializable , Parcelable {
 	public void readFromParcel(Parcel parc) {
 		this.setId(parc.readInt());
 	}
+
 
 
 

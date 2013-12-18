@@ -4,17 +4,18 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 import com.tactfactory.harmony.annotation.Column;
 import com.tactfactory.harmony.annotation.Entity;
 import com.tactfactory.harmony.annotation.Id;
 import com.tactfactory.harmony.annotation.ManyToOne;
-import com.tactfactory.harmony.annotation.OneToMany;
 import com.tactfactory.harmony.annotation.Column.Type;
 
 @Entity
 public class ItemProd  implements Serializable , Parcelable {
+
+	/** Serial Version UID */
+	private static final long serialVersionUID = -1080925123920871057L;
 
 	/** Key Constant for parcelable/serialization. */
 	public final static String PARCEL = "ItemProd";
@@ -62,6 +63,7 @@ public class ItemProd  implements Serializable , Parcelable {
 
 		this.setItems((OrderProd) parc.readParcelable(OrderProd.class.getClassLoader()));
 	}
+
 
 
 

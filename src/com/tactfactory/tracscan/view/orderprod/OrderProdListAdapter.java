@@ -85,8 +85,8 @@ public class OrderProdListAdapter
 						R.id.row_orderprod_quantity);
 
 
-			if (model.getLogin() != null) {
-				loginView.setText(model.getLogin());
+			if (model.getCustomer() != null) {
+				loginView.setText(model.getCustomer());
 			}
 			if (model.getProductType() != null) {
 				productTypeView.setText(model.getProductType().name());

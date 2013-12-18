@@ -2,7 +2,9 @@ package com.tactfactory.tracscan.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import java.io.Serializable;
+
 import com.tactfactory.harmony.annotation.Column;
 import com.tactfactory.harmony.annotation.Entity;
 import com.tactfactory.harmony.annotation.Id;
@@ -10,6 +12,9 @@ import com.tactfactory.harmony.annotation.Column.Type;
 
 @Entity
 public class Zone  implements Serializable , Parcelable {
+
+	/** Serial Version UID */
+	private static final long serialVersionUID = 7335864735424803701L;
 
 	/** Key Constant for parcelable/serialization. */
 	public final static String PARCEL = "Zone";
@@ -22,7 +27,7 @@ public class Zone  implements Serializable , Parcelable {
 	@Column
 	protected String name;
 	
-	@Column(type = Type.INTEGER)
+	@Column(type = Type.INTEGER, defaultValue="1")
 	protected int quantity;
 
 
@@ -31,6 +36,11 @@ public class Zone  implements Serializable , Parcelable {
 	 */
 	public Zone() {
 
+	}
+
+	@Override
+	public String toString() {
+		return this.name;
 	}
 
 	/**
@@ -99,6 +109,7 @@ public class Zone  implements Serializable , Parcelable {
 		this.setName(parc.readString());
 		this.setQuantity(parc.readInt());
 	}
+
 
 
 

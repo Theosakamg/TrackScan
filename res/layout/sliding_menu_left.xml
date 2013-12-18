@@ -10,31 +10,31 @@
 	    android:layout_marginLeft="5dp"
 	    android:layout_marginRight="5dp"
 	    android:padding="4dp" >
+	    <Button
+            android:id="@+id/menu_user_list_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Manage User" />
+	    <Button
+            android:id="@+id/menu_zone_list_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Manage Zone" />
+	    <Button
+            android:id="@+id/menu_orderprod_list_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Manage Order" />
 		<Button
 			android:id="@+id/menu_itemprod_list_button"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:text="List all ItemProd" />
-		<Button
-			android:id="@+id/menu_user_list_button"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:text="List all User" />
-		<Button
-			android:id="@+id/menu_orderprod_list_button"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:text="List all OrderProd" />
-		<Button
-			android:id="@+id/menu_zone_list_button"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:text="List all Zone" />
+			android:text="Manage Production" />
 		<Button
 			android:id="@+id/menu_logprod_list_button"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:text="List all LogProd" />
+			android:text="History" />
 	</LinearLayout>
 </ScrollView>
 

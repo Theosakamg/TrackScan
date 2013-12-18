@@ -103,8 +103,8 @@ public class OrderProdCreateFragment extends HarmonyFragment
 	/** Load data from model to fields view. */
 	public void loadData() {
 
-		if (this.model.getLogin() != null) {
-			this.loginView.setText(this.model.getLogin());
+		if (this.model.getCustomer() != null) {
+			this.loginView.setText(this.model.getCustomer());
 		}
 		if (this.model.getProductType() != null) {
 			this.productTypeView.setSelectedItem(this.model.getProductType());
@@ -120,7 +120,7 @@ public class OrderProdCreateFragment extends HarmonyFragment
 	/** Save data from fields view to model. */
 	public void saveData() {
 
-		this.model.setLogin(this.loginView.getEditableText().toString());
+		this.model.setCustomer(this.loginView.getEditableText().toString());
 
 		this.model.setProductType((ProductType) this.productTypeView.getSelectedItem());
 

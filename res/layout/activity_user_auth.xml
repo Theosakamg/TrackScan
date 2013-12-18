@@ -62,7 +62,7 @@
         android:layout_below="@+id/zone_name_label" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/user_auth_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/zone_name_spinner"

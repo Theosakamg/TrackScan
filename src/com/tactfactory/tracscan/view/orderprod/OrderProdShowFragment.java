@@ -105,8 +105,8 @@ public class OrderProdShowFragment
     		this.emptyText.setVisibility(View.GONE);
 
 
-		if (this.model.getLogin() != null) {
-			this.loginView.setText(this.model.getLogin());
+		if (this.model.getCustomer() != null) {
+			this.loginView.setText(this.model.getCustomer());
 		}
 		if (this.model.getProductType() != null) {
 			this.productTypeView.setText(this.model.getProductType().toString());

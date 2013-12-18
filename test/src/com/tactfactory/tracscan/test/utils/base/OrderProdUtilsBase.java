@@ -35,7 +35,7 @@ public abstract class OrderProdUtilsBase {
 		OrderProd orderProd = new OrderProd();
 
 		orderProd.setId(TestUtils.generateRandomInt(0,100) + 1);
-		orderProd.setLogin("login_"+TestUtils.generateRandomString(10));
+		orderProd.setCustomer("customer_"+TestUtils.generateRandomString(10));
 		orderProd.setProductType(ProductType.values()[TestUtils.generateRandomInt(0,ProductType.values().length)]);
 		orderProd.setMaterialType(MaterialType.values()[TestUtils.generateRandomInt(0,MaterialType.values().length)]);
 		orderProd.setQuantity(TestUtils.generateRandomInt(0,100));
@@ -56,7 +56,7 @@ public abstract class OrderProdUtilsBase {
 		Assert.assertNotNull(orderProd2);
 		if (orderProd1!=null && orderProd2 !=null){
 			Assert.assertEquals(orderProd1.getId(), orderProd2.getId());
-			Assert.assertEquals(orderProd1.getLogin(), orderProd2.getLogin());
+			Assert.assertEquals(orderProd1.getCustomer(), orderProd2.getCustomer());
 			Assert.assertEquals(orderProd1.getProductType(), orderProd2.getProductType());
 			Assert.assertEquals(orderProd1.getMaterialType(), orderProd2.getMaterialType());
 			Assert.assertEquals(orderProd1.getQuantity(), orderProd2.getQuantity());

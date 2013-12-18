@@ -1,47 +1,64 @@
 package com.tactfactory.tracscan.view.user;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import android.content.Context;
-import android.database.DataSetObserver;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
+import android.widget.Toast;
 
 import com.tactfactory.tracscan.R;
-import com.tactfactory.tracscan.criterias.UserCriterias;
-import com.tactfactory.tracscan.criterias.base.CriteriasBase.GroupType;
-import com.tactfactory.tracscan.data.UserSQLiteAdapter;
 import com.tactfactory.tracscan.entity.User;
 import com.tactfactory.tracscan.entity.Zone;
 import com.tactfactory.tracscan.harmony.view.HarmonyDrawerActivity;
-import com.tactfactory.tracscan.provider.UserProviderAdapter;
 import com.tactfactory.tracscan.provider.utils.UserProviderUtils;
 import com.tactfactory.tracscan.provider.utils.ZoneProviderUtils;
+import com.tactfactory.tracscan.view.logprod.LogProdLoggerActivity;
 
-public class UserAuthActivity extends HarmonyDrawerActivity {
+public class UserAuthActivity extends HarmonyDrawerActivity 
+		implements OnClickListener {
 
-	ArrayList<User> users;
-	ArrayList<Zone> zones;
+	protected ArrayList<User> users;
+	protected ArrayList<Zone> zones;
+	
+	protected Spinner zoneSpinner;
+	protected Spinner loginSpinner;
+	protected EditText passView;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState)	{
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.activity_user_auth);
 		
-		loadZone();
-		loadUser();
+		this.loadZone();
+		this.loadUser();
+		
+		this.passView = 
+				(EditText) this.findViewById(R.id.user_password_edit);
+		
+		Button btn = 
+				(Button) this.findViewById(R.id.user_auth_button);
+		btn.setOnClickListener(this);
+		
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		this.passView.setText("");
 	}
 
 	/**
 	 * Bind Loader user
 	 */
 	private void loadUser() {
-		Spinner loginSpinner = 
+		this.loginSpinner = 
 				(Spinner) this.findViewById(R.id.user_login_spinner);
 		
 		this.users = new UserProviderUtils(this).queryAll();
@@ -53,14 +70,14 @@ public class UserAuthActivity extends HarmonyDrawerActivity {
 		loginSpinnerAdapter.setDropDownViewResource(
 				android.R.layout.simple_spinner_dropdown_item);
 		
-		loginSpinner.setAdapter(loginSpinnerAdapter);
+		this.loginSpinner.setAdapter(loginSpinnerAdapter);
 	}
 	
 	/**
 	 * Bind Loader zone
 	 */
 	private void loadZone() {
-		Spinner zoneSpinner = 
+		this.zoneSpinner = 
 				(Spinner) this.findViewById(R.id.zone_name_spinner);
 		
 		this.zones = new ZoneProviderUtils(this).queryAll();
@@ -72,6 +89,23 @@ public class UserAuthActivity extends HarmonyDrawerActivity {
 		zoneSpinnerAdapter.setDropDownViewResource(
 				android.R.layout.simple_spinner_dropdown_item);
 		
-		zoneSpinner.setAdapter(zoneSpinnerAdapter);
+		this.zoneSpinner.setAdapter(zoneSpinnerAdapter);
+	}
+
+	@Override
+	public void onClick(View v) {
+		final String passwd = this.passView.getText().toString();
+		final User user = (User) this.loginSpinner.getSelectedItem();
+		final Zone zone = (Zone) this.zoneSpinner.getSelectedItem();
+		
+		if (user.getPasswd().equals(passwd)) {
+			Intent intent = new Intent(this, LogProdLoggerActivity.class);
+			intent.putExtra(User.PARCEL, (Parcelable) user);
+			intent.putExtra(Zone.PARCEL, (Parcelable) zone);
+			this.startActivity(intent);
+		} else {
+			Toast.makeText(this, "Password and username incorrect.", Toast.LENGTH_SHORT).show();
+		}
+		
 	}
 }

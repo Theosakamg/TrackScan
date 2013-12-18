@@ -5,7 +5,7 @@
  * Description : 
  * Author(s)   : Harmony
  * Licence     : 
- * Last update : Dec 17, 2013
+ * Last update : Dec 18, 2013
  *
  **************************************************************************/
 package com.tactfactory.tracscan.data.base;
@@ -113,7 +113,7 @@ public abstract class ZoneSQLiteAdapterBase
 		
 		 + COL_ID	+ " INTEGER PRIMARY KEY AUTOINCREMENT,"
 		 + COL_NAME	+ " VARCHAR NOT NULL,"
-		 + COL_QUANTITY	+ " INTEGER NOT NULL"
+		 + COL_QUANTITY	+ " INTEGER NOT NULL DEFAULT '1'"
 		
 		
 		+ ");"

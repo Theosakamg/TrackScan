@@ -5,7 +5,7 @@
  * Description : 
  * Author(s)   : Harmony
  * Licence     : 
- * Last update : Dec 17, 2013
+ * Last update : Dec 18, 2013
  *
  **************************************************************************/
 package com.tactfactory.tracscan.data.base;
@@ -52,12 +52,12 @@ public abstract class OrderProdSQLiteAdapterBase
 	/** Alias. */
 	public static final String ALIASED_COL_ID =
 			TABLE_NAME + "." + COL_ID;
-	/** login. */
-	public static final String COL_LOGIN =
-			"login";
+	/** customer. */
+	public static final String COL_CUSTOMER =
+			"customer";
 	/** Alias. */
-	public static final String ALIASED_COL_LOGIN =
-			TABLE_NAME + "." + COL_LOGIN;
+	public static final String ALIASED_COL_CUSTOMER =
+			TABLE_NAME + "." + COL_CUSTOMER;
 	/** productType. */
 	public static final String COL_PRODUCTTYPE =
 			"productType";
@@ -81,7 +81,7 @@ public abstract class OrderProdSQLiteAdapterBase
 	public static final String[] COLS = new String[] {
 
 		OrderProdSQLiteAdapter.COL_ID,
-		OrderProdSQLiteAdapter.COL_LOGIN,
+		OrderProdSQLiteAdapter.COL_CUSTOMER,
 		OrderProdSQLiteAdapter.COL_PRODUCTTYPE,
 		OrderProdSQLiteAdapter.COL_MATERIALTYPE,
 		OrderProdSQLiteAdapter.COL_QUANTITY
@@ -91,7 +91,7 @@ public abstract class OrderProdSQLiteAdapterBase
 	public static final String[] ALIASED_COLS = new String[] {
 
 		OrderProdSQLiteAdapter.ALIASED_COL_ID,
-		OrderProdSQLiteAdapter.ALIASED_COL_LOGIN,
+		OrderProdSQLiteAdapter.ALIASED_COL_CUSTOMER,
 		OrderProdSQLiteAdapter.ALIASED_COL_PRODUCTTYPE,
 		OrderProdSQLiteAdapter.ALIASED_COL_MATERIALTYPE,
 		OrderProdSQLiteAdapter.ALIASED_COL_QUANTITY
@@ -132,7 +132,7 @@ public abstract class OrderProdSQLiteAdapterBase
 		+ TABLE_NAME	+ " ("
 		
 		 + COL_ID	+ " INTEGER PRIMARY KEY AUTOINCREMENT,"
-		 + COL_LOGIN	+ " VARCHAR NOT NULL,"
+		 + COL_CUSTOMER	+ " VARCHAR NOT NULL,"
 		 + COL_PRODUCTTYPE	+ " VARCHAR NOT NULL,"
 		 + COL_MATERIALTYPE	+ " VARCHAR NOT NULL,"
 		 + COL_QUANTITY	+ " INTEGER NOT NULL"
@@ -162,9 +162,9 @@ public abstract class OrderProdSQLiteAdapterBase
 		result.put(COL_ID,
 			String.valueOf(item.getId()));
 
-		if (item.getLogin() != null) {
-			result.put(COL_LOGIN,
-				item.getLogin());
+		if (item.getCustomer() != null) {
+			result.put(COL_CUSTOMER,
+				item.getCustomer());
 		}
 
 		if (item.getProductType() != null) {
@@ -208,8 +208,8 @@ public abstract class OrderProdSQLiteAdapterBase
 			result.setId(
 					cursor.getInt(index));
 
-			index = cursor.getColumnIndexOrThrow(COL_LOGIN);
-			result.setLogin(
+			index = cursor.getColumnIndexOrThrow(COL_CUSTOMER);
+			result.setCustomer(
 					cursor.getString(index));
 
 			index = cursor.getColumnIndexOrThrow(COL_PRODUCTTYPE);

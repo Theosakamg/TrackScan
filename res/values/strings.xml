@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
+	<string name="accounttype_type_invalid_field_error">Field type is invalid.</string>
+	<string name="accounttype_type_label">type</string>
 	<string name="app_provider_description">Provider of tracscan to access data</string>
 	<string name="app_provider_name">Provider of tracscan</string>
 	<string name="common_create">Create</string>
@@ -7,8 +9,6 @@
 	<string name="common_edit">Edit</string>
 	<string name="dialog_delete_message">Are you sure you want to delete this item ?</string>
 	<string name="dialog_delete_title">Delete</string>
-	<string name="accounttype_type_invalid_field_error">Field type is invalid.</string>
-	<string name="accounttype_type_label">type</string>
 	<string name="itemprod_empty_list">ItemProd list is empty !</string>
 	<string name="itemprod_error_create">ItemProd creation error…</string>
 	<string name="itemprod_error_edit">ItemProd edition error…</string>
@@ -40,6 +40,8 @@
 	<string name="logprod_progress_save_title">LogProd save progress</string>
 	<string name="materialtype_type_invalid_field_error">Field type is invalid.</string>
 	<string name="materialtype_type_label">type</string>
+	<string name="orderprod_customer_invalid_field_error">Field customer is invalid.</string>
+	<string name="orderprod_customer_label">customer</string>
 	<string name="orderprod_empty_list">OrderProd list is empty !</string>
 	<string name="orderprod_error_create">OrderProd creation error…</string>
 	<string name="orderprod_error_edit">OrderProd edition error…</string>
@@ -65,14 +67,14 @@
 	<string name="orderprod_quantity_label">quantity</string>
 	<string name="producttype_type_invalid_field_error">Field type is invalid.</string>
 	<string name="producttype_type_label">type</string>
+	<string name="user_label">User</string>
+	<string name="user_login_invalid_field_error">Field login is invalid.</string>
+	<string name="user_login_label">login</string>
 	<string name="uri_not_supported">URI not supported</string>
 	<string name="user_empty_list">User list is empty !</string>
 	<string name="user_error_create">User creation error…</string>
 	<string name="user_error_edit">User edition error…</string>
 	<string name="user_error_load">User loading error…</string>
-	<string name="user_label">User</string>
-	<string name="user_login_invalid_field_error">Field login is invalid.</string>
-	<string name="user_login_label">login</string>
 	<string name="user_not_found">No User found to display…</string>
 	<string name="user_passwd_invalid_field_error">Field passwd is invalid.</string>
 	<string name="user_passwd_label">passwd</string>
