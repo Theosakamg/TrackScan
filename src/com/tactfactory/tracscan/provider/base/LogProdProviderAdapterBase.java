@@ -1,11 +1,11 @@
 /**************************************************************************
  * LogProdProviderAdapterBase.java, tracscan Android
  *
- * Copyright 2013
+ * Copyright 2013 Mickael Gaillard / TACTfactory
  * Description : 
  * Author(s)   : Harmony
- * Licence     : 
- * Last update : Dec 17, 2013
+ * Licence     : all right reserved
+ * Last update : Dec 19, 2013
  *
  **************************************************************************/
 package com.tactfactory.tracscan.provider.base;
@@ -16,10 +16,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
-
 import com.tactfactory.tracscan.entity.LogProd;
 import com.tactfactory.tracscan.provider.TracscanProvider;
 import com.tactfactory.tracscan.data.LogProdSQLiteAdapter;
+import com.tactfactory.tracscan.data.ZoneSQLiteAdapter;
+import com.tactfactory.tracscan.data.UserSQLiteAdapter;
+import com.tactfactory.tracscan.data.ItemProdSQLiteAdapter;
 
 /**
  * LogProdProviderAdapterBase.
@@ -44,6 +46,15 @@ public abstract class LogProdProviderAdapterBase
 	protected static final int LOGPROD_ONE =
 			2006257820;
 
+	/** LOGPROD_ZONE. */
+	protected static final int LOGPROD_ZONE =
+			2006257821;
+	/** LOGPROD_USER. */
+	protected static final int LOGPROD_USER =
+			2006257822;
+	/** LOGPROD_ITEM. */
+	protected static final int LOGPROD_ITEM =
+			2006257823;
 
 	/**
 	 * Static constructor.
@@ -60,6 +71,18 @@ public abstract class LogProdProviderAdapterBase
 				TracscanProvider.authority,
 				logProdType + "/#",
 				LOGPROD_ONE);
+		TracscanProvider.getUriMatcher().addURI(
+				TracscanProvider.authority,
+				logProdType + "/#/zone",
+				LOGPROD_ZONE);
+		TracscanProvider.getUriMatcher().addURI(
+				TracscanProvider.authority,
+				logProdType + "/#/user",
+				LOGPROD_USER);
+		TracscanProvider.getUriMatcher().addURI(
+				TracscanProvider.authority,
+				logProdType + "/#/item",
+				LOGPROD_ITEM);
 	}
 
 	/**
@@ -80,6 +103,9 @@ public abstract class LogProdProviderAdapterBase
 
 		this.uriIds.add(LOGPROD_ALL);
 		this.uriIds.add(LOGPROD_ONE);
+		this.uriIds.add(LOGPROD_ZONE);
+		this.uriIds.add(LOGPROD_USER);
+		this.uriIds.add(LOGPROD_ITEM);
 	}
 
 	@Override
@@ -100,6 +126,15 @@ public abstract class LogProdProviderAdapterBase
 				result = collection + "logprod";
 				break;
 			case LOGPROD_ONE:
+				result = single + "logprod";
+				break;
+			case LOGPROD_ZONE:
+				result = single + "logprod";
+				break;
+			case LOGPROD_USER:
+				result = single + "logprod";
+				break;
+			case LOGPROD_ITEM:
 				result = single + "logprod";
 				break;
 			default:
@@ -178,6 +213,7 @@ public abstract class LogProdProviderAdapterBase
 		int matchedUri = TracscanProviderBase.getUriMatcher()
 				.match(uri);
 		Cursor result = null;
+		Cursor logProdCursor;
 		
 
 		switch (matchedUri) {
@@ -195,6 +231,48 @@ public abstract class LogProdProviderAdapterBase
 				result = this.queryById(uri.getPathSegments().get(1));
 				break;
 			
+			case LOGPROD_ZONE:
+				logProdCursor = this.queryById(uri.getPathSegments().get(1));
+				
+				if (logProdCursor.getCount() > 0) {
+					logProdCursor.moveToFirst();
+					int zoneId = logProdCursor.getInt(logProdCursor.getColumnIndex(
+									LogProdSQLiteAdapter.COL_ZONE));
+					
+					ZoneSQLiteAdapter zoneAdapter = new ZoneSQLiteAdapter(this.ctx);
+					zoneAdapter.open(this.getDb());
+					result = zoneAdapter.query(zoneId);
+				}
+				break;
+
+			case LOGPROD_USER:
+				logProdCursor = this.queryById(uri.getPathSegments().get(1));
+				
+				if (logProdCursor.getCount() > 0) {
+					logProdCursor.moveToFirst();
+					int userId = logProdCursor.getInt(logProdCursor.getColumnIndex(
+									LogProdSQLiteAdapter.COL_USER));
+					
+					UserSQLiteAdapter userAdapter = new UserSQLiteAdapter(this.ctx);
+					userAdapter.open(this.getDb());
+					result = userAdapter.query(userId);
+				}
+				break;
+
+			case LOGPROD_ITEM:
+				logProdCursor = this.queryById(uri.getPathSegments().get(1));
+				
+				if (logProdCursor.getCount() > 0) {
+					logProdCursor.moveToFirst();
+					int itemId = logProdCursor.getInt(logProdCursor.getColumnIndex(
+									LogProdSQLiteAdapter.COL_ITEM));
+					
+					ItemProdSQLiteAdapter itemProdAdapter = new ItemProdSQLiteAdapter(this.ctx);
+					itemProdAdapter.open(this.getDb());
+					result = itemProdAdapter.query(itemId);
+				}
+				break;
+
 			default:
 				result = null;
 				break;

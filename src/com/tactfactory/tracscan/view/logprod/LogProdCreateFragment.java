@@ -10,8 +10,6 @@
  **************************************************************************/
 package com.tactfactory.tracscan.view.logprod;
 
-
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -25,7 +23,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.google.common.base.Strings;
 import com.tactfactory.tracscan.R;
 import com.tactfactory.tracscan.entity.LogProd;
 

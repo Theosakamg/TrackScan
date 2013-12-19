@@ -1,11 +1,11 @@
 /**************************************************************************
  * LogProdProviderUtilsBase.java, tracscan Android
  *
- * Copyright 2013
+ * Copyright 2013 Mickael Gaillard / TACTfactory
  * Description : 
  * Author(s)   : Harmony
- * Licence     : 
- * Last update : Dec 17, 2013
+ * Licence     : all right reserved
+ * Last update : Dec 19, 2013
  *
  **************************************************************************/
 package com.tactfactory.tracscan.provider.utils.base;
@@ -26,13 +26,26 @@ import android.os.RemoteException;
 import android.util.Log;
 
 import com.tactfactory.tracscan.criterias.LogProdCriterias;
+import com.tactfactory.tracscan.criterias.ZoneCriterias;
+import com.tactfactory.tracscan.criterias.UserCriterias;
+import com.tactfactory.tracscan.criterias.ItemProdCriterias;
 import com.tactfactory.tracscan.criterias.base.CriteriasBase;
 import com.tactfactory.tracscan.criterias.base.CriteriasBase.GroupType;
 import com.tactfactory.tracscan.data.LogProdSQLiteAdapter;
+import com.tactfactory.tracscan.data.ZoneSQLiteAdapter;
+import com.tactfactory.tracscan.data.UserSQLiteAdapter;
+import com.tactfactory.tracscan.data.ItemProdSQLiteAdapter;
 
 import com.tactfactory.tracscan.entity.LogProd;
+import com.tactfactory.tracscan.entity.Zone;
+import com.tactfactory.tracscan.entity.User;
+import com.tactfactory.tracscan.entity.ItemProd;
+import com.tactfactory.tracscan.entity.ItemState;
 
 import com.tactfactory.tracscan.provider.LogProdProviderAdapter;
+import com.tactfactory.tracscan.provider.ZoneProviderAdapter;
+import com.tactfactory.tracscan.provider.UserProviderAdapter;
+import com.tactfactory.tracscan.provider.ItemProdProviderAdapter;
 import com.tactfactory.tracscan.provider.TracscanProvider;
 
 /**
@@ -142,6 +155,18 @@ public abstract class LogProdProviderUtilsBase
 			result = adapt.cursorToItem(cursor);
 			cursor.close();
 
+			if (result.getZone() != null) {
+				result.setZone(
+					this.getAssociateZone(result));
+			}
+			if (result.getUser() != null) {
+				result.setUser(
+					this.getAssociateUser(result));
+			}
+			if (result.getItem() != null) {
+				result.setItem(
+					this.getAssociateItem(result));
+			}
 		}
 
 		return result;
@@ -239,5 +264,92 @@ public abstract class LogProdProviderUtilsBase
 		return result;
 	}
 
-	
+	/** Relations operations. */
+	/**
+	 * Get associate Zone.
+	 * @param item LogProd
+	 * @return Zone
+	 */
+	public Zone getAssociateZone(
+			final LogProd item) {
+		Zone result;
+		ContentResolver prov = this.getContext().getContentResolver();
+		Cursor zoneCursor = prov.query(
+				ZoneProviderAdapter.ZONE_URI,
+				ZoneSQLiteAdapter.ALIASED_COLS,
+				ZoneSQLiteAdapter.COL_ID + "= ?",
+				new String[]{String.valueOf(item.getZone().getId())},
+				null);
+
+		if (zoneCursor.getCount() > 0) {
+			zoneCursor.moveToFirst();
+			ZoneSQLiteAdapter zoneAdapt =
+					new ZoneSQLiteAdapter(this.getContext());
+			result = zoneAdapt.cursorToItem(zoneCursor);
+		} else {
+			result = null;
+		}
+		zoneCursor.close();
+
+		return result;
+	}
+
+	/**
+	 * Get associate User.
+	 * @param item LogProd
+	 * @return User
+	 */
+	public User getAssociateUser(
+			final LogProd item) {
+		User result;
+		ContentResolver prov = this.getContext().getContentResolver();
+		Cursor userCursor = prov.query(
+				UserProviderAdapter.USER_URI,
+				UserSQLiteAdapter.ALIASED_COLS,
+				UserSQLiteAdapter.COL_ID + "= ?",
+				new String[]{String.valueOf(item.getUser().getId())},
+				null);
+
+		if (userCursor.getCount() > 0) {
+			userCursor.moveToFirst();
+			UserSQLiteAdapter userAdapt =
+					new UserSQLiteAdapter(this.getContext());
+			result = userAdapt.cursorToItem(userCursor);
+		} else {
+			result = null;
+		}
+		userCursor.close();
+
+		return result;
+	}
+
+	/**
+	 * Get associate Item.
+	 * @param item LogProd
+	 * @return ItemProd
+	 */
+	public ItemProd getAssociateItem(
+			final LogProd item) {
+		ItemProd result;
+		ContentResolver prov = this.getContext().getContentResolver();
+		Cursor itemProdCursor = prov.query(
+				ItemProdProviderAdapter.ITEMPROD_URI,
+				ItemProdSQLiteAdapter.ALIASED_COLS,
+				ItemProdSQLiteAdapter.COL_ID + "= ?",
+				new String[]{String.valueOf(item.getItem().getId())},
+				null);
+
+		if (itemProdCursor.getCount() > 0) {
+			itemProdCursor.moveToFirst();
+			ItemProdSQLiteAdapter itemProdAdapt =
+					new ItemProdSQLiteAdapter(this.getContext());
+			result = itemProdAdapt.cursorToItem(itemProdCursor);
+		} else {
+			result = null;
+		}
+		itemProdCursor.close();
+
+		return result;
+	}
+
 }

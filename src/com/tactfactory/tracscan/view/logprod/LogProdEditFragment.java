@@ -29,7 +29,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.google.common.base.Strings;
 import com.tactfactory.tracscan.R;
 import com.tactfactory.tracscan.entity.LogProd;
 

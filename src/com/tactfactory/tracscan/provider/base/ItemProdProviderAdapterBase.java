@@ -1,11 +1,11 @@
 /**************************************************************************
  * ItemProdProviderAdapterBase.java, tracscan Android
  *
- * Copyright 2013
+ * Copyright 2013 Mickael Gaillard / TACTfactory
  * Description : 
  * Author(s)   : Harmony
- * Licence     : 
- * Last update : Dec 17, 2013
+ * Licence     : all right reserved
+ * Last update : Dec 19, 2013
  *
  **************************************************************************/
 package com.tactfactory.tracscan.provider.base;
@@ -16,11 +16,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
-
 import com.tactfactory.tracscan.entity.ItemProd;
 import com.tactfactory.tracscan.provider.TracscanProvider;
 import com.tactfactory.tracscan.data.ItemProdSQLiteAdapter;
 import com.tactfactory.tracscan.data.OrderProdSQLiteAdapter;
+import com.tactfactory.tracscan.data.ZoneSQLiteAdapter;
 
 /**
  * ItemProdProviderAdapterBase.
@@ -45,9 +45,12 @@ public abstract class ItemProdProviderAdapterBase
 	protected static final int ITEMPROD_ONE =
 			1242051883;
 
-	/** ITEMPROD_ITEMS. */
-	protected static final int ITEMPROD_ITEMS =
+	/** ITEMPROD_ORDERCUSTOMER. */
+	protected static final int ITEMPROD_ORDERCUSTOMER =
 			1242051884;
+	/** ITEMPROD_CURRENTZONE. */
+	protected static final int ITEMPROD_CURRENTZONE =
+			1242051885;
 
 	/**
 	 * Static constructor.
@@ -66,8 +69,12 @@ public abstract class ItemProdProviderAdapterBase
 				ITEMPROD_ONE);
 		TracscanProvider.getUriMatcher().addURI(
 				TracscanProvider.authority,
-				itemProdType + "/#/items",
-				ITEMPROD_ITEMS);
+				itemProdType + "/#/ordercustomer",
+				ITEMPROD_ORDERCUSTOMER);
+		TracscanProvider.getUriMatcher().addURI(
+				TracscanProvider.authority,
+				itemProdType + "/#/currentzone",
+				ITEMPROD_CURRENTZONE);
 	}
 
 	/**
@@ -88,7 +95,8 @@ public abstract class ItemProdProviderAdapterBase
 
 		this.uriIds.add(ITEMPROD_ALL);
 		this.uriIds.add(ITEMPROD_ONE);
-		this.uriIds.add(ITEMPROD_ITEMS);
+		this.uriIds.add(ITEMPROD_ORDERCUSTOMER);
+		this.uriIds.add(ITEMPROD_CURRENTZONE);
 	}
 
 	@Override
@@ -111,7 +119,10 @@ public abstract class ItemProdProviderAdapterBase
 			case ITEMPROD_ONE:
 				result = single + "itemprod";
 				break;
-			case ITEMPROD_ITEMS:
+			case ITEMPROD_ORDERCUSTOMER:
+				result = single + "itemprod";
+				break;
+			case ITEMPROD_CURRENTZONE:
 				result = single + "itemprod";
 				break;
 			default:
@@ -208,17 +219,31 @@ public abstract class ItemProdProviderAdapterBase
 				result = this.queryById(uri.getPathSegments().get(1));
 				break;
 			
-			case ITEMPROD_ITEMS:
+			case ITEMPROD_ORDERCUSTOMER:
 				itemProdCursor = this.queryById(uri.getPathSegments().get(1));
 				
 				if (itemProdCursor.getCount() > 0) {
 					itemProdCursor.moveToFirst();
-					int itemsId = itemProdCursor.getInt(itemProdCursor.getColumnIndex(
-									ItemProdSQLiteAdapter.COL_ITEMS));
+					int orderCustomerId = itemProdCursor.getInt(itemProdCursor.getColumnIndex(
+									ItemProdSQLiteAdapter.COL_ORDERCUSTOMER));
 					
 					OrderProdSQLiteAdapter orderProdAdapter = new OrderProdSQLiteAdapter(this.ctx);
 					orderProdAdapter.open(this.getDb());
-					result = orderProdAdapter.query(itemsId);
+					result = orderProdAdapter.query(orderCustomerId);
+				}
+				break;
+
+			case ITEMPROD_CURRENTZONE:
+				itemProdCursor = this.queryById(uri.getPathSegments().get(1));
+				
+				if (itemProdCursor.getCount() > 0) {
+					itemProdCursor.moveToFirst();
+					int currentZoneId = itemProdCursor.getInt(itemProdCursor.getColumnIndex(
+									ItemProdSQLiteAdapter.COL_CURRENTZONE));
+					
+					ZoneSQLiteAdapter zoneAdapter = new ZoneSQLiteAdapter(this.ctx);
+					zoneAdapter.open(this.getDb());
+					result = zoneAdapter.query(currentZoneId);
 				}
 				break;
 

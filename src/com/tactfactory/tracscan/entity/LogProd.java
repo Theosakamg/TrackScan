@@ -10,23 +10,37 @@ import org.joda.time.DateTime;
 import com.tactfactory.harmony.annotation.Column;
 import com.tactfactory.harmony.annotation.Entity;
 import com.tactfactory.harmony.annotation.Id;
+import com.tactfactory.harmony.annotation.ManyToOne;
 import com.tactfactory.harmony.annotation.Column.Type;
 
 @Entity
 public class LogProd  implements Serializable , Parcelable {
 
+	/** Key Constant for parcelable/serialization. */
+	public static final String PARCEL = 
+			"LogProd";
+
 	/** Serial Version UID */
 	private static final long serialVersionUID = 321829571509107215L;
-
-	/** Key Constant for parcelable/serialization. */
-	public final static String PARCEL = "LogProd";
 
 	@Id
 	@Column(type = Type.INTEGER, hidden = true)
 	protected int id;
 	
-	@Column
-	protected DateTime at;
+	@Column(type = Type.DATETIME)
+	protected DateTime createDate;
+	
+	@Column(type = Type.ENUM)
+	protected ItemState state;
+	
+	@ManyToOne
+	protected Zone zone;
+	
+	@ManyToOne
+	protected User user;
+	
+	@ManyToOne
+	protected ItemProd item;
 
 	/**
 	 * Default constructor.
@@ -57,6 +71,25 @@ public class LogProd  implements Serializable , Parcelable {
 	 */
 	public void writeToParcelRegen(Parcel dest, int flags) {
 		dest.writeInt(this.getId());
+		if (this.getCreateDate() != null) {
+			dest.writeInt(1);
+			dest.writeString(this.getCreateDate().toString());
+		} else {
+			dest.writeInt(0);
+		}
+
+		if (this.getState() != null) {
+			dest.writeInt(1);
+			dest.writeString(this.getState().getValue());
+		} else {
+			dest.writeInt(0);
+		}
+
+		dest.writeParcelable(this.getZone(), flags);
+
+		dest.writeParcelable(this.getUser(), flags);
+
+		dest.writeParcelable(this.getItem(), flags);
 	}
 
 	/**
@@ -68,7 +101,23 @@ public class LogProd  implements Serializable , Parcelable {
 	 */
 	public void readFromParcel(Parcel parc) {
 		this.setId(parc.readInt());
+		if (parc.readInt() == 1) {
+			this.setCreateDate(new DateTime(parc.readString()));
+		}
+
+		int stateBool = parc.readInt();
+		if (stateBool == 1) {
+			this.setState(ItemState.fromValue(parc.readString()));
+		}
+
+		this.setZone((Zone) parc.readParcelable(Zone.class.getClassLoader()));
+
+		this.setUser((User) parc.readParcelable(User.class.getClassLoader()));
+
+		this.setItem((ItemProd) parc.readParcelable(ItemProd.class.getClassLoader()));
 	}
+
+
 
 
 
@@ -118,5 +167,75 @@ public class LogProd  implements Serializable , Parcelable {
 		    return new LogProd[size];
 		}
 	};
+
+	/**
+	 * @return the createDate
+	 */
+	public DateTime getCreateDate() {
+	     return this.createDate;
+	}
+
+	/**
+	 * @param value the createDate to set
+	 */
+	public void setCreateDate(final DateTime value) {
+	     this.createDate = value;
+	}
+
+	/**
+	 * @return the state
+	 */
+	public ItemState getState() {
+	     return this.state;
+	}
+
+	/**
+	 * @param value the state to set
+	 */
+	public void setState(final ItemState value) {
+	     this.state = value;
+	}
+
+	/**
+	 * @return the zone
+	 */
+	public Zone getZone() {
+	     return this.zone;
+	}
+
+	/**
+	 * @param value the zone to set
+	 */
+	public void setZone(final Zone value) {
+	     this.zone = value;
+	}
+
+	/**
+	 * @return the user
+	 */
+	public User getUser() {
+	     return this.user;
+	}
+
+	/**
+	 * @param value the user to set
+	 */
+	public void setUser(final User value) {
+	     this.user = value;
+	}
+
+	/**
+	 * @return the item
+	 */
+	public ItemProd getItem() {
+	     return this.item;
+	}
+
+	/**
+	 * @param value the item to set
+	 */
+	public void setItem(final ItemProd value) {
+	     this.item = value;
+	}
 
 }

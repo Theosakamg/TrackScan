@@ -1,11 +1,11 @@
 /**************************************************************************
  * OrderProdSQLiteAdapterBase.java, tracscan Android
  *
- * Copyright 2013
+ * Copyright 2013 Mickael Gaillard / TACTfactory
  * Description : 
  * Author(s)   : Harmony
- * Licence     : 
- * Last update : Dec 18, 2013
+ * Licence     : all right reserved
+ * Last update : Dec 19, 2013
  *
  **************************************************************************/
 package com.tactfactory.tracscan.data.base;
@@ -248,7 +248,7 @@ public abstract class OrderProdSQLiteAdapterBase
 				new ItemProdSQLiteAdapter(this.ctx);
 		itemsAdapter.open(this.mDatabase);
 		Cursor itemsCursor = itemsAdapter
-					.getByOrderProditemsInternal(result.getId(), null);
+					.getByOrderProditemsInternal(result.getId(), ItemProdSQLiteAdapter.ALIASED_COLS, null, null, null);
 		result.setItems(itemsAdapter.cursorToItems(itemsCursor));
 		return result;
 	}

@@ -17,11 +17,13 @@ import com.tactfactory.harmony.annotation.OneToMany;
 @Entity
 public class ItemProd  implements Serializable , Parcelable {
 
+	/** Key Constant for parcelable/serialization. */
+	public static final String PARCEL = 
+			"ItemProd";
+
 	/** Serial Version UID */
 	private static final long serialVersionUID = -1080925123920871057L;
 
-	/** Key Constant for parcelable/serialization. */
-	public final static String PARCEL = "ItemProd";
 	
 	@Id
 	@Column(type = Type.INTEGER, hidden = true)
@@ -37,9 +39,9 @@ public class ItemProd  implements Serializable , Parcelable {
 	protected DateTime updateDate;
 	
 	@ManyToOne
-	protected OrderProd order;
+	protected OrderProd orderCustomer;
 	
-	@OneToMany
+	@ManyToOne
 	protected Zone currentZone;
 
 	/**
@@ -59,7 +61,22 @@ public class ItemProd  implements Serializable , Parcelable {
 		dest.writeInt(this.getId());
 		dest.writeString(this.getName());
 
-		dest.writeParcelable(this.getOrder(), flags);
+		if (this.getState() != null) {
+			dest.writeInt(1);
+			dest.writeString(this.getState().getValue());
+		} else {
+			dest.writeInt(0);
+		}
+		if (this.getUpdateDate() != null) {
+			dest.writeInt(1);
+			dest.writeString(this.getUpdateDate().toString());
+		} else {
+			dest.writeInt(0);
+		}
+
+		dest.writeParcelable(this.getOrderCustomer(), flags);
+
+		dest.writeParcelable(this.getCurrentZone(), flags);
 	}
 
 	/**
@@ -73,8 +90,20 @@ public class ItemProd  implements Serializable , Parcelable {
 		this.setId(parc.readInt());
 		this.setName(parc.readString());
 
-		this.setOrder((OrderProd) parc.readParcelable(OrderProd.class.getClassLoader()));
+		int stateBool = parc.readInt();
+		if (stateBool == 1) {
+			this.setState(ItemState.fromValue(parc.readString()));
+		}
+		if (parc.readInt() == 1) {
+			this.setUpdateDate(new DateTime(parc.readString()));
+		}
+
+		this.setOrderCustomer((OrderProd) parc.readParcelable(OrderProd.class.getClassLoader()));
+
+		this.setCurrentZone((Zone) parc.readParcelable(Zone.class.getClassLoader()));
 	}
+
+
 
 	/**
 	 * Parcel Constructor.
@@ -153,14 +182,70 @@ public class ItemProd  implements Serializable , Parcelable {
 	 * @return the items
 	 */
 	public OrderProd getOrder() {
-	     return this.order;
+	     return this.orderCustomer;
 	}
 
 	/**
 	 * @param value the items to set
 	 */
 	public void setOrder(final OrderProd value) {
-	     this.order = value;
+	     this.orderCustomer = value;
+	}
+
+	/**
+	 * @return the state
+	 */
+	public ItemState getState() {
+	     return this.state;
+	}
+
+	/**
+	 * @param value the state to set
+	 */
+	public void setState(final ItemState value) {
+	     this.state = value;
+	}
+
+	/**
+	 * @return the updateDate
+	 */
+	public DateTime getUpdateDate() {
+	     return this.updateDate;
+	}
+
+	/**
+	 * @param value the updateDate to set
+	 */
+	public void setUpdateDate(final DateTime value) {
+	     this.updateDate = value;
+	}
+
+	/**
+	 * @return the currentZone
+	 */
+	public Zone getCurrentZone() {
+	     return this.currentZone;
+	}
+
+	/**
+	 * @param value the currentZone to set
+	 */
+	public void setCurrentZone(final Zone value) {
+	     this.currentZone = value;
+	}
+
+	/**
+	 * @return the orderCustomer
+	 */
+	public OrderProd getOrderCustomer() {
+	     return this.orderCustomer;
+	}
+
+	/**
+	 * @param value the orderCustomer to set
+	 */
+	public void setOrderCustomer(final OrderProd value) {
+	     this.orderCustomer = value;
 	}
 
 }

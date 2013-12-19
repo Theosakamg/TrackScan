@@ -13,12 +13,12 @@ import com.tactfactory.harmony.annotation.Id;
 @Entity
 public class User  implements Serializable , Parcelable {
 
+	/** Key Constant for parcelable/serialization. */
+	public static final String PARCEL = 
+			"User";
+
 	/** serial Version UID. */
 	private static final long serialVersionUID = -6626602416969280536L;
-
-	/** Key Constant for parcelable/serialization. */
-	public final static String PARCEL = "User";
-
 	
 	@Id
 	@Column(type = Type.INTEGER, hidden = true)
@@ -138,6 +138,8 @@ public class User  implements Serializable , Parcelable {
 		this.setLogin(parc.readString());
 		this.setPasswd(parc.readString());
 	}
+
+
 
 
 

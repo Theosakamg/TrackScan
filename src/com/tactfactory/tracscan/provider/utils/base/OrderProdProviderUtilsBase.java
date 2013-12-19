@@ -1,11 +1,11 @@
 /**************************************************************************
  * OrderProdProviderUtilsBase.java, tracscan Android
  *
- * Copyright 2013
+ * Copyright 2013 Mickael Gaillard / TACTfactory
  * Description : 
  * Author(s)   : Harmony
- * Licence     : 
- * Last update : Dec 17, 2013
+ * Licence     : all right reserved
+ * Last update : Dec 19, 2013
  *
  **************************************************************************/
 package com.tactfactory.tracscan.provider.utils.base;
@@ -171,8 +171,8 @@ public abstract class OrderProdProviderUtilsBase
 			result = adapt.cursorToItem(cursor);
 			cursor.close();
 
-				result.setItems(
-					this.getAssociateItems(result));
+			result.setItems(
+				this.getAssociateItems(result));
 		}
 
 		return result;

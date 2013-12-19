@@ -1,27 +1,35 @@
 /**************************************************************************
  * ItemProdSQLiteAdapterBase.java, tracscan Android
  *
- * Copyright 2013
+ * Copyright 2013 Mickael Gaillard / TACTfactory
  * Description : 
  * Author(s)   : Harmony
- * Licence     : 
- * Last update : Dec 17, 2013
+ * Licence     : all right reserved
+ * Last update : Dec 19, 2013
  *
  **************************************************************************/
 package com.tactfactory.tracscan.data.base;
 
 import java.util.ArrayList;
+import org.joda.time.DateTime;
+import org.joda.time.format.ISODateTimeFormat;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.google.common.base.Strings;
+import com.google.common.collect.ObjectArrays;
 import com.tactfactory.tracscan.data.ItemProdSQLiteAdapter;
 import com.tactfactory.tracscan.data.OrderProdSQLiteAdapter;
+import com.tactfactory.tracscan.data.ZoneSQLiteAdapter;
 import com.tactfactory.tracscan.entity.ItemProd;
 import com.tactfactory.tracscan.entity.OrderProd;
+import com.tactfactory.tracscan.entity.Zone;
+import com.tactfactory.tracscan.entity.ItemState;
 
-
+import com.tactfactory.tracscan.harmony.util.DateUtils;
 import com.tactfactory.tracscan.TracscanApplication;
 
 
@@ -55,12 +63,30 @@ public abstract class ItemProdSQLiteAdapterBase
 	/** Alias. */
 	public static final String ALIASED_COL_NAME =
 			TABLE_NAME + "." + COL_NAME;
-	/** items. */
-	public static final String COL_ITEMS =
-			"items";
+	/** state. */
+	public static final String COL_STATE =
+			"state";
 	/** Alias. */
-	public static final String ALIASED_COL_ITEMS =
-			TABLE_NAME + "." + COL_ITEMS;
+	public static final String ALIASED_COL_STATE =
+			TABLE_NAME + "." + COL_STATE;
+	/** updateDate. */
+	public static final String COL_UPDATEDATE =
+			"updateDate";
+	/** Alias. */
+	public static final String ALIASED_COL_UPDATEDATE =
+			TABLE_NAME + "." + COL_UPDATEDATE;
+	/** orderCustomer. */
+	public static final String COL_ORDERCUSTOMER =
+			"orderCustomer";
+	/** Alias. */
+	public static final String ALIASED_COL_ORDERCUSTOMER =
+			TABLE_NAME + "." + COL_ORDERCUSTOMER;
+	/** currentZone. */
+	public static final String COL_CURRENTZONE =
+			"currentZone";
+	/** Alias. */
+	public static final String ALIASED_COL_CURRENTZONE =
+			TABLE_NAME + "." + COL_CURRENTZONE;
 	/** OrderProd_items_internal. */
 	public static final String COL_ORDERPRODITEMSINTERNAL =
 			"OrderProd_items_internal";
@@ -73,7 +99,10 @@ public abstract class ItemProdSQLiteAdapterBase
 
 		ItemProdSQLiteAdapter.COL_ID,
 		ItemProdSQLiteAdapter.COL_NAME,
-		ItemProdSQLiteAdapter.COL_ITEMS,
+		ItemProdSQLiteAdapter.COL_STATE,
+		ItemProdSQLiteAdapter.COL_UPDATEDATE,
+		ItemProdSQLiteAdapter.COL_ORDERCUSTOMER,
+		ItemProdSQLiteAdapter.COL_CURRENTZONE,
 		ItemProdSQLiteAdapter.COL_ORDERPRODITEMSINTERNAL
 	};
 
@@ -82,7 +111,10 @@ public abstract class ItemProdSQLiteAdapterBase
 
 		ItemProdSQLiteAdapter.ALIASED_COL_ID,
 		ItemProdSQLiteAdapter.ALIASED_COL_NAME,
-		ItemProdSQLiteAdapter.ALIASED_COL_ITEMS,
+		ItemProdSQLiteAdapter.ALIASED_COL_STATE,
+		ItemProdSQLiteAdapter.ALIASED_COL_UPDATEDATE,
+		ItemProdSQLiteAdapter.ALIASED_COL_ORDERCUSTOMER,
+		ItemProdSQLiteAdapter.ALIASED_COL_CURRENTZONE,
 		ItemProdSQLiteAdapter.ALIASED_COL_ORDERPRODITEMSINTERNAL
 	};
 
@@ -122,13 +154,19 @@ public abstract class ItemProdSQLiteAdapterBase
 		
 		 + COL_ID	+ " INTEGER PRIMARY KEY AUTOINCREMENT,"
 		 + COL_NAME	+ " VARCHAR NOT NULL,"
-		 + COL_ITEMS	+ " INTEGER NOT NULL,"
+		 + COL_STATE	+ " VARCHAR NOT NULL,"
+		 + COL_UPDATEDATE	+ " DATETIME NOT NULL,"
+		 + COL_ORDERCUSTOMER	+ " INTEGER NOT NULL,"
+		 + COL_CURRENTZONE	+ " INTEGER NOT NULL,"
 		 + COL_ORDERPRODITEMSINTERNAL	+ " INTEGER,"
 		
 		
-		 + "FOREIGN KEY(" + COL_ITEMS + ") REFERENCES " 
+		 + "FOREIGN KEY(" + COL_ORDERCUSTOMER + ") REFERENCES " 
 			 + OrderProdSQLiteAdapter.TABLE_NAME 
 				+ " (" + OrderProdSQLiteAdapter.COL_ID + "),"
+		 + "FOREIGN KEY(" + COL_CURRENTZONE + ") REFERENCES " 
+			 + ZoneSQLiteAdapter.TABLE_NAME 
+				+ " (" + ZoneSQLiteAdapter.COL_ID + "),"
 		 + "FOREIGN KEY(" + COL_ORDERPRODITEMSINTERNAL + ") REFERENCES " 
 			 + OrderProdSQLiteAdapter.TABLE_NAME 
 				+ " (" + OrderProdSQLiteAdapter.COL_ID + ")"
@@ -174,9 +212,24 @@ public abstract class ItemProdSQLiteAdapterBase
 				item.getName());
 		}
 
-		if (item.getOrder() != null) {
-			result.put(COL_ITEMS,
-				item.getOrder().getId());
+		if (item.getState() != null) {
+			result.put(COL_STATE,
+				item.getState().getValue());
+		}
+
+		if (item.getUpdateDate() != null) {
+			result.put(COL_UPDATEDATE,
+				item.getUpdateDate().toString(ISODateTimeFormat.dateTime()));
+		}
+
+		if (item.getOrderCustomer() != null) {
+			result.put(COL_ORDERCUSTOMER,
+				item.getOrderCustomer().getId());
+		}
+
+		if (item.getCurrentZone() != null) {
+			result.put(COL_CURRENTZONE,
+				item.getCurrentZone().getId());
 		}
 
 
@@ -211,10 +264,30 @@ public abstract class ItemProdSQLiteAdapterBase
 			result.setName(
 					cursor.getString(index));
 
-			index = cursor.getColumnIndexOrThrow(COL_ITEMS);
-			final OrderProd items = new OrderProd();
-			items.setId(cursor.getInt(index));
-			result.setOrder(items);
+			index = cursor.getColumnIndexOrThrow(COL_STATE);
+			result.setState(
+				ItemState.fromValue(cursor.getString(index)));
+
+			index = cursor.getColumnIndexOrThrow(COL_UPDATEDATE);
+			final DateTime dtUpdateDate =
+					DateUtils.formatISOStringToDateTime(
+							cursor.getString(index));
+			if (dtUpdateDate != null) {
+					result.setUpdateDate(
+							dtUpdateDate);
+			} else {
+				result.setUpdateDate(new DateTime());
+			}
+
+			index = cursor.getColumnIndexOrThrow(COL_ORDERCUSTOMER);
+			final OrderProd orderCustomer = new OrderProd();
+			orderCustomer.setId(cursor.getInt(index));
+			result.setOrderCustomer(orderCustomer);
+
+			index = cursor.getColumnIndexOrThrow(COL_CURRENTZONE);
+			final Zone currentZone = new Zone();
+			currentZone.setId(cursor.getInt(index));
+			result.setCurrentZone(currentZone);
 
 
 		}
@@ -236,44 +309,97 @@ public abstract class ItemProdSQLiteAdapterBase
 		final ItemProd result = this.cursorToItem(cursor);
 		cursor.close();
 
-		if (result.getOrder() != null) {
-			final OrderProdSQLiteAdapter itemsAdapter =
+		if (result.getOrderCustomer() != null) {
+			final OrderProdSQLiteAdapter orderCustomerAdapter =
 					new OrderProdSQLiteAdapter(this.ctx);
-			itemsAdapter.open(this.mDatabase);
+			orderCustomerAdapter.open(this.mDatabase);
 			
-			result.setOrder(itemsAdapter.getByID(
-							result.getOrder().getId()));
+			result.setOrderCustomer(orderCustomerAdapter.getByID(
+							result.getOrderCustomer().getId()));
+		}
+		if (result.getCurrentZone() != null) {
+			final ZoneSQLiteAdapter currentZoneAdapter =
+					new ZoneSQLiteAdapter(this.ctx);
+			currentZoneAdapter.open(this.mDatabase);
+			
+			result.setCurrentZone(currentZoneAdapter.getByID(
+							result.getCurrentZone().getId()));
 		}
 		return result;
 	}
 
 	/**
-	 * Find & read ItemProd by items.
-	 * @param itemsId itemsId
+	 * Find & read ItemProd by orderCustomer.
+	 * @param ordercustomerId ordercustomerId
 	 * @param orderBy Order by string (can be null)
 	 * @return List of ItemProd entities
 	 */
-	 public Cursor getByItems(final int itemsId, String orderBy) {
-		final Cursor cursor = this.query(ALIASED_COLS,
-				ItemProdSQLiteAdapter.COL_ITEMS + "=?",
-				new String[]{Integer.toString(itemsId)},
+	 public Cursor getByOrderCustomer(final int ordercustomerId, String[] projection, String selection, String[] selectionArgs, String orderBy) {
+		String idSelection = ItemProdSQLiteAdapter.COL_ORDERCUSTOMER + "=?";
+		String idSelectionArgs = String.valueOf(ordercustomerId);
+		if (!Strings.isNullOrEmpty(selection)) {
+			selection += " AND " + idSelection;
+			selectionArgs = ObjectArrays.concat(selectionArgs, idSelectionArgs);
+		} else {
+			selection = idSelection;
+			selectionArgs = new String[]{idSelectionArgs};
+		}
+		final Cursor cursor = this.query(
+				projection,
+				selection,
+				selectionArgs,
 				null,
 				null,
 				orderBy);
 
 		return cursor;
 	 }
+	/**
+	 * Find & read ItemProd by currentZone.
+	 * @param currentzoneId currentzoneId
+	 * @param orderBy Order by string (can be null)
+	 * @return List of ItemProd entities
+	 */
+	 public Cursor getByCurrentZone(final int currentzoneId, String[] projection, String selection, String[] selectionArgs, String orderBy) {
+		String idSelection = ItemProdSQLiteAdapter.COL_CURRENTZONE + "=?";
+		String idSelectionArgs = String.valueOf(currentzoneId);
+		if (!Strings.isNullOrEmpty(selection)) {
+			selection += " AND " + idSelection;
+			selectionArgs = ObjectArrays.concat(selectionArgs, idSelectionArgs);
+		} else {
+			selection = idSelection;
+			selectionArgs = new String[]{idSelectionArgs};
+		}
+		final Cursor cursor = this.query(
+				projection,
+				selection,
+				selectionArgs,
+				null,
+				null,
+				orderBy);
 
-				/**
+		return cursor;
+	 }
+	/**
 	 * Find & read ItemProd by OrderProditemsInternal.
 	 * @param orderproditemsinternalId orderproditemsinternalId
 	 * @param orderBy Order by string (can be null)
 	 * @return List of ItemProd entities
 	 */
-	 public Cursor getByOrderProditemsInternal(final int orderproditemsinternalId, String orderBy) {
-		final Cursor cursor = this.query(ALIASED_COLS,
-				ItemProdSQLiteAdapter.COL_ORDERPRODITEMSINTERNAL + "=?",
-				new String[]{Integer.toString(orderproditemsinternalId)},
+	 public Cursor getByOrderProditemsInternal(final int orderproditemsinternalId, String[] projection, String selection, String[] selectionArgs, String orderBy) {
+		String idSelection = ItemProdSQLiteAdapter.COL_ORDERPRODITEMSINTERNAL + "=?";
+		String idSelectionArgs = String.valueOf(orderproditemsinternalId);
+		if (!Strings.isNullOrEmpty(selection)) {
+			selection += " AND " + idSelection;
+			selectionArgs = ObjectArrays.concat(selectionArgs, idSelectionArgs);
+		} else {
+			selection = idSelection;
+			selectionArgs = new String[]{idSelectionArgs};
+		}
+		final Cursor cursor = this.query(
+				projection,
+				selection,
+				selectionArgs,
 				null,
 				null,
 				orderBy);
@@ -281,7 +407,6 @@ public abstract class ItemProdSQLiteAdapterBase
 		return cursor;
 	 }
 
-			
 	/**
 	 * Read All ItemProds entities.
 	 *

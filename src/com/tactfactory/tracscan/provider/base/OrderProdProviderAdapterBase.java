@@ -1,11 +1,11 @@
 /**************************************************************************
  * OrderProdProviderAdapterBase.java, tracscan Android
  *
- * Copyright 2013
+ * Copyright 2013 Mickael Gaillard / TACTfactory
  * Description : 
  * Author(s)   : Harmony
- * Licence     : 
- * Last update : Dec 17, 2013
+ * Licence     : all right reserved
+ * Last update : Dec 19, 2013
  *
  **************************************************************************/
 package com.tactfactory.tracscan.provider.base;
@@ -16,7 +16,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
-
 import com.tactfactory.tracscan.entity.OrderProd;
 import com.tactfactory.tracscan.provider.TracscanProvider;
 import com.tactfactory.tracscan.data.OrderProdSQLiteAdapter;
@@ -211,7 +210,7 @@ public abstract class OrderProdProviderAdapterBase
 				id = Integer.parseInt(uri.getPathSegments().get(1));
 				ItemProdSQLiteAdapter itemsAdapter = new ItemProdSQLiteAdapter(this.ctx);
 				itemsAdapter.open(this.getDb());
-				result = itemsAdapter.getByOrderProditemsInternal(id, null);
+				result = itemsAdapter.getByOrderProditemsInternal(id, ItemProdSQLiteAdapter.ALIASED_COLS, selection, selectionArgs, null);
 				break;
 
 			default:

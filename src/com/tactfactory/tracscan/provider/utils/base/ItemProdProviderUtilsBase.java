@@ -1,11 +1,11 @@
 /**************************************************************************
  * ItemProdProviderUtilsBase.java, tracscan Android
  *
- * Copyright 2013
+ * Copyright 2013 Mickael Gaillard / TACTfactory
  * Description : 
  * Author(s)   : Harmony
- * Licence     : 
- * Last update : Dec 17, 2013
+ * Licence     : all right reserved
+ * Last update : Dec 19, 2013
  *
  **************************************************************************/
 package com.tactfactory.tracscan.provider.utils.base;
@@ -27,16 +27,21 @@ import android.util.Log;
 
 import com.tactfactory.tracscan.criterias.ItemProdCriterias;
 import com.tactfactory.tracscan.criterias.OrderProdCriterias;
+import com.tactfactory.tracscan.criterias.ZoneCriterias;
 import com.tactfactory.tracscan.criterias.base.CriteriasBase;
 import com.tactfactory.tracscan.criterias.base.CriteriasBase.GroupType;
 import com.tactfactory.tracscan.data.ItemProdSQLiteAdapter;
 import com.tactfactory.tracscan.data.OrderProdSQLiteAdapter;
+import com.tactfactory.tracscan.data.ZoneSQLiteAdapter;
 
 import com.tactfactory.tracscan.entity.ItemProd;
 import com.tactfactory.tracscan.entity.OrderProd;
+import com.tactfactory.tracscan.entity.Zone;
+import com.tactfactory.tracscan.entity.ItemState;
 
 import com.tactfactory.tracscan.provider.ItemProdProviderAdapter;
 import com.tactfactory.tracscan.provider.OrderProdProviderAdapter;
+import com.tactfactory.tracscan.provider.ZoneProviderAdapter;
 import com.tactfactory.tracscan.provider.TracscanProvider;
 
 /**
@@ -187,8 +192,14 @@ public abstract class ItemProdProviderUtilsBase
 			result = adapt.cursorToItem(cursor);
 			cursor.close();
 
-				result.setOrder(
-					this.getAssociateItems(result));
+			if (result.getOrderCustomer() != null) {
+				result.setOrderCustomer(
+					this.getAssociateOrderCustomer(result));
+			}
+			if (result.getCurrentZone() != null) {
+				result.setCurrentZone(
+					this.getAssociateCurrentZone(result));
+			}
 		}
 
 		return result;
@@ -326,11 +337,11 @@ public abstract class ItemProdProviderUtilsBase
 
 	/** Relations operations. */
 	/**
-	 * Get associate Items.
+	 * Get associate OrderCustomer.
 	 * @param item ItemProd
 	 * @return OrderProd
 	 */
-	public OrderProd getAssociateItems(
+	public OrderProd getAssociateOrderCustomer(
 			final ItemProd item) {
 		OrderProd result;
 		ContentResolver prov = this.getContext().getContentResolver();
@@ -338,7 +349,7 @@ public abstract class ItemProdProviderUtilsBase
 				OrderProdProviderAdapter.ORDERPROD_URI,
 				OrderProdSQLiteAdapter.ALIASED_COLS,
 				OrderProdSQLiteAdapter.COL_ID + "= ?",
-				new String[]{String.valueOf(item.getOrder().getId())},
+				new String[]{String.valueOf(item.getOrderCustomer().getId())},
 				null);
 
 		if (orderProdCursor.getCount() > 0) {
@@ -350,6 +361,35 @@ public abstract class ItemProdProviderUtilsBase
 			result = null;
 		}
 		orderProdCursor.close();
+
+		return result;
+	}
+
+	/**
+	 * Get associate CurrentZone.
+	 * @param item ItemProd
+	 * @return Zone
+	 */
+	public Zone getAssociateCurrentZone(
+			final ItemProd item) {
+		Zone result;
+		ContentResolver prov = this.getContext().getContentResolver();
+		Cursor zoneCursor = prov.query(
+				ZoneProviderAdapter.ZONE_URI,
+				ZoneSQLiteAdapter.ALIASED_COLS,
+				ZoneSQLiteAdapter.COL_ID + "= ?",
+				new String[]{String.valueOf(item.getCurrentZone().getId())},
+				null);
+
+		if (zoneCursor.getCount() > 0) {
+			zoneCursor.moveToFirst();
+			ZoneSQLiteAdapter zoneAdapt =
+					new ZoneSQLiteAdapter(this.getContext());
+			result = zoneAdapt.cursorToItem(zoneCursor);
+		} else {
+			result = null;
+		}
+		zoneCursor.close();
 
 		return result;
 	}

@@ -1,26 +1,37 @@
 /**************************************************************************
  * LogProdSQLiteAdapterBase.java, tracscan Android
  *
- * Copyright 2013
+ * Copyright 2013 Mickael Gaillard / TACTfactory
  * Description : 
  * Author(s)   : Harmony
- * Licence     : 
- * Last update : Dec 17, 2013
+ * Licence     : all right reserved
+ * Last update : Dec 19, 2013
  *
  **************************************************************************/
 package com.tactfactory.tracscan.data.base;
 
 import java.util.ArrayList;
+import org.joda.time.DateTime;
+import org.joda.time.format.ISODateTimeFormat;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.google.common.base.Strings;
+import com.google.common.collect.ObjectArrays;
 import com.tactfactory.tracscan.data.LogProdSQLiteAdapter;
+import com.tactfactory.tracscan.data.ZoneSQLiteAdapter;
+import com.tactfactory.tracscan.data.UserSQLiteAdapter;
+import com.tactfactory.tracscan.data.ItemProdSQLiteAdapter;
 import com.tactfactory.tracscan.entity.LogProd;
+import com.tactfactory.tracscan.entity.Zone;
+import com.tactfactory.tracscan.entity.User;
+import com.tactfactory.tracscan.entity.ItemProd;
+import com.tactfactory.tracscan.entity.ItemState;
 
-
+import com.tactfactory.tracscan.harmony.util.DateUtils;
 import com.tactfactory.tracscan.TracscanApplication;
 
 
@@ -48,17 +59,57 @@ public abstract class LogProdSQLiteAdapterBase
 	/** Alias. */
 	public static final String ALIASED_COL_ID =
 			TABLE_NAME + "." + COL_ID;
+	/** createDate. */
+	public static final String COL_CREATEDATE =
+			"createDate";
+	/** Alias. */
+	public static final String ALIASED_COL_CREATEDATE =
+			TABLE_NAME + "." + COL_CREATEDATE;
+	/** state. */
+	public static final String COL_STATE =
+			"state";
+	/** Alias. */
+	public static final String ALIASED_COL_STATE =
+			TABLE_NAME + "." + COL_STATE;
+	/** zone. */
+	public static final String COL_ZONE =
+			"zone";
+	/** Alias. */
+	public static final String ALIASED_COL_ZONE =
+			TABLE_NAME + "." + COL_ZONE;
+	/** user. */
+	public static final String COL_USER =
+			"user";
+	/** Alias. */
+	public static final String ALIASED_COL_USER =
+			TABLE_NAME + "." + COL_USER;
+	/** item. */
+	public static final String COL_ITEM =
+			"item";
+	/** Alias. */
+	public static final String ALIASED_COL_ITEM =
+			TABLE_NAME + "." + COL_ITEM;
 
 	/** Global Fields. */
 	public static final String[] COLS = new String[] {
 
-		LogProdSQLiteAdapter.COL_ID
+		LogProdSQLiteAdapter.COL_ID,
+		LogProdSQLiteAdapter.COL_CREATEDATE,
+		LogProdSQLiteAdapter.COL_STATE,
+		LogProdSQLiteAdapter.COL_ZONE,
+		LogProdSQLiteAdapter.COL_USER,
+		LogProdSQLiteAdapter.COL_ITEM
 	};
 
 	/** Global Fields. */
 	public static final String[] ALIASED_COLS = new String[] {
 
-		LogProdSQLiteAdapter.ALIASED_COL_ID
+		LogProdSQLiteAdapter.ALIASED_COL_ID,
+		LogProdSQLiteAdapter.ALIASED_COL_CREATEDATE,
+		LogProdSQLiteAdapter.ALIASED_COL_STATE,
+		LogProdSQLiteAdapter.ALIASED_COL_ZONE,
+		LogProdSQLiteAdapter.ALIASED_COL_USER,
+		LogProdSQLiteAdapter.ALIASED_COL_ITEM
 	};
 
 	/**
@@ -95,9 +146,23 @@ public abstract class LogProdSQLiteAdapterBase
 		return "CREATE TABLE "
 		+ TABLE_NAME	+ " ("
 		
-		 + COL_ID	+ " INTEGER PRIMARY KEY AUTOINCREMENT"
+		 + COL_ID	+ " INTEGER PRIMARY KEY AUTOINCREMENT,"
+		 + COL_CREATEDATE	+ " DATETIME NOT NULL,"
+		 + COL_STATE	+ " VARCHAR NOT NULL,"
+		 + COL_ZONE	+ " INTEGER NOT NULL,"
+		 + COL_USER	+ " INTEGER NOT NULL,"
+		 + COL_ITEM	+ " INTEGER NOT NULL,"
 		
 		
+		 + "FOREIGN KEY(" + COL_ZONE + ") REFERENCES " 
+			 + ZoneSQLiteAdapter.TABLE_NAME 
+				+ " (" + ZoneSQLiteAdapter.COL_ID + "),"
+		 + "FOREIGN KEY(" + COL_USER + ") REFERENCES " 
+			 + UserSQLiteAdapter.TABLE_NAME 
+				+ " (" + UserSQLiteAdapter.COL_ID + "),"
+		 + "FOREIGN KEY(" + COL_ITEM + ") REFERENCES " 
+			 + ItemProdSQLiteAdapter.TABLE_NAME 
+				+ " (" + ItemProdSQLiteAdapter.COL_ID + ")"
 		+ ");"
 ;
 	}
@@ -121,6 +186,31 @@ public abstract class LogProdSQLiteAdapterBase
 
 		result.put(COL_ID,
 			String.valueOf(item.getId()));
+
+		if (item.getCreateDate() != null) {
+			result.put(COL_CREATEDATE,
+				item.getCreateDate().toString(ISODateTimeFormat.dateTime()));
+		}
+
+		if (item.getState() != null) {
+			result.put(COL_STATE,
+				item.getState().getValue());
+		}
+
+		if (item.getZone() != null) {
+			result.put(COL_ZONE,
+				item.getZone().getId());
+		}
+
+		if (item.getUser() != null) {
+			result.put(COL_USER,
+				item.getUser().getId());
+		}
+
+		if (item.getItem() != null) {
+			result.put(COL_ITEM,
+				item.getItem().getId());
+		}
 
 
 		return result;
@@ -150,6 +240,36 @@ public abstract class LogProdSQLiteAdapterBase
 			result.setId(
 					cursor.getInt(index));
 
+			index = cursor.getColumnIndexOrThrow(COL_CREATEDATE);
+			final DateTime dtCreateDate =
+					DateUtils.formatISOStringToDateTime(
+							cursor.getString(index));
+			if (dtCreateDate != null) {
+					result.setCreateDate(
+							dtCreateDate);
+			} else {
+				result.setCreateDate(new DateTime());
+			}
+
+			index = cursor.getColumnIndexOrThrow(COL_STATE);
+			result.setState(
+				ItemState.fromValue(cursor.getString(index)));
+
+			index = cursor.getColumnIndexOrThrow(COL_ZONE);
+			final Zone zone = new Zone();
+			zone.setId(cursor.getInt(index));
+			result.setZone(zone);
+
+			index = cursor.getColumnIndexOrThrow(COL_USER);
+			final User user = new User();
+			user.setId(cursor.getInt(index));
+			result.setUser(user);
+
+			index = cursor.getColumnIndexOrThrow(COL_ITEM);
+			final ItemProd item = new ItemProd();
+			item.setId(cursor.getInt(index));
+			result.setItem(item);
+
 
 		}
 	}
@@ -170,9 +290,111 @@ public abstract class LogProdSQLiteAdapterBase
 		final LogProd result = this.cursorToItem(cursor);
 		cursor.close();
 
+		if (result.getZone() != null) {
+			final ZoneSQLiteAdapter zoneAdapter =
+					new ZoneSQLiteAdapter(this.ctx);
+			zoneAdapter.open(this.mDatabase);
+			
+			result.setZone(zoneAdapter.getByID(
+							result.getZone().getId()));
+		}
+		if (result.getUser() != null) {
+			final UserSQLiteAdapter userAdapter =
+					new UserSQLiteAdapter(this.ctx);
+			userAdapter.open(this.mDatabase);
+			
+			result.setUser(userAdapter.getByID(
+							result.getUser().getId()));
+		}
+		if (result.getItem() != null) {
+			final ItemProdSQLiteAdapter itemAdapter =
+					new ItemProdSQLiteAdapter(this.ctx);
+			itemAdapter.open(this.mDatabase);
+			
+			result.setItem(itemAdapter.getByID(
+							result.getItem().getId()));
+		}
 		return result;
 	}
 
+	/**
+	 * Find & read LogProd by zone.
+	 * @param zoneId zoneId
+	 * @param orderBy Order by string (can be null)
+	 * @return List of LogProd entities
+	 */
+	 public Cursor getByZone(final int zoneId, String[] projection, String selection, String[] selectionArgs, String orderBy) {
+		String idSelection = LogProdSQLiteAdapter.COL_ZONE + "=?";
+		String idSelectionArgs = String.valueOf(zoneId);
+		if (!Strings.isNullOrEmpty(selection)) {
+			selection += " AND " + idSelection;
+			selectionArgs = ObjectArrays.concat(selectionArgs, idSelectionArgs);
+		} else {
+			selection = idSelection;
+			selectionArgs = new String[]{idSelectionArgs};
+		}
+		final Cursor cursor = this.query(
+				projection,
+				selection,
+				selectionArgs,
+				null,
+				null,
+				orderBy);
+
+		return cursor;
+	 }
+	/**
+	 * Find & read LogProd by user.
+	 * @param userId userId
+	 * @param orderBy Order by string (can be null)
+	 * @return List of LogProd entities
+	 */
+	 public Cursor getByUser(final int userId, String[] projection, String selection, String[] selectionArgs, String orderBy) {
+		String idSelection = LogProdSQLiteAdapter.COL_USER + "=?";
+		String idSelectionArgs = String.valueOf(userId);
+		if (!Strings.isNullOrEmpty(selection)) {
+			selection += " AND " + idSelection;
+			selectionArgs = ObjectArrays.concat(selectionArgs, idSelectionArgs);
+		} else {
+			selection = idSelection;
+			selectionArgs = new String[]{idSelectionArgs};
+		}
+		final Cursor cursor = this.query(
+				projection,
+				selection,
+				selectionArgs,
+				null,
+				null,
+				orderBy);
+
+		return cursor;
+	 }
+	/**
+	 * Find & read LogProd by item.
+	 * @param itemId itemId
+	 * @param orderBy Order by string (can be null)
+	 * @return List of LogProd entities
+	 */
+	 public Cursor getByItem(final int itemId, String[] projection, String selection, String[] selectionArgs, String orderBy) {
+		String idSelection = LogProdSQLiteAdapter.COL_ITEM + "=?";
+		String idSelectionArgs = String.valueOf(itemId);
+		if (!Strings.isNullOrEmpty(selection)) {
+			selection += " AND " + idSelection;
+			selectionArgs = ObjectArrays.concat(selectionArgs, idSelectionArgs);
+		} else {
+			selection = idSelection;
+			selectionArgs = new String[]{idSelectionArgs};
+		}
+		final Cursor cursor = this.query(
+				projection,
+				selection,
+				selectionArgs,
+				null,
+				null,
+				orderBy);
+
+		return cursor;
+	 }
 
 	/**
 	 * Read All LogProds entities.

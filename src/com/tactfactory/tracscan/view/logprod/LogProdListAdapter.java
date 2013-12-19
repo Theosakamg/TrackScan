@@ -18,7 +18,6 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.SectionIndexer;
-import android.widget.TextView;
 
 import com.tactfactory.tracscan.harmony.view.HarmonyDrawerActivity;
 import com.google.android.pinnedheader.SelectionItemView;
@@ -40,6 +39,10 @@ public class LogProdListAdapter
 	 */
 	public LogProdListAdapter(Context ctx,
 			LogProdListFragment fragment) {
+		this(ctx);
+	}
+	
+	public LogProdListAdapter(Context ctx) {
 		super(ctx);
 	}
 

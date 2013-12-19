@@ -15,11 +15,12 @@ import com.tactfactory.harmony.annotation.OneToMany;
 @Entity
 public class OrderProd  implements Serializable , Parcelable {
 
+	/** Key Constant for parcelable/serialization. */
+	public static final String PARCEL = 
+			"OrderProd";
+
 	/** Serial Version UID */
 	private static final long serialVersionUID = -659234701808707520L;
-
-	/** Key Constant for parcelable/serialization. */
-	public final static String PARCEL = "OrderProd";
 
 	
 	@Id
@@ -201,6 +202,8 @@ public class OrderProd  implements Serializable , Parcelable {
 			this.setItems(items);
 		}
 	}
+
+
 
 
 

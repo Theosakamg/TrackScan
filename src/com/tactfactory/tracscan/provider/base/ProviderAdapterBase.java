@@ -1,11 +1,11 @@
 /**************************************************************************
  * ProviderAdapterBase.java, tracscan Android
  *
- * Copyright 2013
+ * Copyright 2013 Mickael Gaillard / TACTfactory
  * Description : 
  * Author(s)   : Harmony
- * Licence     : 
- * Last update : Dec 17, 2013
+ * Licence     : all right reserved
+ * Last update : Dec 19, 2013
  *
  **************************************************************************/
 package com.tactfactory.tracscan.provider.base;
@@ -22,7 +22,7 @@ import com.tactfactory.tracscan.data.base.SQLiteAdapterBase;
 import com.tactfactory.tracscan.provider.TracscanProvider;
 
 /**
- * ProviderAdapterBase<T extends Serializable>. 
+ * ProviderAdapterBase<T>. 
  *
  * DO NOT MODIFY THIS CLASS AS IT IS REGENERATED
  *

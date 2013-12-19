@@ -1,11 +1,11 @@
 /**************************************************************************
  * ItemProdUtilsBase.java, tracscan Android
  *
- * Copyright 2013
+ * Copyright 2013 Mickael Gaillard / TACTfactory
  * Description : 
  * Author(s)   : Harmony
- * Licence     : 
- * Last update : Dec 18, 2013
+ * Licence     : all right reserved
+ * Last update : Dec 19, 2013
  *
  **************************************************************************/
 package com.tactfactory.tracscan.test.utils.base;
@@ -19,6 +19,9 @@ import com.tactfactory.tracscan.test.utils.*;
 
 import com.tactfactory.tracscan.entity.OrderProd;
 import com.tactfactory.tracscan.fixture.OrderProdDataLoader;
+import com.tactfactory.tracscan.entity.Zone;
+import com.tactfactory.tracscan.fixture.ZoneDataLoader;
+import com.tactfactory.tracscan.entity.ItemState;
 import java.util.ArrayList;
 
 public abstract class ItemProdUtilsBase {
@@ -34,10 +37,17 @@ public abstract class ItemProdUtilsBase {
 
 		itemProd.setId(TestUtils.generateRandomInt(0,100) + 1);
 		itemProd.setName("name_"+TestUtils.generateRandomString(10));
-		ArrayList<OrderProd> itemss =
+		itemProd.setState(ItemState.values()[TestUtils.generateRandomInt(0,ItemState.values().length)]);
+		itemProd.setUpdateDate(TestUtils.generateRandomDateTime());
+		ArrayList<OrderProd> orderCustomers =
 			new ArrayList<OrderProd>(OrderProdDataLoader.getInstance(ctx).getMap().values());
-		if (!itemss.isEmpty()) {
-			itemProd.setItems(itemss.get(TestUtils.generateRandomInt(0, itemss.size())));
+		if (!orderCustomers.isEmpty()) {
+			itemProd.setOrderCustomer(orderCustomers.get(TestUtils.generateRandomInt(0, orderCustomers.size())));
+		}
+		ArrayList<Zone> currentZones =
+			new ArrayList<Zone>(ZoneDataLoader.getInstance(ctx).getMap().values());
+		if (!currentZones.isEmpty()) {
+			itemProd.setCurrentZone(currentZones.get(TestUtils.generateRandomInt(0, currentZones.size())));
 		}
 
 		return itemProd;
@@ -50,10 +60,18 @@ public abstract class ItemProdUtilsBase {
 		if (itemProd1!=null && itemProd2 !=null){
 			Assert.assertEquals(itemProd1.getId(), itemProd2.getId());
 			Assert.assertEquals(itemProd1.getName(), itemProd2.getName());
-			if (itemProd1.getItems() != null
-					&& itemProd2.getItems() != null) {
-				Assert.assertEquals(itemProd1.getItems().getId(),
-						itemProd2.getItems().getId());
+			Assert.assertEquals(itemProd1.getState(), itemProd2.getState());
+			Assert.assertEquals(itemProd1.getUpdateDate(), itemProd2.getUpdateDate());
+			if (itemProd1.getOrderCustomer() != null
+					&& itemProd2.getOrderCustomer() != null) {
+				Assert.assertEquals(itemProd1.getOrderCustomer().getId(),
+						itemProd2.getOrderCustomer().getId());
+
+			}
+			if (itemProd1.getCurrentZone() != null
+					&& itemProd2.getCurrentZone() != null) {
+				Assert.assertEquals(itemProd1.getCurrentZone().getId(),
+						itemProd2.getCurrentZone().getId());
 
 			}
 		}

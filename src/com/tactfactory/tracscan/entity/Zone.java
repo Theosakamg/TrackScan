@@ -13,11 +13,12 @@ import com.tactfactory.harmony.annotation.Column.Type;
 @Entity
 public class Zone  implements Serializable , Parcelable {
 
+	/** Key Constant for parcelable/serialization. */
+	public static final String PARCEL = 
+			"Zone";
+
 	/** Serial Version UID */
 	private static final long serialVersionUID = 7335864735424803701L;
-
-	/** Key Constant for parcelable/serialization. */
-	public final static String PARCEL = "Zone";
 
 	
 	@Id
@@ -109,6 +110,8 @@ public class Zone  implements Serializable , Parcelable {
 		this.setName(parc.readString());
 		this.setQuantity(parc.readInt());
 	}
+
+
 
 
 
