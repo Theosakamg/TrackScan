@@ -17,6 +17,9 @@ import com.google.common.collect.ObjectArrays;
  */
 public class DateTimeValue extends MethodValue {
 
+	/** Serial Version UID */
+	private static final long serialVersionUID = 3132463458987311060L;
+
 	/**
 	 * Constructor.
 	 *

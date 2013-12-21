@@ -17,6 +17,8 @@ import java.util.ArrayList;
  * Example : SELECT * FROM table1 WHERE id IN (values[1], values[2], values[3]);
  */
 public class ArrayValue extends CriteriaValue {
+	/** Serial Version UID */
+	private static final long serialVersionUID = -657156435344626501L;
 	/**
 	 * List of values.
 	 */

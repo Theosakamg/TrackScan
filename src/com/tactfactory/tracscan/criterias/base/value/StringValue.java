@@ -17,6 +17,8 @@ import java.util.ArrayList;
  * A StringValue is a simple String used for criterias.
  */
 public class StringValue extends CriteriaValue {
+	/** Serial Version UID */
+	private static final long serialVersionUID = 5044748090980752951L;
 	/**
 	 * List of values.
 	 */

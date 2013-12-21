@@ -24,6 +24,8 @@ import com.tactfactory.tracscan.criterias.base.value.StringValue;
  * @param T The entity type
  */
 public abstract class CriteriasBase<T> implements Serializable, ICriteria {
+	/** Serial Version UID */
+	private static final long serialVersionUID = -462895499475530774L;
 	/** Criteria GroupType. */
 	private GroupType type;
 	/** Array of ICriteria. */

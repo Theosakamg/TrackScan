@@ -19,6 +19,9 @@ import com.google.common.base.Joiner;
  * This criteria value represents a method (ie. strtf(param1, param2))
  */
 public class MethodValue extends CriteriaValue {
+	/** Serial Version UID */
+	static final long serialVersionUID = 2344030558210488134L;
+
 	/** Parameters. */
 	private String[] values;
 	

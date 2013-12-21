@@ -20,5 +20,8 @@ import com.tactfactory.tracscan.criterias.base.ICriteria;
  */
 public abstract class CriteriaValue implements ICriteria, Serializable {
 
+	/** Serial Version UID */
+	private static final long serialVersionUID = -7197552116947195064L;
+
 }
 

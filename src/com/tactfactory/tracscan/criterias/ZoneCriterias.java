@@ -11,7 +11,6 @@
 package com.tactfactory.tracscan.criterias;
 
 import com.tactfactory.tracscan.criterias.base.CriteriasBase;
-import com.tactfactory.tracscan.criterias.base.Criteria;
 
 import com.tactfactory.tracscan.entity.Zone;
 
@@ -22,6 +21,9 @@ import com.tactfactory.tracscan.entity.Zone;
  * For more details, see CriteriasBase.
  */
 public class ZoneCriterias extends CriteriasBase<Zone> {
+	/** Serial Version UID */
+	private static final long serialVersionUID = 1681937290574362230L;
+	
 	/** String to parcel zoneCriteria. */
 	public static final String PARCELABLE =
 			"zoneCriteriaPARCEL";

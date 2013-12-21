@@ -10,16 +10,12 @@
  **************************************************************************/
 package com.tactfactory.tracscan.fixture;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import android.content.Context;
 
 import com.tactfactory.tracscan.entity.ItemProd;
 import com.tactfactory.tracscan.entity.OrderProd;
-
-
 
 /**
  * ItemProdDataLoader.

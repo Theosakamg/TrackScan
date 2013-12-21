@@ -21,12 +21,14 @@ import com.tactfactory.tracscan.criterias.base.CriteriasBase;
  *		SELECT refKey FROM refTable WHERE criteria);
  */
 public class SelectValue extends CriteriaValue {
+	/** Serial Version UID */
+	private static final long serialVersionUID = -7941667068578057755L;
 	/** The table referenced by this SelectValue. */
 	private String refTable;
 	/** The field in refTable that will match this criteria's key. */
 	private String refKey;
 	/** A criteria of the refTable type. */
-	private CriteriasBase criteria;
+	private CriteriasBase<?> criteria;
 
 	/**
 	 * @return the refTable
@@ -59,14 +61,14 @@ public class SelectValue extends CriteriaValue {
 	/**
 	 * @return the criteria
 	 */
-	public final CriteriasBase getCriteria() {
+	public final CriteriasBase<?> getCriteria() {
 		return this.criteria;
 	}
 
 	/**
 	 * @param criteria the criteria to set
 	 */
-	public final void setCriteria(CriteriasBase criteria) {
+	public final void setCriteria(CriteriasBase<?>  criteria) {
 		this.criteria = criteria;
 	}
 

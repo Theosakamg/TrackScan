@@ -11,7 +11,6 @@
 package com.tactfactory.tracscan.criterias;
 
 import com.tactfactory.tracscan.criterias.base.CriteriasBase;
-import com.tactfactory.tracscan.criterias.base.Criteria;
 
 import com.tactfactory.tracscan.entity.User;
 
@@ -22,6 +21,9 @@ import com.tactfactory.tracscan.entity.User;
  * For more details, see CriteriasBase.
  */
 public class UserCriterias extends CriteriasBase<User> {
+	/** Serial Version UID */
+	private static final long serialVersionUID = -1491500993763538953L;
+	
 	/** String to parcel userCriteria. */
 	public static final String PARCELABLE =
 			"userCriteriaPARCEL";

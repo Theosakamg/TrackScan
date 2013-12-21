@@ -11,7 +11,6 @@
 package com.tactfactory.tracscan.criterias;
 
 import com.tactfactory.tracscan.criterias.base.CriteriasBase;
-import com.tactfactory.tracscan.criterias.base.Criteria;
 
 import com.tactfactory.tracscan.entity.LogProd;
 
@@ -22,6 +21,9 @@ import com.tactfactory.tracscan.entity.LogProd;
  * For more details, see CriteriasBase.
  */
 public class LogProdCriterias extends CriteriasBase<LogProd> {
+	/** Serial Version UID */
+	private static final long serialVersionUID = -8541907071156946645L;
+	
 	/** String to parcel logProdCriteria. */
 	public static final String PARCELABLE =
 			"logProdCriteriaPARCEL";
