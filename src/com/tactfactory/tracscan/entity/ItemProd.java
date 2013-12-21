@@ -105,6 +105,8 @@ public class ItemProd  implements Serializable , Parcelable {
 
 
 
+
+
 	/**
 	 * Parcel Constructor.
 	 *

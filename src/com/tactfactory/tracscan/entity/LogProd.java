@@ -123,6 +123,8 @@ public class LogProd  implements Serializable , Parcelable {
 
 
 
+
+
 	/**
 	 * Parcel Constructor.
 	 *

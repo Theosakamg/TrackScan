@@ -93,7 +93,6 @@
 	<string name="orderprod_quantity_label">quantity</string>
 	<string name="producttype_type_invalid_field_error">Field type is invalid.</string>
 	<string name="producttype_type_label">type</string>
-	<string name="uri_not_supported">URI not supported</string>
 	<string name="user_empty_list">User list is empty !</string>
 	<string name="user_error_create">User creation error…</string>
 	<string name="user_error_edit">User edition error…</string>
@@ -128,4 +127,5 @@
 	<string name="zone_progress_save_title">Zone save progress</string>
 	<string name="zone_quantity_invalid_field_error">Field quantity is invalid.</string>
 	<string name="zone_quantity_label">quantity</string>
+	<string name="uri_not_supported">URI not supported</string>
 </resources>

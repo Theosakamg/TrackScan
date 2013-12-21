@@ -1,11 +1,11 @@
 /**************************************************************************
  * TracscanProviderBase.java, tracscan Android
  *
- * Copyright 2013
+ * Copyright 2013 Mickael Gaillard / TACTfactory
  * Description : 
  * Author(s)   : Harmony
- * Licence     : 
- * Last update : Dec 17, 2013
+ * Licence     : all right reserved
+ * Last update : Dec 21, 2013
  *
  **************************************************************************/
 package com.tactfactory.tracscan.provider.base;
@@ -69,32 +69,27 @@ public class TracscanProviderBase extends ContentProvider {
 		URI_NOT_SUPPORTED = this.getContext().getString(
 				R.string.uri_not_supported);
 
-		try {
-			this.providerAdapters = new ArrayList<ProviderAdapterBase<?>>();
-			ItemProdProviderAdapter itemProdProviderAdapter =
-				new ItemProdProviderAdapter(this.mContext);
-			this.db = itemProdProviderAdapter.getDb();			
-			this.providerAdapters.add(itemProdProviderAdapter);
-			this.providerAdapters.add(
-					new UserProviderAdapter(
-						this.mContext,
-						this.db));
-			this.providerAdapters.add(
-					new OrderProdProviderAdapter(
-						this.mContext,
-						this.db));
-			this.providerAdapters.add(
-					new ZoneProviderAdapter(
-						this.mContext,
-						this.db));
-			this.providerAdapters.add(
-					new LogProdProviderAdapter(
-						this.mContext,
-						this.db));
-		} catch (Exception e) {
-			Log.e(TAG, e.getMessage());
-			result = false;
-		}
+		this.providerAdapters = new ArrayList<ProviderAdapterBase<?>>();
+		ItemProdProviderAdapter itemProdProviderAdapter =
+			new ItemProdProviderAdapter(this.mContext);
+		this.db = itemProdProviderAdapter.getDb();			
+		this.providerAdapters.add(itemProdProviderAdapter);
+		this.providerAdapters.add(
+				new UserProviderAdapter(
+					this.mContext,
+					this.db));
+		this.providerAdapters.add(
+				new OrderProdProviderAdapter(
+					this.mContext,
+					this.db));
+		this.providerAdapters.add(
+				new ZoneProviderAdapter(
+					this.mContext,
+					this.db));
+		this.providerAdapters.add(
+				new LogProdProviderAdapter(
+					this.mContext,
+					this.db));
 
 		return result;
 	}
