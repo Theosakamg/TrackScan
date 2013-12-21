@@ -10,6 +10,8 @@
  **************************************************************************/
 package com.tactfactory.tracscan;
 
+import com.tactfactory.tracscan.view.license.LicenseActivity;
+
 import com.tactfactory.tracscan.harmony.view.HarmonyDrawerActivity;
 import com.tactfactory.tracscan.view.itemprod.ItemProdCreateActivity;
 import com.tactfactory.tracscan.view.itemprod.ItemProdListActivity;
@@ -48,6 +50,7 @@ public class HomeActivity extends HarmonyDrawerActivity
 	 * Initialize the buttons click listeners.
 	 */
 	private void initButtons() {
+		this.findViewById(R.id.license_button).setOnClickListener(this);
 		this.findViewById(R.id.itemprod_create_button)
 						.setOnClickListener(this);
 		this.findViewById(R.id.itemprod_list_button)
@@ -74,6 +77,10 @@ public class HomeActivity extends HarmonyDrawerActivity
 	public void onClick(View v) {
 		Intent intent;
 		switch (v.getId()) {
+			case R.id.license_button:
+				intent = new Intent(this, LicenseActivity.class);
+				break;
+
 			case R.id.itemprod_create_button:
 				intent = new Intent(this,
 						ItemProdCreateActivity.class);
