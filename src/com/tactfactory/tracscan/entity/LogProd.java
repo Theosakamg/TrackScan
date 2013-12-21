@@ -31,16 +31,16 @@ public class LogProd  implements Serializable , Parcelable {
 	protected DateTime createDate;
 	
 	@Column(type = Type.ENUM)
-	protected ItemState state;
+	protected ItemState stateAction;
 	
 	@ManyToOne
-	protected Zone zone;
+	protected Zone zoneLogged;
 	
 	@ManyToOne
-	protected User user;
+	protected User userLogged;
 	
 	@ManyToOne
-	protected ItemProd item;
+	protected ItemProd itemLogged;
 
 	/**
 	 * Default constructor.
@@ -78,18 +78,18 @@ public class LogProd  implements Serializable , Parcelable {
 			dest.writeInt(0);
 		}
 
-		if (this.getState() != null) {
+		if (this.getStateAction() != null) {
 			dest.writeInt(1);
-			dest.writeString(this.getState().getValue());
+			dest.writeString(this.getStateAction().getValue());
 		} else {
 			dest.writeInt(0);
 		}
 
-		dest.writeParcelable(this.getZone(), flags);
+		dest.writeParcelable(this.getZoneLogged(), flags);
 
-		dest.writeParcelable(this.getUser(), flags);
+		dest.writeParcelable(this.getUserLogged(), flags);
 
-		dest.writeParcelable(this.getItem(), flags);
+		dest.writeParcelable(this.getItemLogged(), flags);
 	}
 
 	/**
@@ -105,17 +105,21 @@ public class LogProd  implements Serializable , Parcelable {
 			this.setCreateDate(new DateTime(parc.readString()));
 		}
 
-		int stateBool = parc.readInt();
-		if (stateBool == 1) {
-			this.setState(ItemState.fromValue(parc.readString()));
+		int stateActionBool = parc.readInt();
+		if (stateActionBool == 1) {
+			this.setStateAction(ItemState.fromValue(parc.readString()));
 		}
 
-		this.setZone((Zone) parc.readParcelable(Zone.class.getClassLoader()));
+		this.setZoneLogged((Zone) parc.readParcelable(Zone.class.getClassLoader()));
 
-		this.setUser((User) parc.readParcelable(User.class.getClassLoader()));
+		this.setUserLogged((User) parc.readParcelable(User.class.getClassLoader()));
 
-		this.setItem((ItemProd) parc.readParcelable(ItemProd.class.getClassLoader()));
+		this.setItemLogged((ItemProd) parc.readParcelable(ItemProd.class.getClassLoader()));
 	}
+
+
+
+
 
 
 
@@ -185,59 +189,59 @@ public class LogProd  implements Serializable , Parcelable {
 	}
 
 	/**
-	 * @return the state
+	 * @return the stateAction
 	 */
-	public ItemState getState() {
-	     return this.state;
+	public ItemState getStateAction() {
+	     return this.stateAction;
 	}
 
 	/**
-	 * @param value the state to set
+	 * @param value the stateAction to set
 	 */
-	public void setState(final ItemState value) {
-	     this.state = value;
+	public void setStateAction(final ItemState value) {
+	     this.stateAction = value;
 	}
 
 	/**
-	 * @return the zone
+	 * @return the zoneLogged
 	 */
-	public Zone getZone() {
-	     return this.zone;
+	public Zone getZoneLogged() {
+	     return this.zoneLogged;
 	}
 
 	/**
-	 * @param value the zone to set
+	 * @param value the zoneLogged to set
 	 */
-	public void setZone(final Zone value) {
-	     this.zone = value;
+	public void setZoneLogged(final Zone value) {
+	     this.zoneLogged = value;
 	}
 
 	/**
-	 * @return the user
+	 * @return the userLogged
 	 */
-	public User getUser() {
-	     return this.user;
+	public User getUserLogged() {
+	     return this.userLogged;
 	}
 
 	/**
-	 * @param value the user to set
+	 * @param value the userLogged to set
 	 */
-	public void setUser(final User value) {
-	     this.user = value;
+	public void setUserLogged(final User value) {
+	     this.userLogged = value;
 	}
 
 	/**
-	 * @return the item
+	 * @return the itemLogged
 	 */
-	public ItemProd getItem() {
-	     return this.item;
+	public ItemProd getItemLogged() {
+	     return this.itemLogged;
 	}
 
 	/**
-	 * @param value the item to set
+	 * @param value the itemLogged to set
 	 */
-	public void setItem(final ItemProd value) {
-	     this.item = value;
+	public void setItemLogged(final ItemProd value) {
+	     this.itemLogged = value;
 	}
 
 }

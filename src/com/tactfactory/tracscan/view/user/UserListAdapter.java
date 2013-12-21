@@ -1,11 +1,11 @@
 /**************************************************************************
  * UserListAdapter.java, tracscan Android
  *
- * Copyright 2013
+ * Copyright 2013 Mickael Gaillard / TACTfactory
  * Description : 
  * Author(s)   : Harmony
- * Licence     : 
- * Last update : Dec 17, 2013
+ * Licence     : all right reserved
+ * Last update : Dec 21, 2013
  *
  **************************************************************************/
 package com.tactfactory.tracscan.view.user;
@@ -36,11 +36,89 @@ public class UserListAdapter
 	/**
 	 * Constructor.
 	 * @param ctx context
-	 * @param fragment fragment
 	 */
-	public UserListAdapter(Context ctx,
-			UserListFragment fragment) {
+	public UserListAdapter(Context ctx) {
 		super(ctx);
+	}
+
+	/**
+     * Constructor.
+     * 
+	 * @param context The context
+	 * @param resource The resource
+	 * @param textViewResourceId The resource id of the text view
+	 * @param objects The list of objects of this adapter
+	 */
+	public UserListAdapter(Context context,
+			int resource,
+			int textViewResourceId,
+			List<User> objects) {
+		super(context, resource, textViewResourceId, objects);
+	}
+
+	/**
+     * Constructor.
+     *
+	 * @param context The context
+	 * @param resource The resource
+	 * @param textViewResourceId The resource id of the text view
+	 * @param objects The list of objects of this adapter
+	 */
+	public UserListAdapter(Context context,
+			int resource,
+			int textViewResourceId,
+			User[] objects) {
+		super(context, resource, textViewResourceId, objects);
+	}
+
+	/**
+     * Constructor.
+     * 
+	 * @param context The context
+	 * @param resource The resource
+	 * @param textViewResourceId The resource id of the text view
+	 */
+	public UserListAdapter(Context context,
+			int resource,
+			int textViewResourceId) {
+		super(context, resource, textViewResourceId);
+	}
+
+	/**
+     * Constructor.
+     * 
+	 * @param context The context
+	 * @param textViewResourceId The resource id of the text view
+	 * @param objects The list of objects of this adapter
+	 */
+	public UserListAdapter(Context context,
+			int textViewResourceId,
+			List<User> objects) {
+		super(context, textViewResourceId, objects);
+	}
+
+	/**
+     * Constructor.
+     * 
+	 * @param context The context
+	 * @param textViewResourceId The resource id of the text view
+	 * @param objects The list of objects of this adapter
+	 */
+	public UserListAdapter(Context context,
+			int textViewResourceId,
+			User[] objects) {
+		super(context, textViewResourceId, objects);
+	}
+
+	/**
+     * Constructor.
+     * 
+	 * @param context The context
+	 * @param textViewResourceId The resource id of the text view
+	 */
+	public UserListAdapter(Context context,
+			int textViewResourceId) {
+		super(context, textViewResourceId);
 	}
 
 	/** Holder row. */

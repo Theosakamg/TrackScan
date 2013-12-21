@@ -1,11 +1,11 @@
 /**************************************************************************
  * OrderProdShowFragment.java, tracscan Android
  *
- * Copyright 2013
+ * Copyright 2013 Mickael Gaillard / TACTfactory
  * Description : 
  * Author(s)   : Harmony
- * Licence     : 
- * Last update : Dec 17, 2013
+ * Licence     : all right reserved
+ * Last update : Dec 21, 2013
  *
  **************************************************************************/
 package com.tactfactory.tracscan.view.orderprod;
@@ -52,8 +52,8 @@ public class OrderProdShowFragment
 	protected DeleteCallback deleteCallback;
 
 	/* This entity's fields views */
-	/** login View. */
-	protected TextView loginView;
+	/** customer View. */
+	protected TextView customerView;
 	/** productType View. */
 	protected TextView productTypeView;
 	/** materialType View. */
@@ -73,9 +73,9 @@ public class OrderProdShowFragment
      * @param view The layout inflating
      */
     protected void initializeComponent(final View view) {
-		this.loginView =
+		this.customerView =
 			(TextView) view.findViewById(
-					R.id.orderprod_login);
+					R.id.orderprod_customer);
 		this.productTypeView =
 			(TextView) view.findViewById(
 					R.id.orderprod_producttype);
@@ -106,7 +106,7 @@ public class OrderProdShowFragment
 
 
 		if (this.model.getCustomer() != null) {
-			this.loginView.setText(this.model.getCustomer());
+			this.customerView.setText(this.model.getCustomer());
 		}
 		if (this.model.getProductType() != null) {
 			this.productTypeView.setText(this.model.getProductType().toString());
@@ -164,8 +164,7 @@ public class OrderProdShowFragment
 		this.loadData();
 		
 		if (this.model != null) {
-			MultiLoader<OrderProd> loader = 
-					new MultiLoader<OrderProd>(this, this.model);
+			MultiLoader loader = new MultiLoader(this);
 			String baseUri = 
 					OrderProdProviderAdapter.ORDERPROD_URI 
 					+ "/" 

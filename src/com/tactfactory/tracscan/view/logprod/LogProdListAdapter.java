@@ -1,11 +1,11 @@
 /**************************************************************************
  * LogProdListAdapter.java, tracscan Android
  *
- * Copyright 2013
+ * Copyright 2013 Mickael Gaillard / TACTfactory
  * Description : 
  * Author(s)   : Harmony
- * Licence     : 
- * Last update : Dec 17, 2013
+ * Licence     : all right reserved
+ * Last update : Dec 21, 2013
  *
  **************************************************************************/
 package com.tactfactory.tracscan.view.logprod;
@@ -18,7 +18,9 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.SectionIndexer;
+import android.widget.TextView;
 
+import com.tactfactory.tracscan.harmony.util.DateUtils;
 import com.tactfactory.tracscan.harmony.view.HarmonyDrawerActivity;
 import com.google.android.pinnedheader.SelectionItemView;
 import com.google.android.pinnedheader.headerlist.HeaderAdapter;
@@ -35,15 +37,89 @@ public class LogProdListAdapter
 	/**
 	 * Constructor.
 	 * @param ctx context
-	 * @param fragment fragment
 	 */
-	public LogProdListAdapter(Context ctx,
-			LogProdListFragment fragment) {
-		this(ctx);
-	}
-	
 	public LogProdListAdapter(Context ctx) {
 		super(ctx);
+	}
+
+	/**
+     * Constructor.
+     * 
+	 * @param context The context
+	 * @param resource The resource
+	 * @param textViewResourceId The resource id of the text view
+	 * @param objects The list of objects of this adapter
+	 */
+	public LogProdListAdapter(Context context,
+			int resource,
+			int textViewResourceId,
+			List<LogProd> objects) {
+		super(context, resource, textViewResourceId, objects);
+	}
+
+	/**
+     * Constructor.
+     *
+	 * @param context The context
+	 * @param resource The resource
+	 * @param textViewResourceId The resource id of the text view
+	 * @param objects The list of objects of this adapter
+	 */
+	public LogProdListAdapter(Context context,
+			int resource,
+			int textViewResourceId,
+			LogProd[] objects) {
+		super(context, resource, textViewResourceId, objects);
+	}
+
+	/**
+     * Constructor.
+     * 
+	 * @param context The context
+	 * @param resource The resource
+	 * @param textViewResourceId The resource id of the text view
+	 */
+	public LogProdListAdapter(Context context,
+			int resource,
+			int textViewResourceId) {
+		super(context, resource, textViewResourceId);
+	}
+
+	/**
+     * Constructor.
+     * 
+	 * @param context The context
+	 * @param textViewResourceId The resource id of the text view
+	 * @param objects The list of objects of this adapter
+	 */
+	public LogProdListAdapter(Context context,
+			int textViewResourceId,
+			List<LogProd> objects) {
+		super(context, textViewResourceId, objects);
+	}
+
+	/**
+     * Constructor.
+     * 
+	 * @param context The context
+	 * @param textViewResourceId The resource id of the text view
+	 * @param objects The list of objects of this adapter
+	 */
+	public LogProdListAdapter(Context context,
+			int textViewResourceId,
+			LogProd[] objects) {
+		super(context, textViewResourceId, objects);
+	}
+
+	/**
+     * Constructor.
+     * 
+	 * @param context The context
+	 * @param textViewResourceId The resource id of the text view
+	 */
+	public LogProdListAdapter(Context context,
+			int textViewResourceId) {
+		super(context, textViewResourceId);
 	}
 
 	/** Holder row. */
@@ -74,8 +150,35 @@ public class LogProdListAdapter
 		 */
 		public void populate(final LogProd model) {
 			View convertView = this.getInnerLayout();
+			TextView createDateView =
+				(TextView) convertView.findViewById(
+						R.id.row_logprod_createdate);
+			TextView stateActionView =
+				(TextView) convertView.findViewById(
+						R.id.row_logprod_stateaction);
+			TextView zoneLoggedView =
+				(TextView) convertView.findViewById(
+						R.id.row_logprod_zonelogged);
+			TextView userLoggedView =
+				(TextView) convertView.findViewById(
+						R.id.row_logprod_userlogged);
+			TextView itemLoggedView =
+				(TextView) convertView.findViewById(
+						R.id.row_logprod_itemlogged);
 
 
+			if (model.getCreateDate() != null) {
+				createDateView.setText(DateUtils.formatDateTimeToString(model.getCreateDate()));
+			}
+			if (model.getStateAction() != null) {
+				stateActionView.setText(model.getStateAction().name());
+			}
+			zoneLoggedView.setText(
+					String.valueOf(model.getZoneLogged().getId()));
+			userLoggedView.setText(
+					String.valueOf(model.getUserLogged().getId()));
+			itemLoggedView.setText(
+					String.valueOf(model.getItemLogged().getId()));
 		}
 	}
 

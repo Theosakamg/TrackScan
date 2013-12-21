@@ -6,21 +6,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
    <TextView
-    	android:id="@+id/orderprod_login_label"
+    	android:id="@+id/orderprod_customer_label"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
-	    android:text="@string/orderprod_login_label"/>
+	    android:text="@string/orderprod_customer_label"/>
     <EditText
-		android:id="@+id/orderprod_login"
+		android:id="@+id/orderprod_customer"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
 	    android:inputType="text"
-		android:layout_below="@+id/orderprod_login_label" />
+		android:layout_below="@+id/orderprod_customer_label" />
    <TextView
     	android:id="@+id/orderprod_producttype_label"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
-	    android:layout_below="@+id/orderprod_login"
+	    android:layout_below="@+id/orderprod_customer"
 	    android:text="@string/orderprod_producttype_label"/>
 	<com.tactfactory.tracscan.harmony.widget.EnumSpinner
 		android:id="@+id/orderprod_producttype"
@@ -61,10 +61,4 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 	    android:layout_below="@+id/orderprod_items_label" />
-
-	<com.tactfactory.tracscan.harmony.widget.ValidationButtons
-    	android:id="@+id/orderprod_validation"
-    	android:layout_width="match_parent"
-    	android:layout_height="wrap_content"
-    	android:layout_below="@+id/orderprod_items_button" />
 </RelativeLayout>

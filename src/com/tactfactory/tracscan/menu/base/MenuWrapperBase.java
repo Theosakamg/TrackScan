@@ -1,19 +1,19 @@
 /**************************************************************************
  * MenuWrapperBase.java, tracscan Android
  *
- * Copyright 2013
+ * Copyright 2013 Mickael Gaillard / TACTfactory
  * Description : 
  * Author(s)   : Harmony
- * Licence     : 
- * Last update : Dec 16, 2013
+ * Licence     : all right reserved
+ * Last update : Dec 21, 2013
  *
  **************************************************************************/
-package com.tactfactory.tracscan.menu;
+package com.tactfactory.tracscan.menu.base;
 
+import android.support.v4.app.FragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
@@ -32,7 +32,7 @@ public interface MenuWrapperBase {
 	 * @param ctx The context
 	 */
 	void initializeMenu(Menu menu,
-			Activity activity,
+			FragmentActivity activity,
 			Fragment fragment,
 			Context ctx);
 
@@ -44,7 +44,7 @@ public interface MenuWrapperBase {
 	 * @param ctx The context
 	 */
 	void updateMenu(Menu menu,
-										Activity activity,
+										FragmentActivity activity,
 										Fragment fragment,
 										Context ctx);
 
@@ -85,7 +85,32 @@ public interface MenuWrapperBase {
 	 * @param ctx The context
 	 */
 	void clear(Menu menu,
-			Activity activity,
+			FragmentActivity activity,
+			Fragment fragment,
+			Context ctx);
+
+
+	/**
+	 * Menu hide.
+	 * @param menu The menu object
+	 * @param activity The current activity.
+	 * @param fragment The current fragment.
+	 * @param ctx The context
+	 */
+	void hide(Menu menu,
+			FragmentActivity activity,
+			Fragment fragment,
+			Context ctx);
+	
+	/**
+	 * Menu show.
+	 * @param menu The menu object
+	 * @param activity The current activity.
+	 * @param fragment The current fragment.
+	 * @param ctx The context
+	 */
+	void show(Menu menu,
+			FragmentActivity activity,
 			Fragment fragment,
 			Context ctx);
 }

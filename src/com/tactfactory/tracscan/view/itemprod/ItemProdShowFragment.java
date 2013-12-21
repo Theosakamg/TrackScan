@@ -1,11 +1,11 @@
 /**************************************************************************
  * ItemProdShowFragment.java, tracscan Android
  *
- * Copyright 2013
+ * Copyright 2013 Mickael Gaillard / TACTfactory
  * Description : 
  * Author(s)   : Harmony
- * Licence     : 
- * Last update : Dec 17, 2013
+ * Licence     : all right reserved
+ * Last update : Dec 21, 2013
  *
  **************************************************************************/
 package com.tactfactory.tracscan.view.itemprod;
@@ -25,7 +25,9 @@ import android.widget.TextView;
 import com.tactfactory.tracscan.R;
 import com.tactfactory.tracscan.data.ItemProdSQLiteAdapter;
 import com.tactfactory.tracscan.data.OrderProdSQLiteAdapter;
+import com.tactfactory.tracscan.data.ZoneSQLiteAdapter;
 import com.tactfactory.tracscan.entity.ItemProd;
+import com.tactfactory.tracscan.harmony.util.DateUtils;
 import com.tactfactory.tracscan.harmony.view.DeleteDialog;
 import com.tactfactory.tracscan.harmony.view.HarmonyFragment;
 import com.tactfactory.tracscan.harmony.view.MultiLoader;
@@ -53,8 +55,14 @@ public class ItemProdShowFragment
 	/* This entity's fields views */
 	/** name View. */
 	protected TextView nameView;
-	/** items View. */
-	protected TextView itemsView;
+	/** state View. */
+	protected TextView stateView;
+	/** updateDate View. */
+	protected TextView updateDateView;
+	/** orderCustomer View. */
+	protected TextView orderCustomerView;
+	/** currentZone View. */
+	protected TextView currentZoneView;
 	/** Data layout. */
 	protected RelativeLayout dataLayout;
 	/** Text view for no ItemProd. */
@@ -69,9 +77,18 @@ public class ItemProdShowFragment
 		this.nameView =
 			(TextView) view.findViewById(
 					R.id.itemprod_name);
-		this.itemsView =
+		this.stateView =
 			(TextView) view.findViewById(
-					R.id.itemprod_items);
+					R.id.itemprod_state);
+		this.updateDateView =
+			(TextView) view.findViewById(
+					R.id.itemprod_updatedate);
+		this.orderCustomerView =
+			(TextView) view.findViewById(
+					R.id.itemprod_ordercustomer);
+		this.currentZoneView =
+			(TextView) view.findViewById(
+					R.id.itemprod_currentzone);
 
 		this.dataLayout =
 				(RelativeLayout) view.findViewById(
@@ -92,9 +109,21 @@ public class ItemProdShowFragment
 		if (this.model.getName() != null) {
 			this.nameView.setText(this.model.getName());
 		}
-		if (this.model.getOrder() != null) {
-			this.itemsView.setText(
-					String.valueOf(this.model.getOrder().getId()));
+		if (this.model.getState() != null) {
+			this.stateView.setText(this.model.getState().toString());
+		}
+		if (this.model.getUpdateDate() != null) {
+			this.updateDateView.setText(
+					DateUtils.formatDateTimeToString(
+							this.model.getUpdateDate()));
+		}
+		if (this.model.getOrderCustomer() != null) {
+			this.orderCustomerView.setText(
+					String.valueOf(this.model.getOrderCustomer().getId()));
+		}
+		if (this.model.getCurrentZone() != null) {
+			this.currentZoneView.setText(
+					String.valueOf(this.model.getCurrentZone().getId()));
 		}
 		} else {
     		this.dataLayout.setVisibility(View.GONE);
@@ -138,8 +167,7 @@ public class ItemProdShowFragment
 		this.loadData();
 		
 		if (this.model != null) {
-			MultiLoader<ItemProd> loader = 
-					new MultiLoader<ItemProd>(this, this.model);
+			MultiLoader loader = new MultiLoader(this);
 			String baseUri = 
 					ItemProdProviderAdapter.ITEMPROD_URI 
 					+ "/" 
@@ -157,12 +185,25 @@ public class ItemProdShowFragment
 
 				}
 			});
-			loader.addUri(Uri.parse(baseUri + "/items"), 
+			loader.addUri(Uri.parse(baseUri + "/ordercustomer"), 
 					new UriLoadedCallback() {
 
 				@Override
 				public void onLoadComplete(Cursor c) {
-					ItemProdShowFragment.this.onItemsLoaded(c);
+					ItemProdShowFragment.this.onOrderCustomerLoaded(c);
+				}
+
+				@Override
+				public void onLoaderReset() {
+
+				}
+			});
+			loader.addUri(Uri.parse(baseUri + "/currentzone"), 
+					new UriLoadedCallback() {
+
+				@Override
+				public void onLoadComplete(Cursor c) {
+					ItemProdShowFragment.this.onCurrentZoneLoaded(c);
 				}
 
 				@Override
@@ -193,17 +234,37 @@ public class ItemProdShowFragment
 	 * 
 	 * @param c The cursor of this relation
 	 */
-	public void onItemsLoaded(Cursor c) {
+	public void onOrderCustomerLoaded(Cursor c) {
 		if (this.model != null) {
 			if (c != null) {
 				if (c.getCount() > 0) {
 					c.moveToFirst();
-					this.model.setOrder(
+					this.model.setOrderCustomer(
 							new OrderProdSQLiteAdapter(getActivity()).cursorToItem(c));
 					this.loadData();
 			}
 			} else {
-				this.model.setOrder(null);
+				this.model.setOrderCustomer(null);
+					this.loadData();
+			}
+		}
+	}
+	/**
+	 * Called when the relation has been loaded.
+	 * 
+	 * @param c The cursor of this relation
+	 */
+	public void onCurrentZoneLoaded(Cursor c) {
+		if (this.model != null) {
+			if (c != null) {
+				if (c.getCount() > 0) {
+					c.moveToFirst();
+					this.model.setCurrentZone(
+							new ZoneSQLiteAdapter(getActivity()).cursorToItem(c));
+					this.loadData();
+			}
+			} else {
+				this.model.setCurrentZone(null);
 					this.loadData();
 			}
 		}

@@ -1,11 +1,11 @@
 /**************************************************************************
  * UserCreateFragment.java, tracscan Android
  *
- * Copyright 2013
+ * Copyright 2013 Mickael Gaillard / TACTfactory
  * Description : 
  * Author(s)   : Harmony
- * Licence     : 
- * Last update : Dec 17, 2013
+ * Licence     : all right reserved
+ * Last update : Dec 21, 2013
  *
  **************************************************************************/
 package com.tactfactory.tracscan.view.user;
@@ -35,8 +35,7 @@ import com.tactfactory.tracscan.harmony.view.HarmonyDrawerActivity;
 import com.tactfactory.tracscan.harmony.view.HarmonyFragment;
 
 import com.tactfactory.tracscan.harmony.widget.EnumSpinner;
-import com.tactfactory.tracscan.harmony.widget.ValidationButtons;
-import com.tactfactory.tracscan.harmony.widget.ValidationButtons.OnValidationListener;
+import com.tactfactory.tracscan.menu.SaveMenuWrapper.SaveMenuInterface;
 import com.tactfactory.tracscan.provider.utils.UserProviderUtils;
 
 /**
@@ -45,7 +44,7 @@ import com.tactfactory.tracscan.provider.utils.UserProviderUtils;
  * This fragment gives you an interface to create a User.
  */
 public class UserCreateFragment extends HarmonyFragment
-			implements OnValidationListener {
+			implements SaveMenuInterface {
 	/** Model data. */
 	protected User model = new User();
 
@@ -56,8 +55,6 @@ public class UserCreateFragment extends HarmonyFragment
 	protected EditText loginView;
 	/** passwd View. */
 	protected EditText passwdView;
-	/** Save button. */
-	protected ValidationButtons validationButtons;
 
 	/** Initialize view of fields.
 	 *
@@ -71,10 +68,6 @@ public class UserCreateFragment extends HarmonyFragment
 			(EditText) view.findViewById(R.id.user_login);
 		this.passwdView =
 			(EditText) view.findViewById(R.id.user_passwd);
-
-		this.validationButtons = (ValidationButtons) view.findViewById(
-					R.id.user_validation);
-		this.validationButtons.setListener(this);
 	}
 
 	/** Load data from model to fields view. */
@@ -221,15 +214,10 @@ public class UserCreateFragment extends HarmonyFragment
 
 
 	@Override
-	public void onValidationSelected() {
+	public void onClickSave() {
 		if (this.validateData()) {
 			this.saveData();
 			new CreateTask(this, this.model).execute();
 		}
-	}
-
-	@Override
-	public void onCancelSelected() {
-		this.getActivity().finish();
 	}
 }

@@ -1,23 +1,27 @@
 /**************************************************************************
  * TracscanMenuBase.java, tracscan Android
  *
- * Copyright 2013
+ * Copyright 2013 Mickael Gaillard / TACTfactory
  * Description : 
  * Author(s)   : Harmony
- * Licence     : 
- * Last update : Dec 17, 2013
+ * Licence     : all right reserved
+ * Last update : Dec 21, 2013
  *
  **************************************************************************/
-package com.tactfactory.tracscan.menu;
+package com.tactfactory.tracscan.menu.base;
 
+import android.support.v4.app.FragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.util.SparseArray;
+
+import com.tactfactory.tracscan.menu.SaveMenuWrapper;
+import com.tactfactory.tracscan.menu.CrudEditDeleteMenuWrapper;
+import com.tactfactory.tracscan.menu.CrudCreateMenuWrapper;
 
 /**
  * TracscanMenuBase.
@@ -26,10 +30,12 @@ import android.util.SparseArray;
  * please see TracscanMenu.
  */
 public abstract class TracscanMenuBase {
+	/** Save value. */
+	public static final int SAVE = 0x1;
 	/** Crudeditdelete value. */
-	public static final int CRUDEDITDELETE = 0x1;
+	public static final int CRUDEDITDELETE = 0x2;
 	/** Crudcreate value. */
-	public static final int CRUDCREATE = 0x2;
+	public static final int CRUDCREATE = 0x3;
 
 	/** Array of MenuWrapperBase. */
 	protected SparseArray<MenuWrapperBase> menus =
@@ -66,6 +72,7 @@ public abstract class TracscanMenuBase {
 
 		this.fragment	= fragment;
 		this.ctx 	= ctx;
+		this.menus.put(SAVE, new SaveMenuWrapper());
 		this.menus.put(CRUDEDITDELETE, new CrudEditDeleteMenuWrapper());
 		this.menus.put(CRUDCREATE, new CrudCreateMenuWrapper());
 
@@ -79,7 +86,7 @@ public abstract class TracscanMenuBase {
 
 		for (int i = 0; i < this.menus.size(); i++) {
 			this.menus.valueAt(i).initializeMenu(menu,
-					(Activity) this.ctx,
+					(FragmentActivity) this.ctx,
 					this.fragment,
 					this.ctx);
 		}
@@ -105,7 +112,7 @@ public abstract class TracscanMenuBase {
 	public void updateMenu(final Menu menu) {
 		for (int i = 0; i < this.menus.size(); i++) {
 			this.menus.valueAt(i).updateMenu(menu,
-					(Activity) this.ctx,
+					(FragmentActivity) this.ctx,
 					this.fragment,
 					this.ctx);
 		}
@@ -117,7 +124,7 @@ public abstract class TracscanMenuBase {
 	public void clear(final Menu menu) {
 		for (int i = 0; i < this.menus.size(); i++) {
 			this.menus.valueAt(i).clear(menu,
-					(Activity) this.ctx,
+					(FragmentActivity) this.ctx,
 					this.fragment,
 					this.ctx);
 		}
@@ -196,5 +203,33 @@ public abstract class TracscanMenuBase {
 					this.ctx,
 					this.fragment);
 		}
+	}
+
+	/**
+	 * Hide the menus.
+	 */
+	public void hideMenus() {
+		for (int i = 0; i < this.menus.size(); i++) {
+			this.menus.valueAt(i).hide(menu,
+					(FragmentActivity) this.ctx,
+					this.fragment,
+					this.ctx);
+		}
+		
+		((FragmentActivity) this.ctx).supportInvalidateOptionsMenu();
+	}
+	
+	/**
+	 * Show the menus.
+	 */
+	public void showMenus() {
+		for (int i = 0; i < this.menus.size(); i++) {
+			this.menus.valueAt(i).show(menu,
+					(FragmentActivity) this.ctx,
+					this.fragment,
+					this.ctx);
+		}
+		
+		((FragmentActivity) this.ctx).supportInvalidateOptionsMenu();
 	}
 }

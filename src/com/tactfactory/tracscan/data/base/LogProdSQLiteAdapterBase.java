@@ -1,11 +1,9 @@
 /**************************************************************************
  * LogProdSQLiteAdapterBase.java, tracscan Android
  *
- * Copyright 2013 Mickael Gaillard / TACTfactory
+ * Copyright 2013
  * Description : 
  * Author(s)   : Harmony
- * Licence     : all right reserved
- * Last update : Dec 19, 2013
  *
  **************************************************************************/
 package com.tactfactory.tracscan.data.base;
@@ -65,40 +63,40 @@ public abstract class LogProdSQLiteAdapterBase
 	/** Alias. */
 	public static final String ALIASED_COL_CREATEDATE =
 			TABLE_NAME + "." + COL_CREATEDATE;
-	/** state. */
-	public static final String COL_STATE =
-			"state";
+	/** stateAction. */
+	public static final String COL_STATEACTION =
+			"stateAction";
 	/** Alias. */
-	public static final String ALIASED_COL_STATE =
-			TABLE_NAME + "." + COL_STATE;
-	/** zone. */
-	public static final String COL_ZONE =
-			"zone";
+	public static final String ALIASED_COL_STATEACTION =
+			TABLE_NAME + "." + COL_STATEACTION;
+	/** zoneLogged. */
+	public static final String COL_ZONELOGGED =
+			"zoneLogged";
 	/** Alias. */
-	public static final String ALIASED_COL_ZONE =
-			TABLE_NAME + "." + COL_ZONE;
-	/** user. */
-	public static final String COL_USER =
-			"user";
+	public static final String ALIASED_COL_ZONELOGGED =
+			TABLE_NAME + "." + COL_ZONELOGGED;
+	/** userLogged. */
+	public static final String COL_USERLOGGED =
+			"userLogged";
 	/** Alias. */
-	public static final String ALIASED_COL_USER =
-			TABLE_NAME + "." + COL_USER;
-	/** item. */
-	public static final String COL_ITEM =
-			"item";
+	public static final String ALIASED_COL_USERLOGGED =
+			TABLE_NAME + "." + COL_USERLOGGED;
+	/** itemLogged. */
+	public static final String COL_ITEMLOGGED =
+			"itemLogged";
 	/** Alias. */
-	public static final String ALIASED_COL_ITEM =
-			TABLE_NAME + "." + COL_ITEM;
+	public static final String ALIASED_COL_ITEMLOGGED =
+			TABLE_NAME + "." + COL_ITEMLOGGED;
 
 	/** Global Fields. */
 	public static final String[] COLS = new String[] {
 
 		LogProdSQLiteAdapter.COL_ID,
 		LogProdSQLiteAdapter.COL_CREATEDATE,
-		LogProdSQLiteAdapter.COL_STATE,
-		LogProdSQLiteAdapter.COL_ZONE,
-		LogProdSQLiteAdapter.COL_USER,
-		LogProdSQLiteAdapter.COL_ITEM
+		LogProdSQLiteAdapter.COL_STATEACTION,
+		LogProdSQLiteAdapter.COL_ZONELOGGED,
+		LogProdSQLiteAdapter.COL_USERLOGGED,
+		LogProdSQLiteAdapter.COL_ITEMLOGGED
 	};
 
 	/** Global Fields. */
@@ -106,10 +104,10 @@ public abstract class LogProdSQLiteAdapterBase
 
 		LogProdSQLiteAdapter.ALIASED_COL_ID,
 		LogProdSQLiteAdapter.ALIASED_COL_CREATEDATE,
-		LogProdSQLiteAdapter.ALIASED_COL_STATE,
-		LogProdSQLiteAdapter.ALIASED_COL_ZONE,
-		LogProdSQLiteAdapter.ALIASED_COL_USER,
-		LogProdSQLiteAdapter.ALIASED_COL_ITEM
+		LogProdSQLiteAdapter.ALIASED_COL_STATEACTION,
+		LogProdSQLiteAdapter.ALIASED_COL_ZONELOGGED,
+		LogProdSQLiteAdapter.ALIASED_COL_USERLOGGED,
+		LogProdSQLiteAdapter.ALIASED_COL_ITEMLOGGED
 	};
 
 	/**
@@ -148,19 +146,19 @@ public abstract class LogProdSQLiteAdapterBase
 		
 		 + COL_ID	+ " INTEGER PRIMARY KEY AUTOINCREMENT,"
 		 + COL_CREATEDATE	+ " DATETIME NOT NULL,"
-		 + COL_STATE	+ " VARCHAR NOT NULL,"
-		 + COL_ZONE	+ " INTEGER NOT NULL,"
-		 + COL_USER	+ " INTEGER NOT NULL,"
-		 + COL_ITEM	+ " INTEGER NOT NULL,"
+		 + COL_STATEACTION	+ " VARCHAR NOT NULL,"
+		 + COL_ZONELOGGED	+ " INTEGER NOT NULL,"
+		 + COL_USERLOGGED	+ " INTEGER NOT NULL,"
+		 + COL_ITEMLOGGED	+ " INTEGER NOT NULL,"
 		
 		
-		 + "FOREIGN KEY(" + COL_ZONE + ") REFERENCES " 
+		 + "FOREIGN KEY(" + COL_ZONELOGGED + ") REFERENCES " 
 			 + ZoneSQLiteAdapter.TABLE_NAME 
 				+ " (" + ZoneSQLiteAdapter.COL_ID + "),"
-		 + "FOREIGN KEY(" + COL_USER + ") REFERENCES " 
+		 + "FOREIGN KEY(" + COL_USERLOGGED + ") REFERENCES " 
 			 + UserSQLiteAdapter.TABLE_NAME 
 				+ " (" + UserSQLiteAdapter.COL_ID + "),"
-		 + "FOREIGN KEY(" + COL_ITEM + ") REFERENCES " 
+		 + "FOREIGN KEY(" + COL_ITEMLOGGED + ") REFERENCES " 
 			 + ItemProdSQLiteAdapter.TABLE_NAME 
 				+ " (" + ItemProdSQLiteAdapter.COL_ID + ")"
 		+ ");"
@@ -192,24 +190,24 @@ public abstract class LogProdSQLiteAdapterBase
 				item.getCreateDate().toString(ISODateTimeFormat.dateTime()));
 		}
 
-		if (item.getState() != null) {
-			result.put(COL_STATE,
-				item.getState().getValue());
+		if (item.getStateAction() != null) {
+			result.put(COL_STATEACTION,
+				item.getStateAction().getValue());
 		}
 
-		if (item.getZone() != null) {
-			result.put(COL_ZONE,
-				item.getZone().getId());
+		if (item.getZoneLogged() != null) {
+			result.put(COL_ZONELOGGED,
+				item.getZoneLogged().getId());
 		}
 
-		if (item.getUser() != null) {
-			result.put(COL_USER,
-				item.getUser().getId());
+		if (item.getUserLogged() != null) {
+			result.put(COL_USERLOGGED,
+				item.getUserLogged().getId());
 		}
 
-		if (item.getItem() != null) {
-			result.put(COL_ITEM,
-				item.getItem().getId());
+		if (item.getItemLogged() != null) {
+			result.put(COL_ITEMLOGGED,
+				item.getItemLogged().getId());
 		}
 
 
@@ -251,24 +249,24 @@ public abstract class LogProdSQLiteAdapterBase
 				result.setCreateDate(new DateTime());
 			}
 
-			index = cursor.getColumnIndexOrThrow(COL_STATE);
-			result.setState(
+			index = cursor.getColumnIndexOrThrow(COL_STATEACTION);
+			result.setStateAction(
 				ItemState.fromValue(cursor.getString(index)));
 
-			index = cursor.getColumnIndexOrThrow(COL_ZONE);
-			final Zone zone = new Zone();
-			zone.setId(cursor.getInt(index));
-			result.setZone(zone);
+			index = cursor.getColumnIndexOrThrow(COL_ZONELOGGED);
+			final Zone zoneLogged = new Zone();
+			zoneLogged.setId(cursor.getInt(index));
+			result.setZoneLogged(zoneLogged);
 
-			index = cursor.getColumnIndexOrThrow(COL_USER);
-			final User user = new User();
-			user.setId(cursor.getInt(index));
-			result.setUser(user);
+			index = cursor.getColumnIndexOrThrow(COL_USERLOGGED);
+			final User userLogged = new User();
+			userLogged.setId(cursor.getInt(index));
+			result.setUserLogged(userLogged);
 
-			index = cursor.getColumnIndexOrThrow(COL_ITEM);
-			final ItemProd item = new ItemProd();
-			item.setId(cursor.getInt(index));
-			result.setItem(item);
+			index = cursor.getColumnIndexOrThrow(COL_ITEMLOGGED);
+			final ItemProd itemLogged = new ItemProd();
+			itemLogged.setId(cursor.getInt(index));
+			result.setItemLogged(itemLogged);
 
 
 		}
@@ -290,42 +288,42 @@ public abstract class LogProdSQLiteAdapterBase
 		final LogProd result = this.cursorToItem(cursor);
 		cursor.close();
 
-		if (result.getZone() != null) {
-			final ZoneSQLiteAdapter zoneAdapter =
+		if (result.getZoneLogged() != null) {
+			final ZoneSQLiteAdapter zoneLoggedAdapter =
 					new ZoneSQLiteAdapter(this.ctx);
-			zoneAdapter.open(this.mDatabase);
+			zoneLoggedAdapter.open(this.mDatabase);
 			
-			result.setZone(zoneAdapter.getByID(
-							result.getZone().getId()));
+			result.setZoneLogged(zoneLoggedAdapter.getByID(
+							result.getZoneLogged().getId()));
 		}
-		if (result.getUser() != null) {
-			final UserSQLiteAdapter userAdapter =
+		if (result.getUserLogged() != null) {
+			final UserSQLiteAdapter userLoggedAdapter =
 					new UserSQLiteAdapter(this.ctx);
-			userAdapter.open(this.mDatabase);
+			userLoggedAdapter.open(this.mDatabase);
 			
-			result.setUser(userAdapter.getByID(
-							result.getUser().getId()));
+			result.setUserLogged(userLoggedAdapter.getByID(
+							result.getUserLogged().getId()));
 		}
-		if (result.getItem() != null) {
-			final ItemProdSQLiteAdapter itemAdapter =
+		if (result.getItemLogged() != null) {
+			final ItemProdSQLiteAdapter itemLoggedAdapter =
 					new ItemProdSQLiteAdapter(this.ctx);
-			itemAdapter.open(this.mDatabase);
+			itemLoggedAdapter.open(this.mDatabase);
 			
-			result.setItem(itemAdapter.getByID(
-							result.getItem().getId()));
+			result.setItemLogged(itemLoggedAdapter.getByID(
+							result.getItemLogged().getId()));
 		}
 		return result;
 	}
 
 	/**
-	 * Find & read LogProd by zone.
-	 * @param zoneId zoneId
+	 * Find & read LogProd by zoneLogged.
+	 * @param zoneloggedId zoneloggedId
 	 * @param orderBy Order by string (can be null)
 	 * @return List of LogProd entities
 	 */
-	 public Cursor getByZone(final int zoneId, String[] projection, String selection, String[] selectionArgs, String orderBy) {
-		String idSelection = LogProdSQLiteAdapter.COL_ZONE + "=?";
-		String idSelectionArgs = String.valueOf(zoneId);
+	 public Cursor getByZoneLogged(final int zoneloggedId, String[] projection, String selection, String[] selectionArgs, String orderBy) {
+		String idSelection = LogProdSQLiteAdapter.COL_ZONELOGGED + "=?";
+		String idSelectionArgs = String.valueOf(zoneloggedId);
 		if (!Strings.isNullOrEmpty(selection)) {
 			selection += " AND " + idSelection;
 			selectionArgs = ObjectArrays.concat(selectionArgs, idSelectionArgs);
@@ -344,14 +342,14 @@ public abstract class LogProdSQLiteAdapterBase
 		return cursor;
 	 }
 	/**
-	 * Find & read LogProd by user.
-	 * @param userId userId
+	 * Find & read LogProd by userLogged.
+	 * @param userloggedId userloggedId
 	 * @param orderBy Order by string (can be null)
 	 * @return List of LogProd entities
 	 */
-	 public Cursor getByUser(final int userId, String[] projection, String selection, String[] selectionArgs, String orderBy) {
-		String idSelection = LogProdSQLiteAdapter.COL_USER + "=?";
-		String idSelectionArgs = String.valueOf(userId);
+	 public Cursor getByUserLogged(final int userloggedId, String[] projection, String selection, String[] selectionArgs, String orderBy) {
+		String idSelection = LogProdSQLiteAdapter.COL_USERLOGGED + "=?";
+		String idSelectionArgs = String.valueOf(userloggedId);
 		if (!Strings.isNullOrEmpty(selection)) {
 			selection += " AND " + idSelection;
 			selectionArgs = ObjectArrays.concat(selectionArgs, idSelectionArgs);
@@ -370,14 +368,14 @@ public abstract class LogProdSQLiteAdapterBase
 		return cursor;
 	 }
 	/**
-	 * Find & read LogProd by item.
-	 * @param itemId itemId
+	 * Find & read LogProd by itemLogged.
+	 * @param itemloggedId itemloggedId
 	 * @param orderBy Order by string (can be null)
 	 * @return List of LogProd entities
 	 */
-	 public Cursor getByItem(final int itemId, String[] projection, String selection, String[] selectionArgs, String orderBy) {
-		String idSelection = LogProdSQLiteAdapter.COL_ITEM + "=?";
-		String idSelectionArgs = String.valueOf(itemId);
+	 public Cursor getByItemLogged(final int itemloggedId, String[] projection, String selection, String[] selectionArgs, String orderBy) {
+		String idSelection = LogProdSQLiteAdapter.COL_ITEMLOGGED + "=?";
+		String idSelectionArgs = String.valueOf(itemloggedId);
 		if (!Strings.isNullOrEmpty(selection)) {
 			selection += " AND " + idSelection;
 			selectionArgs = ObjectArrays.concat(selectionArgs, idSelectionArgs);

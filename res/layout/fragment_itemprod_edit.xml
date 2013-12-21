@@ -16,21 +16,50 @@
 	    android:layout_height="wrap_content"
 	    android:inputType="text"
 		android:layout_below="@+id/itemprod_name_label" />
-    <TextView
-    	android:id="@+id/itemprod_items_label"
+   <TextView
+    	android:id="@+id/itemprod_state_label"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
 	    android:layout_below="@+id/itemprod_name"
-	    android:text="@string/itemprod_items_label"/>
+	    android:text="@string/itemprod_state_label"/>
+	<com.tactfactory.tracscan.harmony.widget.EnumSpinner
+		android:id="@+id/itemprod_state"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+        android:layout_below="@+id/itemprod_state_label" />
+   <TextView
+    	android:id="@+id/itemprod_updatedate_label"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/itemprod_state"
+	    android:text="@string/itemprod_updatedate_label"/>
+	<com.tactfactory.tracscan.harmony.widget.DateTimeWidget
+		android:id="@+id/itemprod_updatedate"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+        android:layout_below="@+id/itemprod_updatedate_label"
+		harmony:dateTimeWidget_dateDialogTitle="@string/itemprod_updatedate_date_title"
+		harmony:dateTimeWidget_timeDialogTitle="@string/itemprod_updatedate_time_title" />
+    <TextView
+    	android:id="@+id/itemprod_ordercustomer_label"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/itemprod_updatedate"
+	    android:text="@string/itemprod_ordercustomer_label"/>
     <com.tactfactory.tracscan.harmony.widget.SingleEntityWidget
-        android:id="@+id/itemprod_items_button"
+        android:id="@+id/itemprod_ordercustomer_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-	    android:layout_below="@+id/itemprod_items_label" />
-
-	<com.tactfactory.tracscan.harmony.widget.ValidationButtons
-    	android:id="@+id/itemprod_validation"
-    	android:layout_width="match_parent"
-    	android:layout_height="wrap_content"
-    	android:layout_below="@+id/itemprod_items_button" />
+	    android:layout_below="@+id/itemprod_ordercustomer_label" />
+    <TextView
+    	android:id="@+id/itemprod_currentzone_label"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/itemprod_ordercustomer_button"
+	    android:text="@string/itemprod_currentzone_label"/>
+    <com.tactfactory.tracscan.harmony.widget.SingleEntityWidget
+        android:id="@+id/itemprod_currentzone_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+	    android:layout_below="@+id/itemprod_currentzone_label" />
 </RelativeLayout>

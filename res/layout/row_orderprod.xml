@@ -8,7 +8,7 @@
     android:paddingRight="10dp"
     android:paddingTop="2.5dp" >
 	    <TextView
-			android:id="@+id/row_orderprod_login"
+			android:id="@+id/row_orderprod_customer"
 	    	android:layout_width="match_parent"
 	    	android:layout_height="wrap_content"
 	        android:layout_alignParentTop="true" />
@@ -16,7 +16,7 @@
 			android:id="@+id/row_orderprod_producttype"
 	    	android:layout_width="match_parent"
 	    	android:layout_height="wrap_content"
-			android:layout_below="@+id/row_orderprod_login" />
+			android:layout_below="@+id/row_orderprod_customer" />
 	    <TextView
 			android:id="@+id/row_orderprod_materialtype"
 	    	android:layout_width="match_parent"

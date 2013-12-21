@@ -1,11 +1,11 @@
 package com.tactfactory.tracscan.harmony.view;
 
 import com.tactfactory.tracscan.R;
-
 import com.tactfactory.tracscan.view.itemprod.ItemProdListActivity;
 import com.tactfactory.tracscan.view.user.UserListActivity;
 import com.tactfactory.tracscan.view.orderprod.OrderProdListActivity;
 import com.tactfactory.tracscan.view.zone.ZoneListActivity;
+import com.tactfactory.tracscan.view.license.LicenseActivity;
 import com.tactfactory.tracscan.view.logprod.LogProdListActivity;
 
 import android.content.Intent;
@@ -72,6 +72,11 @@ public class DrawerManager implements OnClickListener {
 				intent = new Intent(this.drawerActivity,
 							LogProdListActivity.class);
 				break;
+				
+			case R.id.menu_license_button:
+				intent = new Intent(this.drawerActivity,
+							LicenseActivity.class);
+				break;
 
 		}
 
@@ -100,6 +105,9 @@ public class DrawerManager implements OnClickListener {
 					.setOnClickListener(this);
 		menuLeftView.findViewById(
 				R.id.menu_logprod_list_button)
+					.setOnClickListener(this);
+		menuLeftView.findViewById(
+				R.id.menu_license_button)
 					.setOnClickListener(this);
 	}
 }

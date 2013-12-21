@@ -5,9 +5,60 @@
 	xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-
-	<com.tactfactory.tracscan.harmony.widget.ValidationButtons
-    	android:id="@+id/logprod_validation"
-    	android:layout_width="match_parent"
-    	android:layout_height="wrap_content" />
+    <TextView
+    	android:id="@+id/logprod_createdate_label"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:text="@string/logprod_createdate_label"/>
+	<com.tactfactory.tracscan.harmony.widget.DateTimeWidget
+		android:id="@+id/logprod_createdate"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+        android:layout_below="@+id/logprod_createdate_label"
+		harmony:dateTimeWidget_dateDialogTitle="@string/logprod_createdate_date_title"
+		harmony:dateTimeWidget_timeDialogTitle="@string/logprod_createdate_time_title" />
+    <TextView
+    	android:id="@+id/logprod_stateaction_label"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/logprod_createdate"
+	    android:text="@string/logprod_stateaction_label"/>
+	<com.tactfactory.tracscan.harmony.widget.EnumSpinner
+		android:id="@+id/logprod_stateaction"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+        android:layout_below="@+id/logprod_stateaction_label" />
+    <TextView
+    	android:id="@+id/logprod_zonelogged_label"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/logprod_stateaction"
+	    android:text="@string/logprod_zonelogged_label"/>
+    <com.tactfactory.tracscan.harmony.widget.SingleEntityWidget
+        android:id="@+id/logprod_zonelogged_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+	    android:layout_below="@+id/logprod_zonelogged_label" />
+    <TextView
+    	android:id="@+id/logprod_userlogged_label"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/logprod_zonelogged_button"
+	    android:text="@string/logprod_userlogged_label"/>
+    <com.tactfactory.tracscan.harmony.widget.SingleEntityWidget
+        android:id="@+id/logprod_userlogged_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+	    android:layout_below="@+id/logprod_userlogged_label" />
+    <TextView
+    	android:id="@+id/logprod_itemlogged_label"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/logprod_userlogged_button"
+	    android:text="@string/logprod_itemlogged_label"/>
+    <com.tactfactory.tracscan.harmony.widget.SingleEntityWidget
+        android:id="@+id/logprod_itemlogged_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+	    android:layout_below="@+id/logprod_itemlogged_label" />
 </RelativeLayout>

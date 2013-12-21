@@ -13,9 +13,24 @@
 	    	android:layout_height="wrap_content"
 	        android:layout_alignParentTop="true" />
 	    <TextView
-			android:id="@+id/row_itemprod_items"
+			android:id="@+id/row_itemprod_state"
 	    	android:layout_width="match_parent"
 	    	android:layout_height="wrap_content"
 			android:layout_below="@+id/row_itemprod_name" />
+	    <TextView
+			android:id="@+id/row_itemprod_updatedate"
+	    	android:layout_width="match_parent"
+	    	android:layout_height="wrap_content"
+			android:layout_below="@+id/row_itemprod_state" />
+	    <TextView
+			android:id="@+id/row_itemprod_ordercustomer"
+	    	android:layout_width="match_parent"
+	    	android:layout_height="wrap_content"
+			android:layout_below="@+id/row_itemprod_updatedate" />
+	    <TextView
+			android:id="@+id/row_itemprod_currentzone"
+	    	android:layout_width="match_parent"
+	    	android:layout_height="wrap_content"
+			android:layout_below="@+id/row_itemprod_ordercustomer" />
 
 </RelativeLayout>

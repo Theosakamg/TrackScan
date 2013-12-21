@@ -6,6 +6,7 @@
 	<uses-sdk
 		android:minSdkVersion="7"
 		android:targetSdkVersion="17" />
+	<uses-permission android:name="android.permission.GET_TASKS" />
 	<application
 		android:label="@string/app_name"
 		android:name=".TracscanApplication"
@@ -14,10 +15,7 @@
 		<activity
 			android:name=".HomeActivity"
 			android:label="@string/app_name">
-			<!-- intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.LAUNCHER" />
-			</intent-filter-->
+			<intent-filter />
 		</activity>
 		<activity
 			android:name=".view.user.UserAuthActivity"
@@ -251,5 +249,4 @@
 			android:label="@string/app_provider_name"
 			android:description="@string/app_provider_description" />
 	</application>
-	<uses-permission android:name="android.permission.GET_TASKS" />
 </manifest>

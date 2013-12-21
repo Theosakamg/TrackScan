@@ -35,6 +35,11 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:text="History" />
+		<Button
+			android:id="@+id/menu_license_button"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="License" />
 	</LinearLayout>
 </ScrollView>
 

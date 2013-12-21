@@ -1,11 +1,11 @@
 /**************************************************************************
  * ItemProdListAdapter.java, tracscan Android
  *
- * Copyright 2013
+ * Copyright 2013 Mickael Gaillard / TACTfactory
  * Description : 
  * Author(s)   : Harmony
- * Licence     : 
- * Last update : Dec 17, 2013
+ * Licence     : all right reserved
+ * Last update : Dec 21, 2013
  *
  **************************************************************************/
 package com.tactfactory.tracscan.view.itemprod;
@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
+import com.tactfactory.tracscan.harmony.util.DateUtils;
 import com.tactfactory.tracscan.harmony.view.HarmonyDrawerActivity;
 import com.google.android.pinnedheader.SelectionItemView;
 import com.google.android.pinnedheader.headerlist.HeaderAdapter;
@@ -36,11 +37,89 @@ public class ItemProdListAdapter
 	/**
 	 * Constructor.
 	 * @param ctx context
-	 * @param fragment fragment
 	 */
-	public ItemProdListAdapter(Context ctx,
-			ItemProdListFragment fragment) {
+	public ItemProdListAdapter(Context ctx) {
 		super(ctx);
+	}
+
+	/**
+     * Constructor.
+     * 
+	 * @param context The context
+	 * @param resource The resource
+	 * @param textViewResourceId The resource id of the text view
+	 * @param objects The list of objects of this adapter
+	 */
+	public ItemProdListAdapter(Context context,
+			int resource,
+			int textViewResourceId,
+			List<ItemProd> objects) {
+		super(context, resource, textViewResourceId, objects);
+	}
+
+	/**
+     * Constructor.
+     *
+	 * @param context The context
+	 * @param resource The resource
+	 * @param textViewResourceId The resource id of the text view
+	 * @param objects The list of objects of this adapter
+	 */
+	public ItemProdListAdapter(Context context,
+			int resource,
+			int textViewResourceId,
+			ItemProd[] objects) {
+		super(context, resource, textViewResourceId, objects);
+	}
+
+	/**
+     * Constructor.
+     * 
+	 * @param context The context
+	 * @param resource The resource
+	 * @param textViewResourceId The resource id of the text view
+	 */
+	public ItemProdListAdapter(Context context,
+			int resource,
+			int textViewResourceId) {
+		super(context, resource, textViewResourceId);
+	}
+
+	/**
+     * Constructor.
+     * 
+	 * @param context The context
+	 * @param textViewResourceId The resource id of the text view
+	 * @param objects The list of objects of this adapter
+	 */
+	public ItemProdListAdapter(Context context,
+			int textViewResourceId,
+			List<ItemProd> objects) {
+		super(context, textViewResourceId, objects);
+	}
+
+	/**
+     * Constructor.
+     * 
+	 * @param context The context
+	 * @param textViewResourceId The resource id of the text view
+	 * @param objects The list of objects of this adapter
+	 */
+	public ItemProdListAdapter(Context context,
+			int textViewResourceId,
+			ItemProd[] objects) {
+		super(context, textViewResourceId, objects);
+	}
+
+	/**
+     * Constructor.
+     * 
+	 * @param context The context
+	 * @param textViewResourceId The resource id of the text view
+	 */
+	public ItemProdListAdapter(Context context,
+			int textViewResourceId) {
+		super(context, textViewResourceId);
 	}
 
 	/** Holder row. */
@@ -74,16 +153,33 @@ public class ItemProdListAdapter
 			TextView nameView =
 				(TextView) convertView.findViewById(
 						R.id.row_itemprod_name);
-			TextView itemsView =
+			TextView stateView =
 				(TextView) convertView.findViewById(
-						R.id.row_itemprod_items);
+						R.id.row_itemprod_state);
+			TextView updateDateView =
+				(TextView) convertView.findViewById(
+						R.id.row_itemprod_updatedate);
+			TextView orderCustomerView =
+				(TextView) convertView.findViewById(
+						R.id.row_itemprod_ordercustomer);
+			TextView currentZoneView =
+				(TextView) convertView.findViewById(
+						R.id.row_itemprod_currentzone);
 
 
 			if (model.getName() != null) {
 				nameView.setText(model.getName());
 			}
-			itemsView.setText(
-					String.valueOf(model.getOrder().getId()));
+			if (model.getState() != null) {
+				stateView.setText(model.getState().name());
+			}
+			if (model.getUpdateDate() != null) {
+				updateDateView.setText(DateUtils.formatDateTimeToString(model.getUpdateDate()));
+			}
+			orderCustomerView.setText(
+					String.valueOf(model.getOrderCustomer().getId()));
+			currentZoneView.setText(
+					String.valueOf(model.getCurrentZone().getId()));
 		}
 	}
 

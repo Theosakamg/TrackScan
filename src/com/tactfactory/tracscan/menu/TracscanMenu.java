@@ -1,17 +1,19 @@
 /**************************************************************************
  * TracscanMenu.java, tracscan Android
  *
- * Copyright 2013
+ * Copyright 2013 Mickael Gaillard / TACTfactory
  * Description : 
  * Author(s)   : Harmony
- * Licence     : 
- * Last update : Dec 16, 2013
+ * Licence     : all right reserved
+ * Last update : Dec 21, 2013
  *
  **************************************************************************/
 package com.tactfactory.tracscan.menu;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
+
+import com.tactfactory.tracscan.menu.base.TracscanMenuBase;
 
 /**
  * TracscanMenu.

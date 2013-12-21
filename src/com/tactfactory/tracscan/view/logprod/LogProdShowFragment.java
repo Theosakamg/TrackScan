@@ -1,11 +1,11 @@
 /**************************************************************************
  * LogProdShowFragment.java, tracscan Android
  *
- * Copyright 2013
+ * Copyright 2013 Mickael Gaillard / TACTfactory
  * Description : 
  * Author(s)   : Harmony
- * Licence     : 
- * Last update : Dec 17, 2013
+ * Licence     : all right reserved
+ * Last update : Dec 21, 2013
  *
  **************************************************************************/
 package com.tactfactory.tracscan.view.logprod;
@@ -24,7 +24,11 @@ import android.widget.TextView;
 
 import com.tactfactory.tracscan.R;
 import com.tactfactory.tracscan.data.LogProdSQLiteAdapter;
+import com.tactfactory.tracscan.data.ZoneSQLiteAdapter;
+import com.tactfactory.tracscan.data.UserSQLiteAdapter;
+import com.tactfactory.tracscan.data.ItemProdSQLiteAdapter;
 import com.tactfactory.tracscan.entity.LogProd;
+import com.tactfactory.tracscan.harmony.util.DateUtils;
 import com.tactfactory.tracscan.harmony.view.DeleteDialog;
 import com.tactfactory.tracscan.harmony.view.HarmonyFragment;
 import com.tactfactory.tracscan.harmony.view.MultiLoader;
@@ -50,6 +54,16 @@ public class LogProdShowFragment
 	protected DeleteCallback deleteCallback;
 
 	/* This entity's fields views */
+	/** createDate View. */
+	protected TextView createDateView;
+	/** stateAction View. */
+	protected TextView stateActionView;
+	/** zoneLogged View. */
+	protected TextView zoneLoggedView;
+	/** userLogged View. */
+	protected TextView userLoggedView;
+	/** itemLogged View. */
+	protected TextView itemLoggedView;
 	/** Data layout. */
 	protected RelativeLayout dataLayout;
 	/** Text view for no LogProd. */
@@ -61,6 +75,21 @@ public class LogProdShowFragment
      * @param view The layout inflating
      */
     protected void initializeComponent(final View view) {
+		this.createDateView =
+			(TextView) view.findViewById(
+					R.id.logprod_createdate);
+		this.stateActionView =
+			(TextView) view.findViewById(
+					R.id.logprod_stateaction);
+		this.zoneLoggedView =
+			(TextView) view.findViewById(
+					R.id.logprod_zonelogged);
+		this.userLoggedView =
+			(TextView) view.findViewById(
+					R.id.logprod_userlogged);
+		this.itemLoggedView =
+			(TextView) view.findViewById(
+					R.id.logprod_itemlogged);
 
 		this.dataLayout =
 				(RelativeLayout) view.findViewById(
@@ -78,6 +107,26 @@ public class LogProdShowFragment
     		this.emptyText.setVisibility(View.GONE);
 
 
+		if (this.model.getCreateDate() != null) {
+			this.createDateView.setText(
+					DateUtils.formatDateTimeToString(
+							this.model.getCreateDate()));
+		}
+		if (this.model.getStateAction() != null) {
+			this.stateActionView.setText(this.model.getStateAction().toString());
+		}
+		if (this.model.getZoneLogged() != null) {
+			this.zoneLoggedView.setText(
+					String.valueOf(this.model.getZoneLogged().getId()));
+		}
+		if (this.model.getUserLogged() != null) {
+			this.userLoggedView.setText(
+					String.valueOf(this.model.getUserLogged().getId()));
+		}
+		if (this.model.getItemLogged() != null) {
+			this.itemLoggedView.setText(
+					String.valueOf(this.model.getItemLogged().getId()));
+		}
 		} else {
     		this.dataLayout.setVisibility(View.GONE);
     		this.emptyText.setVisibility(View.VISIBLE);
@@ -120,8 +169,7 @@ public class LogProdShowFragment
 		this.loadData();
 		
 		if (this.model != null) {
-			MultiLoader<LogProd> loader = 
-					new MultiLoader<LogProd>(this, this.model);
+			MultiLoader loader = new MultiLoader(this);
 			String baseUri = 
 					LogProdProviderAdapter.LOGPROD_URI 
 					+ "/" 
@@ -132,6 +180,45 @@ public class LogProdShowFragment
 				@Override
 				public void onLoadComplete(Cursor c) {
 					LogProdShowFragment.this.onLogProdLoaded(c);
+				}
+
+				@Override
+				public void onLoaderReset() {
+
+				}
+			});
+			loader.addUri(Uri.parse(baseUri + "/zonelogged"), 
+					new UriLoadedCallback() {
+
+				@Override
+				public void onLoadComplete(Cursor c) {
+					LogProdShowFragment.this.onZoneLoggedLoaded(c);
+				}
+
+				@Override
+				public void onLoaderReset() {
+
+				}
+			});
+			loader.addUri(Uri.parse(baseUri + "/userlogged"), 
+					new UriLoadedCallback() {
+
+				@Override
+				public void onLoadComplete(Cursor c) {
+					LogProdShowFragment.this.onUserLoggedLoaded(c);
+				}
+
+				@Override
+				public void onLoaderReset() {
+
+				}
+			});
+			loader.addUri(Uri.parse(baseUri + "/itemlogged"), 
+					new UriLoadedCallback() {
+
+				@Override
+				public void onLoadComplete(Cursor c) {
+					LogProdShowFragment.this.onItemLoggedLoaded(c);
 				}
 
 				@Override
@@ -155,6 +242,66 @@ public class LogProdShowFragment
 						c,
 						this.model);
 			this.loadData();
+		}
+	}
+	/**
+	 * Called when the relation has been loaded.
+	 * 
+	 * @param c The cursor of this relation
+	 */
+	public void onZoneLoggedLoaded(Cursor c) {
+		if (this.model != null) {
+			if (c != null) {
+				if (c.getCount() > 0) {
+					c.moveToFirst();
+					this.model.setZoneLogged(
+							new ZoneSQLiteAdapter(getActivity()).cursorToItem(c));
+					this.loadData();
+			}
+			} else {
+				this.model.setZoneLogged(null);
+					this.loadData();
+			}
+		}
+	}
+	/**
+	 * Called when the relation has been loaded.
+	 * 
+	 * @param c The cursor of this relation
+	 */
+	public void onUserLoggedLoaded(Cursor c) {
+		if (this.model != null) {
+			if (c != null) {
+				if (c.getCount() > 0) {
+					c.moveToFirst();
+					this.model.setUserLogged(
+							new UserSQLiteAdapter(getActivity()).cursorToItem(c));
+					this.loadData();
+			}
+			} else {
+				this.model.setUserLogged(null);
+					this.loadData();
+			}
+		}
+	}
+	/**
+	 * Called when the relation has been loaded.
+	 * 
+	 * @param c The cursor of this relation
+	 */
+	public void onItemLoggedLoaded(Cursor c) {
+		if (this.model != null) {
+			if (c != null) {
+				if (c.getCount() > 0) {
+					c.moveToFirst();
+					this.model.setItemLogged(
+							new ItemProdSQLiteAdapter(getActivity()).cursorToItem(c));
+					this.loadData();
+			}
+			} else {
+				this.model.setItemLogged(null);
+					this.loadData();
+			}
 		}
 	}
 

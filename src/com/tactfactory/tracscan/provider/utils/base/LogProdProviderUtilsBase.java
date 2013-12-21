@@ -1,11 +1,9 @@
 /**************************************************************************
  * LogProdProviderUtilsBase.java, tracscan Android
  *
- * Copyright 2013 Mickael Gaillard / TACTfactory
+ * Copyright 2013
  * Description : 
  * Author(s)   : Harmony
- * Licence     : all right reserved
- * Last update : Dec 19, 2013
  *
  **************************************************************************/
 package com.tactfactory.tracscan.provider.utils.base;
@@ -155,17 +153,17 @@ public abstract class LogProdProviderUtilsBase
 			result = adapt.cursorToItem(cursor);
 			cursor.close();
 
-			if (result.getZone() != null) {
-				result.setZone(
-					this.getAssociateZone(result));
+			if (result.getZoneLogged() != null) {
+				result.setZoneLogged(
+					this.getAssociateZoneLogged(result));
 			}
-			if (result.getUser() != null) {
-				result.setUser(
-					this.getAssociateUser(result));
+			if (result.getUserLogged() != null) {
+				result.setUserLogged(
+					this.getAssociateUserLogged(result));
 			}
-			if (result.getItem() != null) {
-				result.setItem(
-					this.getAssociateItem(result));
+			if (result.getItemLogged() != null) {
+				result.setItemLogged(
+					this.getAssociateItemLogged(result));
 			}
 		}
 
@@ -266,11 +264,11 @@ public abstract class LogProdProviderUtilsBase
 
 	/** Relations operations. */
 	/**
-	 * Get associate Zone.
+	 * Get associate ZoneLogged.
 	 * @param item LogProd
 	 * @return Zone
 	 */
-	public Zone getAssociateZone(
+	public Zone getAssociateZoneLogged(
 			final LogProd item) {
 		Zone result;
 		ContentResolver prov = this.getContext().getContentResolver();
@@ -278,7 +276,7 @@ public abstract class LogProdProviderUtilsBase
 				ZoneProviderAdapter.ZONE_URI,
 				ZoneSQLiteAdapter.ALIASED_COLS,
 				ZoneSQLiteAdapter.COL_ID + "= ?",
-				new String[]{String.valueOf(item.getZone().getId())},
+				new String[]{String.valueOf(item.getZoneLogged().getId())},
 				null);
 
 		if (zoneCursor.getCount() > 0) {
@@ -295,11 +293,11 @@ public abstract class LogProdProviderUtilsBase
 	}
 
 	/**
-	 * Get associate User.
+	 * Get associate UserLogged.
 	 * @param item LogProd
 	 * @return User
 	 */
-	public User getAssociateUser(
+	public User getAssociateUserLogged(
 			final LogProd item) {
 		User result;
 		ContentResolver prov = this.getContext().getContentResolver();
@@ -307,7 +305,7 @@ public abstract class LogProdProviderUtilsBase
 				UserProviderAdapter.USER_URI,
 				UserSQLiteAdapter.ALIASED_COLS,
 				UserSQLiteAdapter.COL_ID + "= ?",
-				new String[]{String.valueOf(item.getUser().getId())},
+				new String[]{String.valueOf(item.getUserLogged().getId())},
 				null);
 
 		if (userCursor.getCount() > 0) {
@@ -324,11 +322,11 @@ public abstract class LogProdProviderUtilsBase
 	}
 
 	/**
-	 * Get associate Item.
+	 * Get associate ItemLogged.
 	 * @param item LogProd
 	 * @return ItemProd
 	 */
-	public ItemProd getAssociateItem(
+	public ItemProd getAssociateItemLogged(
 			final LogProd item) {
 		ItemProd result;
 		ContentResolver prov = this.getContext().getContentResolver();
@@ -336,7 +334,7 @@ public abstract class LogProdProviderUtilsBase
 				ItemProdProviderAdapter.ITEMPROD_URI,
 				ItemProdSQLiteAdapter.ALIASED_COLS,
 				ItemProdSQLiteAdapter.COL_ID + "= ?",
-				new String[]{String.valueOf(item.getItem().getId())},
+				new String[]{String.valueOf(item.getItemLogged().getId())},
 				null);
 
 		if (itemProdCursor.getCount() > 0) {

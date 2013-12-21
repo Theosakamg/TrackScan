@@ -1,11 +1,9 @@
 /**************************************************************************
  * LogProdUtilsBase.java, tracscan Android
  *
- * Copyright 2013 Mickael Gaillard / TACTfactory
+ * Copyright 2013
  * Description : 
  * Author(s)   : Harmony
- * Licence     : all right reserved
- * Last update : Dec 19, 2013
  *
  **************************************************************************/
 package com.tactfactory.tracscan.test.utils.base;
@@ -39,21 +37,21 @@ public abstract class LogProdUtilsBase {
 
 		logProd.setId(TestUtils.generateRandomInt(0,100) + 1);
 		logProd.setCreateDate(TestUtils.generateRandomDateTime());
-		logProd.setState(ItemState.values()[TestUtils.generateRandomInt(0,ItemState.values().length)]);
-		ArrayList<Zone> zones =
+		logProd.setStateAction(ItemState.values()[TestUtils.generateRandomInt(0,ItemState.values().length)]);
+		ArrayList<Zone> zoneLoggeds =
 			new ArrayList<Zone>(ZoneDataLoader.getInstance(ctx).getMap().values());
-		if (!zones.isEmpty()) {
-			logProd.setZone(zones.get(TestUtils.generateRandomInt(0, zones.size())));
+		if (!zoneLoggeds.isEmpty()) {
+			logProd.setZoneLogged(zoneLoggeds.get(TestUtils.generateRandomInt(0, zoneLoggeds.size())));
 		}
-		ArrayList<User> users =
+		ArrayList<User> userLoggeds =
 			new ArrayList<User>(UserDataLoader.getInstance(ctx).getMap().values());
-		if (!users.isEmpty()) {
-			logProd.setUser(users.get(TestUtils.generateRandomInt(0, users.size())));
+		if (!userLoggeds.isEmpty()) {
+			logProd.setUserLogged(userLoggeds.get(TestUtils.generateRandomInt(0, userLoggeds.size())));
 		}
-		ArrayList<ItemProd> items =
+		ArrayList<ItemProd> itemLoggeds =
 			new ArrayList<ItemProd>(ItemProdDataLoader.getInstance(ctx).getMap().values());
-		if (!items.isEmpty()) {
-			logProd.setItem(items.get(TestUtils.generateRandomInt(0, items.size())));
+		if (!itemLoggeds.isEmpty()) {
+			logProd.setItemLogged(itemLoggeds.get(TestUtils.generateRandomInt(0, itemLoggeds.size())));
 		}
 
 		return logProd;
@@ -66,23 +64,23 @@ public abstract class LogProdUtilsBase {
 		if (logProd1!=null && logProd2 !=null){
 			Assert.assertEquals(logProd1.getId(), logProd2.getId());
 			Assert.assertEquals(logProd1.getCreateDate(), logProd2.getCreateDate());
-			Assert.assertEquals(logProd1.getState(), logProd2.getState());
-			if (logProd1.getZone() != null
-					&& logProd2.getZone() != null) {
-				Assert.assertEquals(logProd1.getZone().getId(),
-						logProd2.getZone().getId());
+			Assert.assertEquals(logProd1.getStateAction(), logProd2.getStateAction());
+			if (logProd1.getZoneLogged() != null
+					&& logProd2.getZoneLogged() != null) {
+				Assert.assertEquals(logProd1.getZoneLogged().getId(),
+						logProd2.getZoneLogged().getId());
 
 			}
-			if (logProd1.getUser() != null
-					&& logProd2.getUser() != null) {
-				Assert.assertEquals(logProd1.getUser().getId(),
-						logProd2.getUser().getId());
+			if (logProd1.getUserLogged() != null
+					&& logProd2.getUserLogged() != null) {
+				Assert.assertEquals(logProd1.getUserLogged().getId(),
+						logProd2.getUserLogged().getId());
 
 			}
-			if (logProd1.getItem() != null
-					&& logProd2.getItem() != null) {
-				Assert.assertEquals(logProd1.getItem().getId(),
-						logProd2.getItem().getId());
+			if (logProd1.getItemLogged() != null
+					&& logProd2.getItemLogged() != null) {
+				Assert.assertEquals(logProd1.getItemLogged().getId(),
+						logProd2.getItemLogged().getId());
 
 			}
 		}

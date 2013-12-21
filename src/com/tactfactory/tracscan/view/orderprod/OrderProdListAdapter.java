@@ -1,11 +1,11 @@
 /**************************************************************************
  * OrderProdListAdapter.java, tracscan Android
  *
- * Copyright 2013
+ * Copyright 2013 Mickael Gaillard / TACTfactory
  * Description : 
  * Author(s)   : Harmony
- * Licence     : 
- * Last update : Dec 17, 2013
+ * Licence     : all right reserved
+ * Last update : Dec 21, 2013
  *
  **************************************************************************/
 package com.tactfactory.tracscan.view.orderprod;
@@ -36,11 +36,89 @@ public class OrderProdListAdapter
 	/**
 	 * Constructor.
 	 * @param ctx context
-	 * @param fragment fragment
 	 */
-	public OrderProdListAdapter(Context ctx,
-			OrderProdListFragment fragment) {
+	public OrderProdListAdapter(Context ctx) {
 		super(ctx);
+	}
+
+	/**
+     * Constructor.
+     * 
+	 * @param context The context
+	 * @param resource The resource
+	 * @param textViewResourceId The resource id of the text view
+	 * @param objects The list of objects of this adapter
+	 */
+	public OrderProdListAdapter(Context context,
+			int resource,
+			int textViewResourceId,
+			List<OrderProd> objects) {
+		super(context, resource, textViewResourceId, objects);
+	}
+
+	/**
+     * Constructor.
+     *
+	 * @param context The context
+	 * @param resource The resource
+	 * @param textViewResourceId The resource id of the text view
+	 * @param objects The list of objects of this adapter
+	 */
+	public OrderProdListAdapter(Context context,
+			int resource,
+			int textViewResourceId,
+			OrderProd[] objects) {
+		super(context, resource, textViewResourceId, objects);
+	}
+
+	/**
+     * Constructor.
+     * 
+	 * @param context The context
+	 * @param resource The resource
+	 * @param textViewResourceId The resource id of the text view
+	 */
+	public OrderProdListAdapter(Context context,
+			int resource,
+			int textViewResourceId) {
+		super(context, resource, textViewResourceId);
+	}
+
+	/**
+     * Constructor.
+     * 
+	 * @param context The context
+	 * @param textViewResourceId The resource id of the text view
+	 * @param objects The list of objects of this adapter
+	 */
+	public OrderProdListAdapter(Context context,
+			int textViewResourceId,
+			List<OrderProd> objects) {
+		super(context, textViewResourceId, objects);
+	}
+
+	/**
+     * Constructor.
+     * 
+	 * @param context The context
+	 * @param textViewResourceId The resource id of the text view
+	 * @param objects The list of objects of this adapter
+	 */
+	public OrderProdListAdapter(Context context,
+			int textViewResourceId,
+			OrderProd[] objects) {
+		super(context, textViewResourceId, objects);
+	}
+
+	/**
+     * Constructor.
+     * 
+	 * @param context The context
+	 * @param textViewResourceId The resource id of the text view
+	 */
+	public OrderProdListAdapter(Context context,
+			int textViewResourceId) {
+		super(context, textViewResourceId);
 	}
 
 	/** Holder row. */
@@ -71,9 +149,9 @@ public class OrderProdListAdapter
 		 */
 		public void populate(final OrderProd model) {
 			View convertView = this.getInnerLayout();
-			TextView loginView =
+			TextView customerView =
 				(TextView) convertView.findViewById(
-						R.id.row_orderprod_login);
+						R.id.row_orderprod_customer);
 			TextView productTypeView =
 				(TextView) convertView.findViewById(
 						R.id.row_orderprod_producttype);
@@ -86,7 +164,7 @@ public class OrderProdListAdapter
 
 
 			if (model.getCustomer() != null) {
-				loginView.setText(model.getCustomer());
+				customerView.setText(model.getCustomer());
 			}
 			if (model.getProductType() != null) {
 				productTypeView.setText(model.getProductType().name());

@@ -1,11 +1,11 @@
 /**************************************************************************
  * ZoneCreateFragment.java, tracscan Android
  *
- * Copyright 2013
+ * Copyright 2013 Mickael Gaillard / TACTfactory
  * Description : 
  * Author(s)   : Harmony
- * Licence     : 
- * Last update : Dec 17, 2013
+ * Licence     : all right reserved
+ * Last update : Dec 21, 2013
  *
  **************************************************************************/
 package com.tactfactory.tracscan.view.zone;
@@ -33,8 +33,7 @@ import com.tactfactory.tracscan.entity.Zone;
 import com.tactfactory.tracscan.harmony.view.HarmonyDrawerActivity;
 import com.tactfactory.tracscan.harmony.view.HarmonyFragment;
 
-import com.tactfactory.tracscan.harmony.widget.ValidationButtons;
-import com.tactfactory.tracscan.harmony.widget.ValidationButtons.OnValidationListener;
+import com.tactfactory.tracscan.menu.SaveMenuWrapper.SaveMenuInterface;
 import com.tactfactory.tracscan.provider.utils.ZoneProviderUtils;
 
 /**
@@ -43,7 +42,7 @@ import com.tactfactory.tracscan.provider.utils.ZoneProviderUtils;
  * This fragment gives you an interface to create a Zone.
  */
 public class ZoneCreateFragment extends HarmonyFragment
-			implements OnValidationListener {
+			implements SaveMenuInterface {
 	/** Model data. */
 	protected Zone model = new Zone();
 
@@ -52,8 +51,6 @@ public class ZoneCreateFragment extends HarmonyFragment
 	protected EditText nameView;
 	/** quantity View. */
 	protected EditText quantityView;
-	/** Save button. */
-	protected ValidationButtons validationButtons;
 
 	/** Initialize view of fields.
 	 *
@@ -64,10 +61,6 @@ public class ZoneCreateFragment extends HarmonyFragment
 			(EditText) view.findViewById(R.id.zone_name);
 		this.quantityView =
 			(EditText) view.findViewById(R.id.zone_quantity);
-
-		this.validationButtons = (ValidationButtons) view.findViewById(
-					R.id.zone_validation);
-		this.validationButtons.setListener(this);
 	}
 
 	/** Load data from model to fields view. */
@@ -208,15 +201,10 @@ public class ZoneCreateFragment extends HarmonyFragment
 
 
 	@Override
-	public void onValidationSelected() {
+	public void onClickSave() {
 		if (this.validateData()) {
 			this.saveData();
 			new CreateTask(this, this.model).execute();
 		}
-	}
-
-	@Override
-	public void onCancelSelected() {
-		this.getActivity().finish();
 	}
 }

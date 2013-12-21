@@ -1,22 +1,27 @@
 /**************************************************************************
  * CrudEditDeleteMenuWrapper.java, tracscan Android
  *
- * Copyright 2013
+ * Copyright 2013 Mickael Gaillard / TACTfactory
  * Description : 
  * Author(s)   : Harmony
- * Licence     : 
- * Last update : Dec 17, 2013
+ * Licence     : all right reserved
+ * Last update : Dec 21, 2013
  *
  **************************************************************************/
 package com.tactfactory.tracscan.menu;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
+
+import android.support.v4.app.FragmentActivity;
 import com.actionbarsherlock.internal.view.menu.ActionMenuItem;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+
+import com.tactfactory.tracscan.R;
+
+import com.tactfactory.tracscan.menu.base.MenuWrapperBase;
 
 /**
  * Crud Menu wrapper for edit and delete actions.
@@ -26,9 +31,11 @@ public class CrudEditDeleteMenuWrapper implements MenuWrapperBase {
 	private MenuItem deleteItem;
 	/** Edit menu item. */
 	private MenuItem editItem;
+	/** Menu Visibility. */
+	private boolean visible = true;
 	
 	@Override
-	public void initializeMenu(Menu menu, Activity activity,
+	public void initializeMenu(Menu menu, FragmentActivity activity,
 			Fragment fragment, Context ctx) {
 		if (fragment != null
 				&& fragment instanceof CrudEditDeleteMenuInterface) {
@@ -36,7 +43,7 @@ public class CrudEditDeleteMenuWrapper implements MenuWrapperBase {
 					TracscanMenu.CRUDEDITDELETE,
 					0,
 					Menu.NONE,
-					"Delete");
+					R.string.menu_item_delete);
 			this.deleteItem.setShowAsAction(
 					ActionMenuItem.SHOW_AS_ACTION_IF_ROOM
 					| ActionMenuItem.SHOW_AS_ACTION_WITH_TEXT);
@@ -46,7 +53,7 @@ public class CrudEditDeleteMenuWrapper implements MenuWrapperBase {
 					TracscanMenu.CRUDEDITDELETE,
 					1,
 					Menu.NONE,
-					"Edit");
+					R.string.menu_item_edit);
 
 			this.editItem.setShowAsAction(
 					ActionMenuItem.SHOW_AS_ACTION_IF_ROOM
@@ -56,12 +63,12 @@ public class CrudEditDeleteMenuWrapper implements MenuWrapperBase {
 	}
 
 	@Override
-	public void updateMenu(Menu menu, Activity activity,
+	public void updateMenu(Menu menu, FragmentActivity activity,
 			Fragment fragment, Context ctx) {
 		if (fragment != null 
 				&& fragment instanceof CrudEditDeleteMenuInterface) {
 			menu.setGroupVisible(
-					TracscanMenu.CRUDEDITDELETE, true);
+					TracscanMenu.CRUDEDITDELETE, this.visible);
 		}
 	}
 
@@ -88,13 +95,25 @@ public class CrudEditDeleteMenuWrapper implements MenuWrapperBase {
 	}
 
 	@Override
-	public void clear(Menu menu, Activity activity,
+	public void clear(Menu menu, FragmentActivity activity,
 			Fragment fragment, Context ctx) {
 		
 		if (fragment != null 
 				&& fragment instanceof CrudEditDeleteMenuInterface) {
 			menu.removeGroup(TracscanMenu.CRUDEDITDELETE);
 		}
+	}
+
+	@Override
+	public void hide(Menu menu, FragmentActivity activity, Fragment fragment,
+			Context ctx) {
+		this.visible = false;
+	}
+
+	@Override
+	public void show(Menu menu, FragmentActivity activity, Fragment fragment,
+			Context ctx) {
+		this.visible = true;
 	}
 
 	/**

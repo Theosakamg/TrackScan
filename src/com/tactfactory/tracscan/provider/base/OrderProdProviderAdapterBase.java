@@ -1,11 +1,9 @@
 /**************************************************************************
  * OrderProdProviderAdapterBase.java, tracscan Android
  *
- * Copyright 2013 Mickael Gaillard / TACTfactory
+ * Copyright 2013
  * Description : 
  * Author(s)   : Harmony
- * Licence     : all right reserved
- * Last update : Dec 19, 2013
  *
  **************************************************************************/
 package com.tactfactory.tracscan.provider.base;
@@ -16,6 +14,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
+
+import com.google.common.base.Strings;
+
 import com.tactfactory.tracscan.entity.OrderProd;
 import com.tactfactory.tracscan.provider.TracscanProvider;
 import com.tactfactory.tracscan.data.OrderProdSQLiteAdapter;

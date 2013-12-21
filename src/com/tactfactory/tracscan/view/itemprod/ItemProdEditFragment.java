@@ -1,11 +1,11 @@
 /**************************************************************************
  * ItemProdEditFragment.java, tracscan Android
  *
- * Copyright 2013
+ * Copyright 2013 Mickael Gaillard / TACTfactory
  * Description : 
  * Author(s)   : Harmony
- * Licence     : 
- * Last update : Dec 17, 2013
+ * Licence     : all right reserved
+ * Last update : Dec 21, 2013
  *
  **************************************************************************/
 package com.tactfactory.tracscan.view.itemprod;
@@ -34,16 +34,20 @@ import com.google.common.base.Strings;
 import com.tactfactory.tracscan.R;
 import com.tactfactory.tracscan.entity.ItemProd;
 import com.tactfactory.tracscan.entity.OrderProd;
+import com.tactfactory.tracscan.entity.Zone;
+import com.tactfactory.tracscan.entity.ItemState;
 
 import com.tactfactory.tracscan.harmony.view.HarmonyDrawerActivity;
 import com.tactfactory.tracscan.harmony.view.HarmonyFragment;
+import com.tactfactory.tracscan.harmony.widget.DateTimeWidget;
 
 import com.tactfactory.tracscan.harmony.widget.SingleEntityWidget;
-import com.tactfactory.tracscan.harmony.widget.ValidationButtons;
-import com.tactfactory.tracscan.harmony.widget.ValidationButtons.OnValidationListener;
+import com.tactfactory.tracscan.harmony.widget.EnumSpinner;
+import com.tactfactory.tracscan.menu.SaveMenuWrapper.SaveMenuInterface;
 
 import com.tactfactory.tracscan.provider.utils.ItemProdProviderUtils;
 import com.tactfactory.tracscan.provider.utils.OrderProdProviderUtils;
+import com.tactfactory.tracscan.provider.utils.ZoneProviderUtils;
 
 /** ItemProd create fragment.
  *
@@ -52,20 +56,27 @@ import com.tactfactory.tracscan.provider.utils.OrderProdProviderUtils;
  * @see android.app.Fragment
  */
 public class ItemProdEditFragment extends HarmonyFragment
-			implements OnValidationListener {
+			implements SaveMenuInterface {
 	/** Model data. */
 	protected ItemProd model = new ItemProd();
 
 	/** curr.fields View. */
 	/** name View. */
 	protected EditText nameView;
-	/** The items chooser component. */
-	protected SingleEntityWidget itemsWidget;
-	/** The items Adapter. */
+	/** state View. */
+	protected EnumSpinner stateView;
+	/** updateDate DateTime View. */
+	protected DateTimeWidget updateDateView;
+	/** The orderCustomer chooser component. */
+	protected SingleEntityWidget orderCustomerWidget;
+	/** The orderCustomer Adapter. */
 	protected SingleEntityWidget.EntityAdapter<OrderProd>
-			itemsAdapter;
-	/** Save button. */
-	protected ValidationButtons validationButtons;
+			orderCustomerAdapter;
+	/** The currentZone chooser component. */
+	protected SingleEntityWidget currentZoneWidget;
+	/** The currentZone Adapter. */
+	protected SingleEntityWidget.EntityAdapter<Zone>
+			currentZoneAdapter;
 
 	/** Initialize view of curr.fields.
 	 *
@@ -74,20 +85,31 @@ public class ItemProdEditFragment extends HarmonyFragment
 	protected void initializeComponent(View view) {
 		this.nameView = (EditText) view.findViewById(
 				R.id.itemprod_name);
-		this.itemsAdapter =
+		this.stateView = (EnumSpinner) view.findViewById(
+				R.id.itemprod_state);
+		this.stateView.setEnum(ItemState.class);
+		this.updateDateView = (DateTimeWidget) view.findViewById(
+				R.id.itemprod_updatedate);
+		this.orderCustomerAdapter =
 				new SingleEntityWidget.EntityAdapter<OrderProd>() {
 			@Override
 			public String entityToString(OrderProd item) {
 				return String.valueOf(item.getId());
 			}
 		};
-		this.itemsWidget =
-			(SingleEntityWidget) view.findViewById(R.id.itemprod_items_button);
-		this.itemsWidget.setAdapter(this.itemsAdapter);
-
-		this.validationButtons = (ValidationButtons) view.findViewById(
-					R.id.itemprod_validation);
-		this.validationButtons.setListener(this);
+		this.orderCustomerWidget =
+			(SingleEntityWidget) view.findViewById(R.id.itemprod_ordercustomer_button);
+		this.orderCustomerWidget.setAdapter(this.orderCustomerAdapter);
+		this.currentZoneAdapter =
+				new SingleEntityWidget.EntityAdapter<Zone>() {
+			@Override
+			public String entityToString(Zone item) {
+				return String.valueOf(item.getId());
+			}
+		};
+		this.currentZoneWidget =
+			(SingleEntityWidget) view.findViewById(R.id.itemprod_currentzone_button);
+		this.currentZoneWidget.setAdapter(this.currentZoneAdapter);
 	}
 
 	/** Load data from model to curr.fields view. */
@@ -95,6 +117,12 @@ public class ItemProdEditFragment extends HarmonyFragment
 
 		if (this.model.getName() != null) {
 			this.nameView.setText(this.model.getName());
+		}
+		if (this.model.getState() != null) {
+			this.stateView.setSelectedItem(this.model.getState());
+		}
+		if (this.model.getUpdateDate() != null) {
+			this.updateDateView.setDateTime(this.model.getUpdateDate());
 		}
 
 		new LoadTask(this).execute();
@@ -105,7 +133,13 @@ public class ItemProdEditFragment extends HarmonyFragment
 
 		this.model.setName(this.nameView.getEditableText().toString());
 
-		this.model.setOrder(this.itemsAdapter.getSelectedItem());
+		this.model.setState((ItemState) this.stateView.getSelectedItem());
+
+		this.model.setUpdateDate(this.updateDateView.getDateTime());
+
+		this.model.setOrderCustomer(this.orderCustomerAdapter.getSelectedItem());
+
+		this.model.setCurrentZone(this.currentZoneAdapter.getSelectedItem());
 
 	}
 
@@ -120,8 +154,14 @@ public class ItemProdEditFragment extends HarmonyFragment
 					this.nameView.getText().toString().trim())) {
 			error = R.string.itemprod_name_invalid_field_error;
 		}
-		if (this.itemsAdapter.getSelectedItem() == null) {
-			error = R.string.itemprod_items_invalid_field_error;
+		if (this.updateDateView.getDateTime() == null) {
+			error = R.string.itemprod_updatedate_invalid_field_error;
+		}
+		if (this.orderCustomerAdapter.getSelectedItem() == null) {
+			error = R.string.itemprod_ordercustomer_invalid_field_error;
+		}
+		if (this.currentZoneAdapter.getSelectedItem() == null) {
+			error = R.string.itemprod_currentzone_invalid_field_error;
 		}
 	
 		if (error > 0) {
@@ -144,7 +184,7 @@ public class ItemProdEditFragment extends HarmonyFragment
 						false);
 
 		final Intent intent =  getActivity().getIntent();
-		this.model = (ItemProd) intent.getSerializableExtra(
+		this.model = (ItemProd) intent.getParcelableExtra(
 				ItemProd.PARCEL);
 
 		this.initializeComponent(view);
@@ -245,8 +285,10 @@ public class ItemProdEditFragment extends HarmonyFragment
 		private ProgressDialog progress;
 		/** Fragment. */
 		private ItemProdEditFragment fragment;
-		/** items list. */
-		private ArrayList<OrderProd> itemsList;
+		/** orderCustomer list. */
+		private ArrayList<OrderProd> orderCustomerList;
+		/** currentZone list. */
+		private ArrayList<Zone> currentZoneList;
 
 		/**
 		 * Constructor of the task.
@@ -272,43 +314,54 @@ public class ItemProdEditFragment extends HarmonyFragment
 
 		@Override
 		protected Void doInBackground(Void... params) {
-			this.itemsList = 
+			this.orderCustomerList = 
 				new OrderProdProviderUtils(this.ctx).queryAll();
+			this.currentZoneList = 
+				new ZoneProviderUtils(this.ctx).queryAll();
 			return null;
 		}
 
 		@Override
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
-			this.fragment.onItemsLoaded(this.itemsList);
+			this.fragment.onOrderCustomerLoaded(this.orderCustomerList);
+			this.fragment.onCurrentZoneLoaded(this.currentZoneList);
 
 			this.progress.dismiss();
 		}
 	}
 
 	@Override
-	public void onValidationSelected() {
+	public void onClickSave() {
 		if (this.validateData()) {
 			this.saveData();
 			new EditTask(this, this.model).execute();
 		}
 	}
 
-	@Override
-	public void onCancelSelected() {
-		this.getActivity().finish();
-	}
-
 	/**
-	 * Called when items have been loaded.
+	 * Called when orderCustomer have been loaded.
 	 * @param items The loaded items
 	 */
-	protected void onItemsLoaded(ArrayList<OrderProd> items) {
-		this.itemsAdapter.loadData(items);
+	protected void onOrderCustomerLoaded(ArrayList<OrderProd> items) {
+		this.orderCustomerAdapter.loadData(items);
 		
 		for (OrderProd item : items) {
-			if (item.getId() == this.model.getOrder().getId()) {
-				this.itemsAdapter.selectItem(item);
+			if (item.getId() == this.model.getOrderCustomer().getId()) {
+				this.orderCustomerAdapter.selectItem(item);
+			}
+		}
+	}
+	/**
+	 * Called when currentZone have been loaded.
+	 * @param items The loaded items
+	 */
+	protected void onCurrentZoneLoaded(ArrayList<Zone> items) {
+		this.currentZoneAdapter.loadData(items);
+		
+		for (Zone item : items) {
+			if (item.getId() == this.model.getCurrentZone().getId()) {
+				this.currentZoneAdapter.selectItem(item);
 			}
 		}
 	}

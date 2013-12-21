@@ -4,8 +4,6 @@
  * Copyright 2013
  * Description : 
  * Author(s)   : Harmony
- * Licence     : 
- * Last update : Dec 17, 2013
  *
  **************************************************************************/
 package com.tactfactory.tracscan.provider.base;
@@ -16,6 +14,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
+
+import com.google.common.base.Strings;
 
 import com.tactfactory.tracscan.entity.Zone;
 import com.tactfactory.tracscan.provider.TracscanProvider;

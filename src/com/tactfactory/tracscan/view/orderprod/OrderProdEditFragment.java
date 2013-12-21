@@ -1,11 +1,11 @@
 /**************************************************************************
  * OrderProdEditFragment.java, tracscan Android
  *
- * Copyright 2013
+ * Copyright 2013 Mickael Gaillard / TACTfactory
  * Description : 
  * Author(s)   : Harmony
- * Licence     : 
- * Last update : Dec 17, 2013
+ * Licence     : all right reserved
+ * Last update : Dec 21, 2013
  *
  **************************************************************************/
 package com.tactfactory.tracscan.view.orderprod;
@@ -41,8 +41,7 @@ import com.tactfactory.tracscan.harmony.view.HarmonyDrawerActivity;
 import com.tactfactory.tracscan.harmony.view.HarmonyFragment;
 import com.tactfactory.tracscan.harmony.widget.MultiEntityWidget;
 import com.tactfactory.tracscan.harmony.widget.EnumSpinner;
-import com.tactfactory.tracscan.harmony.widget.ValidationButtons;
-import com.tactfactory.tracscan.harmony.widget.ValidationButtons.OnValidationListener;
+import com.tactfactory.tracscan.menu.SaveMenuWrapper.SaveMenuInterface;
 import com.tactfactory.tracscan.provider.OrderProdProviderAdapter;
 import com.tactfactory.tracscan.provider.utils.OrderProdProviderUtils;
 import com.tactfactory.tracscan.provider.utils.ItemProdProviderUtils;
@@ -55,13 +54,13 @@ import com.tactfactory.tracscan.data.ItemProdSQLiteAdapter;
  * @see android.app.Fragment
  */
 public class OrderProdEditFragment extends HarmonyFragment
-			implements OnValidationListener {
+			implements SaveMenuInterface {
 	/** Model data. */
 	protected OrderProd model = new OrderProd();
 
 	/** curr.fields View. */
-	/** login View. */
-	protected EditText loginView;
+	/** customer View. */
+	protected EditText customerView;
 	/** productType View. */
 	protected EnumSpinner productTypeView;
 	/** materialType View. */
@@ -73,16 +72,14 @@ public class OrderProdEditFragment extends HarmonyFragment
 	/** The items Adapter. */
 	protected MultiEntityWidget.EntityAdapter<ItemProd>
 			itemsAdapter;
-	/** Save button. */
-	protected ValidationButtons validationButtons;
 
 	/** Initialize view of curr.fields.
 	 *
 	 * @param view The layout inflating
 	 */
 	protected void initializeComponent(View view) {
-		this.loginView = (EditText) view.findViewById(
-				R.id.orderprod_login);
+		this.customerView = (EditText) view.findViewById(
+				R.id.orderprod_customer);
 		this.productTypeView = (EnumSpinner) view.findViewById(
 				R.id.orderprod_producttype);
 		this.productTypeView.setEnum(ProductType.class);
@@ -101,17 +98,13 @@ public class OrderProdEditFragment extends HarmonyFragment
 		this.itemsWidget = (MultiEntityWidget) view.findViewById(
 						R.id.orderprod_items_button);
 		this.itemsWidget.setAdapter(this.itemsAdapter);
-
-		this.validationButtons = (ValidationButtons) view.findViewById(
-					R.id.orderprod_validation);
-		this.validationButtons.setListener(this);
 	}
 
 	/** Load data from model to curr.fields view. */
 	public void loadData() {
 
 		if (this.model.getCustomer() != null) {
-			this.loginView.setText(this.model.getCustomer());
+			this.customerView.setText(this.model.getCustomer());
 		}
 		if (this.model.getProductType() != null) {
 			this.productTypeView.setSelectedItem(this.model.getProductType());
@@ -127,7 +120,7 @@ public class OrderProdEditFragment extends HarmonyFragment
 	/** Save data from curr.fields view to model. */
 	public void saveData() {
 
-		this.model.setCustomer(this.loginView.getEditableText().toString());
+		this.model.setCustomer(this.customerView.getEditableText().toString());
 
 		this.model.setProductType((ProductType) this.productTypeView.getSelectedItem());
 
@@ -148,15 +141,12 @@ public class OrderProdEditFragment extends HarmonyFragment
 		int error = 0;
 
 		if (Strings.isNullOrEmpty(
-					this.loginView.getText().toString().trim())) {
-			error = R.string.orderprod_login_invalid_field_error;
+					this.customerView.getText().toString().trim())) {
+			error = R.string.orderprod_customer_invalid_field_error;
 		}
 		if (Strings.isNullOrEmpty(
 					this.quantityView.getText().toString().trim())) {
 			error = R.string.orderprod_quantity_invalid_field_error;
-		}
-		if (this.itemsAdapter.getCheckedItems().isEmpty()) {
-			error = R.string.orderprod_items_invalid_field_error;
 		}
 	
 		if (error > 0) {
@@ -179,7 +169,7 @@ public class OrderProdEditFragment extends HarmonyFragment
 						false);
 
 		final Intent intent =  getActivity().getIntent();
-		this.model = (OrderProd) intent.getSerializableExtra(
+		this.model = (OrderProd) intent.getParcelableExtra(
 				OrderProd.PARCEL);
 
 		this.initializeComponent(view);
@@ -351,16 +341,11 @@ public class OrderProdEditFragment extends HarmonyFragment
 	}
 
 	@Override
-	public void onValidationSelected() {
+	public void onClickSave() {
 		if (this.validateData()) {
 			this.saveData();
 			new EditTask(this, this.model).execute();
 		}
-	}
-
-	@Override
-	public void onCancelSelected() {
-		this.getActivity().finish();
 	}
 
 	/**

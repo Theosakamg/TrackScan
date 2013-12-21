@@ -39,10 +39,4 @@
 	    android:layout_height="wrap_content"
 	    android:inputType="textPassword"
 		android:layout_below="@+id/user_passwd_label" />
-
-	<com.tactfactory.tracscan.harmony.widget.ValidationButtons
-    	android:id="@+id/user_validation"
-    	android:layout_width="match_parent"
-    	android:layout_height="wrap_content"
-    	android:layout_below="@+id/user_passwd" />
 </RelativeLayout>

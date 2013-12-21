@@ -12,7 +12,6 @@ import com.tactfactory.harmony.annotation.Entity;
 import com.tactfactory.harmony.annotation.Id;
 import com.tactfactory.harmony.annotation.ManyToOne;
 import com.tactfactory.harmony.annotation.Column.Type;
-import com.tactfactory.harmony.annotation.OneToMany;
 
 @Entity
 public class ItemProd  implements Serializable , Parcelable {
@@ -102,7 +101,6 @@ public class ItemProd  implements Serializable , Parcelable {
 
 		this.setCurrentZone((Zone) parc.readParcelable(Zone.class.getClassLoader()));
 	}
-
 
 
 

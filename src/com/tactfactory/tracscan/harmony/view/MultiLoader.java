@@ -1,11 +1,11 @@
 /**************************************************************************
  * MultiLoader.java, tracscan Android
  *
- * Copyright 2013
+ * Copyright 2013 Mickael Gaillard / TACTfactory
  * Description : 
  * Author(s)   : Harmony
- * Licence     : 
- * Last update : Dec 16, 2013
+ * Licence     : all right reserved
+ * Last update : Dec 21, 2013
  *
  **************************************************************************/
 package com.tactfactory.tracscan.harmony.view;
@@ -25,14 +25,11 @@ import android.support.v4.content.Loader;
  * This helps you do a lot of provider requests simultaneously
  * with only one manager.
  *
- * @param T The entity
  */
-public class MultiLoader<T> implements LoaderManager.LoaderCallbacks<Cursor> {
+public class MultiLoader implements LoaderManager.LoaderCallbacks<Cursor> {
 	/** Uri map. */
 	protected Map<Uri, UriLoadedCallback> uriMap =
 			new LinkedHashMap<Uri, UriLoadedCallback>();
-	/** Entity to load. */
-	protected T model;
 	/** Associated fragment. */
 	protected HarmonyFragment fragment;
 	
@@ -40,10 +37,8 @@ public class MultiLoader<T> implements LoaderManager.LoaderCallbacks<Cursor> {
 	 * Constructor.
 	 *
 	 * @param fragment The fragment.
-	 * @param model The model to load
 	 */
-	public MultiLoader(HarmonyFragment fragment, T model) {
-		this.model = model;
+	public MultiLoader(HarmonyFragment fragment) {
 		this.fragment = fragment;
 	}
 

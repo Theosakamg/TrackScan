@@ -4,8 +4,6 @@
  * Copyright 2013
  * Description : 
  * Author(s)   : Harmony
- * Licence     : 
- * Last update : Dec 18, 2013
  *
  **************************************************************************/
 package com.tactfactory.tracscan.data.base;
@@ -15,7 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import com.tactfactory.tracscan.data.TracscanSQLiteOpenHelper;
+
 import com.tactfactory.tracscan.data.ItemProdSQLiteAdapter;
 import com.tactfactory.tracscan.data.UserSQLiteAdapter;
 import com.tactfactory.tracscan.data.OrderProdSQLiteAdapter;
@@ -30,7 +28,6 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.tactfactory.tracscan.fixture.DataLoader;
 
 
 /**
@@ -118,9 +115,6 @@ public class TracscanSQLiteOpenHelperBase
 
 			db.execSQL(LogProdSQLiteAdapter.getSchema());
 			db.execSQL("PRAGMA foreign_keys = ON;");
-			if (!TracscanSQLiteOpenHelper.isJUnit) {
-				this.loadData(db);
-			}
 		}
 
 	}
@@ -162,19 +156,6 @@ public class TracscanSQLiteOpenHelperBase
 		// TODO : Upgrade your tables !
 	}
 
-	/**
-	 * Loads data from the fixture files.
-	 * @param db The database to populate with fixtures
-	 */
-	private void loadData(final SQLiteDatabase db) {
-		final DataLoader dataLoader = new DataLoader(this.ctx);
-		dataLoader.clean();
-		int mode = DataLoader.MODE_APP;
-		if (TracscanApplication.DEBUG) {
-			mode = DataLoader.MODE_APP | DataLoader.MODE_DEBUG;
-		}
-		dataLoader.loadData(db, mode);
-	}
 
 	/**
 	 * Creates a empty database on the system and rewrites it with your own

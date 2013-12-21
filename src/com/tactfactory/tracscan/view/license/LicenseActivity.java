@@ -3,9 +3,9 @@ package com.tactfactory.tracscan.view.license;
 import android.os.Bundle;
 
 import com.tactfactory.tracscan.R;
-import com.tactfactory.tracscan.harmony.view.HarmonyFragmentActivity;
+import com.tactfactory.tracscan.harmony.view.HarmonyDrawerActivity;
 
-public class LicenseActivity extends HarmonyFragmentActivity {
+public class LicenseActivity extends HarmonyDrawerActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

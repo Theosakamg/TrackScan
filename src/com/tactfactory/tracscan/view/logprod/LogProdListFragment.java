@@ -1,11 +1,11 @@
 /**************************************************************************
  * LogProdListFragment.java, tracscan Android
  *
- * Copyright 2013
+ * Copyright 2013 Mickael Gaillard / TACTfactory
  * Description : 
  * Author(s)   : Harmony
- * Licence     : 
- * Last update : Dec 17, 2013
+ * Licence     : all right reserved
+ * Last update : Dec 21, 2013
  *
  **************************************************************************/
 package com.tactfactory.tracscan.view.logprod;
@@ -75,7 +75,7 @@ public class LogProdListFragment
 		// Create an empty adapter we will use to display the loaded data.
 		((PinnedHeaderListView) this.getListView())
 					.setPinnedHeaderEnabled(false);
-		this.mAdapter = new LogProdListAdapter(this.getActivity(), this);
+		this.mAdapter = new LogProdListAdapter(this.getActivity());
 
 		// Start out with a progress indicator.
 		this.setListShown(false);

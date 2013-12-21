@@ -90,50 +90,25 @@
 			android:layout_height="wrap_content"
 			android:text="More documentation at http://support.tactfactory.com/harmony/" />
 		<Button
-			android:id="@+id/itemprod_create_button"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:text="Create new ItemProd" />
-		<Button
 			android:id="@+id/itemprod_list_button"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:text="List all ItemProd" />
-		<Button
-			android:id="@+id/user_create_button"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:text="Create new User" />
 		<Button
 			android:id="@+id/user_list_button"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:text="List all User" />
 		<Button
-			android:id="@+id/orderprod_create_button"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:text="Create new OrderProd" />
-		<Button
 			android:id="@+id/orderprod_list_button"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:text="List all OrderProd" />
 		<Button
-			android:id="@+id/zone_create_button"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:text="Create new Zone" />
-		<Button
 			android:id="@+id/zone_list_button"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:text="List all Zone" />
-		<Button
-			android:id="@+id/logprod_create_button"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:text="Create new LogProd" />
 		<Button
 			android:id="@+id/logprod_list_button"
 			android:layout_width="match_parent"

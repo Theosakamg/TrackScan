@@ -7,5 +7,30 @@
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
     android:paddingTop="2.5dp" >
+	    <TextView
+			android:id="@+id/row_logprod_createdate"
+	    	android:layout_width="match_parent"
+	    	android:layout_height="wrap_content"
+	        android:layout_alignParentTop="true" />
+	    <TextView
+			android:id="@+id/row_logprod_stateaction"
+	    	android:layout_width="match_parent"
+	    	android:layout_height="wrap_content"
+			android:layout_below="@+id/row_logprod_createdate" />
+	    <TextView
+			android:id="@+id/row_logprod_zonelogged"
+	    	android:layout_width="match_parent"
+	    	android:layout_height="wrap_content"
+			android:layout_below="@+id/row_logprod_stateaction" />
+	    <TextView
+			android:id="@+id/row_logprod_userlogged"
+	    	android:layout_width="match_parent"
+	    	android:layout_height="wrap_content"
+			android:layout_below="@+id/row_logprod_zonelogged" />
+	    <TextView
+			android:id="@+id/row_logprod_itemlogged"
+	    	android:layout_width="match_parent"
+	    	android:layout_height="wrap_content"
+			android:layout_below="@+id/row_logprod_userlogged" />
 
 </RelativeLayout>
